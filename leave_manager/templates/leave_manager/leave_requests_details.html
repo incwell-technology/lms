@@ -1,0 +1,140 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+      
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 mx-auto">
+                {% for leave_request in leave_requests %}
+                    <form method="POST" class="leave-approval-form">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">{{ leave_request.full_name }}</h4>
+                            </div>
+                            <div class="content">
+                                <div class="row">
+                                    <input name="leave_id" value={{ leave_request.id }} hidden>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>From Date</label>
+                                            <input class="form-control" type="text" placeholder="MM/DD/YY"
+                                                   name="from_date"
+                                                   disabled value="{{ leave_request.from_date }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>To Date</label>
+                                            <input type="text" class="form-control" name="to_date"
+                                                   placeholder="MM/DD/YY"
+                                                   disabled value="{{ leave_request.to_date }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Leave Type</label>
+                                            <input type="text" class="form-control" name="leave_type"
+                                                   placeholder="Leave Type"
+                                                   disabled value="{{ leave_request.leave_type }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Leave Days</label>
+                                            <input type="text" class="form-control" name="leave_days"
+                                                   placeholder="Leave Days"
+                                                   disabled value="{{ leave_request.total_days }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Half Day</label>
+                                            <input type="text" class="form-control" name="half-day"
+                                                   placeholder="Leave Days"
+                                                   disabled value="{{ leave_request.half_day }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Leave Reason</label>
+                                            <textarea rows="5" class="form-control" placeholder="Reason For Leave"
+                                                      name="leave_reason"
+                                                      disabled>{{ leave_request.leave_reason }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Action</label>
+                                            <select name="leave_response" class="form-control">
+                                                <option value="1">Accept</option>
+                                                <option value="2">Reject</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-button">
+                                            <button type="submit" name="accepted"
+                                                    class="btn btn-fill btn-info pull-right">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% empty %}
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">No Leave Requests</h4>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block welcome_message %}
+    {% if message %}
+        {% if leave_response_success %}
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $.notify({
+                        icon: 'pe-7s-info',
+                        message: "{{ message }}"
+
+                    }, {
+                        type: type[1],
+                        timer: 4
+                    });
+
+                });
+            </script>
+        {% else %}
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $.notify({
+                        icon: 'pe-7s-info',
+                        message: "{{ message }}"
+
+                    }, {
+                        type: type[4],
+                        timer: 4
+                    });
+
+                });
+            </script>
+        {% endif %}
+    {% endif %}
+{% endblock welcome_message %}

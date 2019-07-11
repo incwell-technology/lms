@@ -1,0 +1,129 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 mx-auto">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Register User</h4>
+                    </div>
+                    <form method="POST" class="register-form" id="register-form">
+                        {% csrf_token %}
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control" placeholder="First Name"
+                                               name="first_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control" name="last_name"
+                                               placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="email"
+                                               placeholder="email@address.com">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="number" class="form-control" name="phone_number"
+                                               placeholder="9898998988">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <input id="datepicker_dob" type="date" class="form-control" name="date_of_birth"
+                                               placeholder="MM/DD/YY" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Joined Date</label>
+                                        <input id="datepicker_dob" type="date" class="form-control" name="joined_date"
+                                               placeholder="MM/DD/YY" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" class="form-control" name="username"
+                                               placeholder="Username"
+                                               required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" name="password"
+                                               placeholder="Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="department">Department</label>
+                                        <select class="form-control" name="department" id="department">
+                                            {% for department in departments %}
+                                                <option value="{{ department.id }}">{{ department.department }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-button">
+                                        <button type="submit" name="signup" id="signup"
+                                                class="btn btn-fill btn-info pull-right">
+                                            Register
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block welcome_message %}
+    {% if message %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.notify({
+                icon: 'pe-7s-info',
+                message: "{{ message }}"
+
+            }, {
+                type: type[4],
+                timer: 4
+            });
+
+        });
+    </script>
+    {% endif %}
+{% endblock welcome_message %}

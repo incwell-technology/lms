@@ -1,0 +1,106 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 mx-auto">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Update Holiday ({{holiday.title}})</h4>
+                    </div>
+                    <form method="POST" class="register-form" id="register-form">
+                        {% csrf_token %}
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input value="{{holiday.title}}" type="text" class="form-control" placeholder="eg. Festivals"
+                                               name="title" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>From Date: <b>{{holiday.from_date}}</b></label>
+                                        <input onchange="change()" id="datepicker_from" value= "{{from_date}}" type="date" class="form-control"
+                                               name="from_date" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>To Date:<b>{{holiday.to_date}}</b></label>
+                                        <input onchange="change()" id="datepicker_to" type="date" value= "{{to_date}}" class="form-control" name="to_date"
+                                              required>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                function change()
+                                {
+                                    to_date = document.getElementById("datepicker_to").value
+                                    to_date_parse = new Date(to_date).getTime()
+                                    from_date = document.getElementById("datepicker_from").value
+                                    from_date_parse = new Date(from_date).getTime()
+                                    if (to_date_parse<from_date_parse)
+                                    {
+                                        document.getElementById("total_days").innerHTML = "Ma Error"
+                                        
+                                    }
+                                    else
+                                    {
+                                        var timeDiff = Math.abs(to_date_parse - from_date_parse);
+                                        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))+1;
+                                        document.getElementById("total_days").innerHTML = diffDays
+                                    }
+                                    
+                                }
+                            </script>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control" name="description" required>{{ holiday.description }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="pull-left">Total Days: <span id="total_days">{{total_days}}</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-button">
+                                        <button type="submit" name="signup" id="signup" class="btn btn-fill btn-info pull-right">
+                                            Update
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block welcome_message %}
+    {% if message %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.notify({
+                icon: 'pe-7s-info',
+                message: "{{ message }}"
+
+            }, {
+                type: type[4],
+                timer: 4
+            });
+
+        });
+    </script>
+    {% endif %}
+{% endblock welcome_message %}

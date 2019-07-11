@@ -1,0 +1,45 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="{% if leave_issuer %} col-md-10 {% else %} col-md-12 {% endif %}">
+                <h6>Report of {{lms_user}}</h6>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">From Date</th>
+                            <th scope="col">To Date</th>
+                            <th scope="col">Half Day</th>
+                            <th scope="col">Total Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if leave_of_lmsUser %}  
+                            {% for leave in leave_of_lmsUser %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td> {{ leave.from }} </td>
+                                    <td> {{ leave.to }} </td>
+                                    <td> {% if leave.half_day %}
+                                        Yes
+                                        {% else %}
+                                        No
+                                        {% endif %}
+                                    </td>
+                                    <td> {{ leave.total_days }} </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan=4>No leaves found.</td>
+                            </tr>
+                        {% endif %}    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

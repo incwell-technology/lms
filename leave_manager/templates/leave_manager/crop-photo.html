@@ -1,0 +1,216 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+{% block style %}
+
+<style>
+.page {
+	margin: 1em auto;
+	max-width: 768px;
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	height: 100%;
+}
+
+.box {
+	padding: 0.5em;
+	width: 100%;
+	margin:0.5em;
+}
+
+.box-2 {
+	padding: 0.5em;
+	width: calc(100%/2 - 1em);
+}
+
+.options label,
+.options input{
+	width:4em;
+	padding:0.5em 1em;
+}
+.btn{
+	background:white;
+	color:black;
+	border:1px solid black;
+	padding: 0.5em 1em;
+	text-decoration:none;
+	margin:0.8em 0.3em;
+	display:inline-block;
+	cursor:pointer;
+}
+
+.hide {
+	display: none;
+}
+
+img {
+	max-width: 100%;
+}
+</style>
+{% endblock %}
+
+{% block script %}
+
+	<script>
+		// vars
+
+		let result = document.querySelector('.result'),
+			img_result = document.querySelector('.img-result'),
+			size1 = document.querySelector('#size1'),
+			options = document.querySelector('.options'),
+			save = document.querySelector('.save'),
+			cropped = document.querySelector('.cropped'),
+			dwn = document.querySelector('.download'),
+			upload = document.querySelector('#file-input'),
+			cropper = '',
+			eventer1,
+			eventer2;
+
+		upload.addEventListener('change', (e) => {
+			eventer1 = e;
+			if (e.target.files.length) {
+				// start file reader
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					eventer2 = e;
+					if (e.target.result) {
+						// create new image
+						let img = document.createElement('img');
+						img.id = 'image';
+						img.src = e.target.result
+						// clean result before
+						result.innerHTML = '';
+						// append new image
+						result.appendChild(img);
+						// show save btn and options
+						save.classList.remove('hide');
+						options.classList.remove('hide');
+						// init cropper
+						cropper = new Cropper(img, {
+							dragMode: 'move',
+							aspectRatio: 350 / 350,
+							autoCropArea: 0.65,
+							restore: false,
+							guides: false,
+							center: false,
+							highlight: false,
+							cropBoxMovable: false,
+							cropBoxResizable: false,
+							toggleDragModeOnDblclick: false,
+						});
+					}
+				};
+				reader.readAsDataURL(e.target.files[0]);
+			}
+		});
+		save.addEventListener('click', (e) => {
+			if (eventer1.target.files.length) {
+				// start file reader
+				const reader = new FileReader();
+				reader.onload = (e) => {
+
+					// create new image
+					let img = document.createElement('img');
+					img.id = 'image';
+					img.src = e.target.result
+					// clean result before
+					result.innerHTML = '';
+					// append new image
+					result.appendChild(img);
+					// show save btn and options
+					save.classList.remove('hide');
+					options.classList.remove('hide');
+					// init cropper
+					cropper = new Cropper(img, {
+						dragMode: 'move',
+						aspectRatio: 350 / 350,
+						autoCropArea: 0.65,
+						restore: false,
+						guides: false,
+						center: false,
+						highlight: false,
+						cropBoxMovable: false,
+						cropBoxResizable: false,
+						toggleDragModeOnDblclick: false,
+					});
+					reader.readAsDataURL(eventer1.target.files[0]);
+				}
+			};
+
+			
+				if (cropper) {
+					let imgSrc = cropper.getCroppedCanvas({
+						width: 350,
+						height: 350, // input value
+					}).toDataURL();
+					// remove hide class of img
+					cropped.classList.remove('hide');
+					img_result.classList.remove('hide');
+					// show image cropped
+					cropped.src = imgSrc;
+					dwn.classList.remove('hide');
+					date = new Date(Date.parse("2005-07-08T11:22:33+0000")).toUTCString()
+					dwn.setAttribute('href', imgSrc);
+					let linker = document.getElementById("link-taker");
+					linker.value = imgSrc;
+				}
+		}
+		)
+	</script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Crop, Download and Upload</h4>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                       <div class="container">
+                           <div class="row">
+                                <div class="col-md-6">
+                                    <!-- input file -->
+                                    <div class="box">
+                                        <input type="file" id="file-input">
+                                    </div>
+                                </div>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">   
+            <div class="col-md-6">
+                <!-- leftbox -->
+                <div class="box-2" style="height:500px;">
+                    <div class="result"></div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="box">
+                    <div class="options hide" style="display:none">
+                        <button class="btn " id="size1">size1</button>
+                    </div>
+                    <button class="btn save hide">Save</button>
+					<form method="post" action="/dashboard/photo-edit/{{request.user.id}}" enctype="multipart/form-data">
+                        {% csrf_token %}
+						<button type="submit" class="btn download hide">Done Cropping</button>
+						<input type="hidden" name="link-taker" id="link-taker"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!--rightbox-->
+                <div class="box-2 img-result hide">
+                    <!-- result of crop -->
+					{% comment %} <input type="file" class="cropped new"/> {% endcomment %}
+                    <img class="cropped" name="new" src="" alt="">
+					</form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

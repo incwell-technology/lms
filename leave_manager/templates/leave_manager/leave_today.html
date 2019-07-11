@@ -1,0 +1,48 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 mx-auto">
+                {% for leave_request in leaves_today %}
+                    <form>
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">{{ leave_request.full_name }}</h4>
+                            </div>
+                            <div class="content">
+                                <div class="row">
+                                    <input name="leave_id" value={{ leave_request.id }} hidden>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Leave Type</label>
+                                            <input type="text" class="form-control" name="leave_type"
+                                                   placeholder="Leave Type"
+                                                   disabled value="{{ leave_request.leave_type }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Half Day</label>
+                                            <input type="text" class="form-control" name="half-day"
+                                                   placeholder="Leave Days"
+                                                   disabled value="{{ leave_request.half_day }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% empty %}
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">No Leaves Today</h4>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

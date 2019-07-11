@@ -1,0 +1,68 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 mx-auto">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Apply Compensation</h4>
+                    </div>
+                    <form method="POST" class="leave-form" id="leave-application-form">
+                        {% csrf_token %}
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Number of Days:</label>
+                                        <input type="number" min="1" name="days" class="form-control" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Compensation For</label>
+                                        <textarea rows="5" class="form-control" placeholder="Compensation For "
+                                                  name="leave_reason" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-button">
+                                        <button id="btn-chat" type="submit" name="apply" id="signup"
+                                                class="btn btn-fill btn-info pull-right">
+                                            Apply Compensation 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block welcome_message %}
+    {% if message %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify({
+                    icon: 'pe-7s-info',
+                    message: "{{ message }}"
+
+                }, {
+                    type: type[4],
+                    timer: 4
+                });
+
+            });
+        </script>
+    {% endif %}
+{% endblock welcome_message %}

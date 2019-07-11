@@ -1,0 +1,62 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Employees</h4>
+                        <p class="category">Details</p>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <th>Full Name</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Leave Issuer</th>
+                            {% if generate_report_access %}
+                                <th>Generate Report</th>
+                            {% endif %}
+                            </thead>
+                            <tbody>
+                            {% for users in lms_users %}
+
+                                <tr>
+                                    <td>{{ users.full_name }}</td>
+                                    <td>{{ users.department }}</td>
+                                    <td>{{ users.email }}</td>
+                                    <td>{{ users.phone_number }}</td>
+                                    <td>{{ users.leave_issuer }}</td>
+                                    {% if generate_report_access %}
+                                        <td>
+                                        {% if users.leave_issuer_id == user.id %}
+                                        <a href="generate-report-byPerson/{{users.id}}" 
+                                            class="btn btn-primary btn-xs">Generate Report</a>
+                                        {% else %}
+
+                                        {% endif %}
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td>No</td>
+                                    <td>Users</td>
+                                    <td>Right</td>
+                                    <td>Now</td>
+                                    <td>Bro</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

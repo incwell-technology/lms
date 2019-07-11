@@ -1,0 +1,118 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Generate Report</h4>
+                    </div>
+                    <form method="POST" class="leave-form" id="leave-application-form">
+                        {% csrf_token %}
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>From Date</label>
+                                        <input id="datepicker_from" type="date" class="form-control"
+                                               placeholder="MM/DD/YY"
+                                               name="from_date" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>To Date</label>
+                                        <input id="datepicker_to" type="date" class="form-control" name="to_date"
+                                               placeholder="MM/DD/YY" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label></label>
+                                     <button type="submit" class="btn btn-primary form-control" style="margin-top:4px;">Generate</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="{% url 'compensation-report' %}" class="btn btn-primary btn-sm col-md-12">Compensation Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if reports %}
+            <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Leave Report ({{from_date}} to {{to_date}})</h4>
+                        <p class="category">Details</p>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <th>S.No</th>
+                            <th>Full Name</th>
+                            <th>Total Days</th>
+                            <th>Option</th>
+                            </thead>
+                            <tbody>
+                            {% if reports == " " %}
+                                <tr>
+                                    <td colspan=4>
+                                        No leaves
+                                    </td> 
+                                </tr>
+                            {% else %}
+                                {% for key,value in reports %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{key}}</td>
+                                    <td>{{value.total_days}}</td>
+                                    <td>
+                                        <a href="{% url 'report-details' value.id %}" class="btn btn-sm btn-primary">Details</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td>No</td>
+                                        <td>Users</td>
+                                        <td>Right</td>
+                                        <td>Now</td>
+                                        <td>Bro</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock content %}
+
+{% block welcome_message %}
+    {% if message %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify({
+                    icon: 'pe-7s-info',
+                    message: "{{ message }}"
+
+                }, {
+                    type: type[4],
+                    timer: 4
+                });
+
+            });
+        </script>
+    {% endif %}
+{% endblock welcome_message %}

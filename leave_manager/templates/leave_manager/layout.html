@@ -1,0 +1,201 @@
+{% extends 'leave_manager/base.html' %}
+{% load static %}
+{% block pusher %}
+        <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+        <script>
+            //Pusher.logToConsole = true;
+            var pusher = new Pusher('7d1430e059d7d2a57a8c', {
+            cluster: 'ap2',
+            forceTLS: true
+            });
+
+            var channel = pusher.subscribe('my-channel');
+                channel.bind('my-event', function(data) {
+                a = JSON.stringify(data)
+
+                if(window.location.href == "http://localhost:8000/dashboard/leaveRequests")
+                {
+                    location.reload();
+                }
+                else
+                {
+                    document.getElementById("popups").innerHTML = "."
+                    document.getElementById("popups").style.fontSize = "30px"
+                    document.getElementById("popups").style.color = "red"
+                }
+               
+            });
+        </script>
+        <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+        <script>
+            Pusher.logToConsole = true;
+            var pusher = new Pusher('7d1430e059d7d2a57a8c', {
+            cluster: 'ap2',
+            forceTLS: true
+            });
+
+            var channel = pusher.subscribe('my-leave-notify');
+                channel.bind('my-event2', function(data) {
+                a = JSON.stringify(data)
+                if(window.location.href == "http://localhost:8000/dashboard/leave-history")
+                {
+                    location.reload();
+                }
+                else
+                {
+                    document.getElementById("pop").innerHTML = "."
+                    document.getElementById("pop").style.fontSize = "30px"
+                    document.getElementById("pop").style.color = "red"
+                    console.log(data)
+                }
+            });
+        </script>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a href="{% url 'leave_manager_dashboard' %}" class="simple-text">
+                Home <p id="popup"></p>
+            </a>
+        </div>
+        <ul class="nav">
+            {% for route in routes %}
+                    {% if not route.admin %}
+                        <li {% if route.active %} class="active" {% endif %}>
+                            <a href="{{ route.url }}">
+                                <i class="{{ route.icon }}"></i>
+                                <p  {% if route.popup %} id="popups-color" {% endif %} style="text-transform: capitalize">{{ route.title }}
+                                    {% if route.popup %}
+                                        <span style="padding-left:10px;"  id="popups"></span>                              
+                                    {% endif %}
+                                    {% if route.pop %}
+                                        <span style=""  id="pop"></span> 
+                                    {% endif %}
+                                </p>
+                            </a>
+                        </li>
+                    {% endif %}
+            {% endfor %}
+            {% for route in routes %}
+                    {% if route.admin and forloop.first %}
+                        <div style="background-color:#7777;padding:5px;width:100%;color:white;font-weight:bold;text-align:center">
+                           Admin Features
+                        </div>
+                        <li>
+                            <span class="badge badge-success" style="margin-left:150px;margin-top:-475px;">{{upcoming_birthday}}</span>
+                        </li>
+                    {% endif %}
+                    {% if route.admin %}
+                        <li {% if route.active %} class="active" {% endif %}>
+                        <a href="{{ route.url }}">
+                            <i class="{{ route.icon }}"></i>
+                            <p  {% if route.popup %} id="popups-color" {% endif %} style="text-transform: capitalize">{{ route.title }}
+                                {% if route.popup %}
+                                    <span style="padding-left:10px;"  id="popups"></span>                              
+                                {% endif %}
+                                {% if route.pop %}
+                                    <span style=""  id="pop"></span> 
+                                {% endif %}
+                               
+                            </p>
+                        </a>
+                    </li>
+                    {% endif %}
+            {% endfor %}
+            
+        </ul>
+    </div>
+{% endblock sidebar %}
+
+{% block navbar %}
+ 
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% for route in routes %}
+                {% if route.active %}
+                    <span class="navbar-brand text-capitalize">{{ route.title }}</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+         <div class="collapse navbar-collapse">
+
+    {% comment %}        <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-dashboard"></i>
+                        <p class="hidden-lg hidden-md">Dashboard</p>
+                    </a>
+                </li> 
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-globe"></i>
+                                <p id="popup">
+                                <span class="notification">
+                                5
+                            </span>
+
+                                </p>
+
+                        <b class="caret hidden-lg hidden-md"></b>
+                            <p  class="hidden-lg hidden-md">
+                            
+                            <b class="caret"></b></p>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">You have new leave request</a></li>
+                        </ul>
+                    </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-search"></i>
+                        <p class="hidden-lg hidden-md">Search</p>
+                    </a>
+                </li>
+            </ul>{% endcomment %}
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form action="{% url 'user-logout' %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-round btn-fill" type="submit" value="Log out">
+                    </form>
+                </li>
+                <li class="separator hidden-lg"></li>
+            </ul>
+        </div> 
+    </div>
+{% endblock navbar %}
+
+{% block content %}
+
+{% endblock content %}
+
+{% block footer %}
+    <div class="container-fluid">
+        <nav class="pull-left">
+        </nav>
+        <p class="copyright pull-right">
+            &copy;
+            <script>document.write(new Date().getFullYear())</script>
+            <a href="http://incwellventure.com">Incwell Venture</a>
+        </p>
+    </div>
+{% endblock footer %}
+
+{% block welcome_message %}
+{% endblock welcome_message %}
+
+{% block style %}
+{% endblock  %}
+
+{% block script %}
+{% endblock  %}

@@ -1,0 +1,101 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% for user_detail in birthdays %}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="card card-user">
+                        <div class="image">
+                            <img src="{% static 'lms_user/images/inc-cover.png' %}"
+                                 alt="..."/>
+                        </div>
+                        <div class="content">
+                            <div class="author">
+                                <a href="#">
+                                    {% if user_detail.image %}
+                                        <img class="avatar border-gray" src="{% static user_detail.image %} "
+                                             alt="..."/>
+                                    {% else %}
+                                        <img class="avatar border-gray"
+                                             src="{% static 'lms_user/images/photograph.png' %} "
+                                             alt="..."/>
+                                    {% endif %}
+                                    <h4 class="title">{{ user_detail.full_name }}
+                                    </h4>
+                                    <h4> {{ user_detail.department }}</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="card card-user">
+                        <div class="image">
+                            <img src="{% static 'lms_user/images/inc-cover.png' %}"
+                                 alt="..."/>
+                        </div>
+                        <div class="content">
+                            <div class="author">
+                                <a href="#">
+                                    <img class="avatar border-gray"
+                                         src="{% static 'lms_user/images/no-birthday.png' %} "
+                                         alt="..."/>
+                                    <h4> No Birthday Today</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if upcoming_bday_visible %}
+            <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="image" style="background: linear-gradient(to right, #4CA1AF, #C4E0E5);text-align:center;">
+                        <h5 style="color:white;font-weight:bold;font-size:37px;text-shadow: -3px 2px 7px #C4E0E5;">Upcoming Birthday's</h5>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        {% if upcoming_bday %}
+                            <table class="table table-hover table-striped">
+                            <thead>
+                            <th>Full Name</th>
+                            <th>Department</th>
+                            <th>Date of Birth</th>
+                            <th>Days Remaining</th>
+                            </thead>
+                            <tbody>
+                            {% for bday in upcoming_bday %}
+                                <tr>
+                                    <td>{{ bday.full_name }}</td>
+                                    <td>{{ bday.department }}</td>
+                                    <td>{{ bday.dob }}</td>
+                                    <td>{{ bday.remaining }}
+                                    {% if bday.remaining == 1 %}
+                                        day 
+                                    {% else %}
+                                        days 
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                            <h5 style="text-align:center;"><u>No upcoming birthday</u></h5>
+                        {% endif %}
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock content %}

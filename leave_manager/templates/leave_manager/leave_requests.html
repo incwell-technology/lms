@@ -1,0 +1,68 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+<script>
+
+
+/*$.ajax({
+    type: "GET",
+    url: "/dashboard/applyLeave",
+   success: function(data){
+       console.log(data)
+         alert(data);         
+     }
+});*/
+
+</script>  
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Total Days</th>
+                        <th scope="col">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyid">
+                    <tr></tr>
+                        {% if leave_requests %}
+                            {% for leave in leave_requests %}
+                                <tr {% if leave.notification %}style="border:1px solid red" {% endif %}>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{leave.full_name}}</td>
+                                    <td>{{leave.department}}</td>
+                                    <td>{{leave.total_days}}</td>
+                                    <td>
+                                        <a href="{% url 'leave_manager_leave_requests_by_id' leave.id %}">
+                                            <button class="btn btn-primary btn-sm">Details</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        {% if compensationLeave_requests %}
+                            {% for leave in compensationLeave_requests %}
+                                <tr {% if leave.notification %}style="border:1px solid red" {% endif %}>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{leave.full_name}} <span class="label label-warning">compensation</span></td>
+                                    <td>{{leave.department}}</td>
+                                    <td>{{leave.days}} </td>
+                                    <td>
+                                        <a href="{% url 'leave_manager_compensationLeave_requests_by_id' leave.id %}">
+                                            <button class="btn btn-primary btn-sm">Details</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

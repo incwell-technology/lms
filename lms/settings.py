@@ -24,9 +24,10 @@ credentials = yaml.load(open('credentials.yaml'))
 SECRET_KEY = credentials['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,13 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'leave_manager',
-    'users',
     'department',
+    'lms_user',
+    'lms_api',
+    'leave_rhymes',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -67,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'leave_manager.context_processors.get_birthday_notification'
             ],
         },
     },
@@ -110,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -121,5 +127,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+parent_dir = os.path.abspath(os.path.dirname(__file__))
+# MEDIA_ROOT = os.path.join(parent_dir, 'static/image/store')
+MEDIA_URL = '/'
 
 STATIC_URL = '/static/'
+
+import pusher
+
+pusher_client = pusher.Pusher(
+  app_id= credentials['app_id'],
+  key=credentials['key'],
+  secret=credentials['secret'],
+  cluster=credentials['cluster'],
+  ssl=credentials['ssl']
+)

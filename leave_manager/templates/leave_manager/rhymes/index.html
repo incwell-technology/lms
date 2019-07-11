@@ -1,0 +1,62 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Rhyme</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if rhymes %}
+                           {% for rhyme in rhymes %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{ rhyme.title }}</td>
+                                    <td>{{ rhyme.rhyme|truncatewords:2 }}</td>
+                                    <td>{{ rhyme.type|truncatewords:3 }}</td>
+                                    <td style="display: flex;">
+                                        <a href="{% url 'rhymes-edit' rhyme.id %}" class="btn btn-primary btn-flat margin btn-sm" style="margin-right:10px"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <form action="{% url 'rhymes-delete' rhyme.id %}" method="post">
+                                        {% csrf_token %}
+                                            <button class="btn btn-danger btn-flat margin btn-sm" type="submit">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                           {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan=4>
+                                    <h5>No Rhymes</h5>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'add-rhymes' %}">
+                    <button class="btn btn-primary">
+                        Add Rhymes
+                    </button>
+                </a>
+                <hr/>
+                <a href="{% url 'rhymeTypes' %}">
+                    <button class="btn btn-primary">
+                        Rhyme Types
+                    </button>
+                </a>
+            </div>  
+        </div>
+    </div>
+{% endblock content %}

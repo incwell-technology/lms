@@ -1,0 +1,120 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+.green{
+  color:green;
+  font-size:100px;
+  padding-right:10px;
+}
+.yellow{
+  color:orange;
+  font-size:100px;
+  padding-right:10px;
+
+}
+.red{
+  color:red;
+  font-size:100px;
+  padding-right:10px;
+
+}
+
+.info p {
+  display:inline;
+}
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+
+        <div style="display:block;margin-top:-100px;margin-left:-2px;" class="info">
+            <span class="green">.<p>Approved</p></span>
+            <span class="yellow">.<p>Pending</p></span>
+            <span class="red">.<p>Rejected</p></span>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div style="height:440px;overflow-y:auto">
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Leave Type</th>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Days</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                  <label>Basic Leave</label>
+                          {% if leave.leaves %}
+                              {% for l in leave.leaves %}
+                                <tr {% if l.leave_pending %} style="color:orange" {% endif %} {% if l.leave_approved %} style="color:green" {% endif%} {% if not l.leave_pending %} {% if not l.leave_approved %} style="color:red" {% endif %}{% endif %}>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{ l.leave_type }}</td>
+                                    <td>{{ l.from_date }}</td>
+                                    <td>{{ l.to_date }}</td>
+                                    <td>{{ l.days }}
+                                    {% if l.days == 1 %}
+                                      day
+                                    {% else %}
+                                        days
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                              {% endfor %}
+                          {% else %} 
+                              <tr>
+                                <td colspan=5>
+                                  No leave
+                                </td>
+                              </tr>
+                          {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+            <div class="col-md-4">
+             <div style="height:440px;overflow-y:auto">
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">S.No</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Days</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <label>Compensation Leave</label>
+                  {% if compensation_leave.leaves %}
+                    {% for l in compensation_leave.leaves %}
+                      <tr {% if l.leave_pending %} style="color:orange" {% endif %} {% if l.leave_approved %} style="color:green" {% endif%} {% if not l.leave_pending %} {% if not l.leave_approved %} style="color:red" {% endif %}{% endif %}>
+                          <th scope="row">{{forloop.counter}}</th>
+                          <td><span class="label label-warning">compensation</span></td>
+                          <td>{{ l.days }}
+                          {% if l.days == 1 %}
+                            day
+                          {% else %}
+                              days
+                          {% endif %}
+                          </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td colspan=3>
+                      No compensation yet.
+                    </td>
+                  </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+            </div>
+        </div>  
+    </div>
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>LMS</title>
+    {% endif %}
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'lms_user/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'lms_user/css/style.css' %}">
+
+    <!-- Custom Dropdown CSS -->
+{#    <link rel="stylesheet" href="{% static 'lms_user/css/custom_select.css' %}">#}
+
+</head>
+<body>
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+<script src="{% static 'lms_user/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'lms_user/js/main.js' %}"></script>
+</body>
+</html>

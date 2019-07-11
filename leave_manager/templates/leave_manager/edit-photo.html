@@ -1,0 +1,37 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Change Profile Photo</h4>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                       <div class="container">
+                          
+                           <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Current Photo:</label>
+                                        <img id="image"  class="form-control" style="border-radius:50%;height:200px;width:200px;" src="{% static users.image %}" alt=""/>                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <form method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <h3>Change Photo</h3>
+                                        <input type="file" name="new"/>
+                                        <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                                    </form>
+                                </div>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

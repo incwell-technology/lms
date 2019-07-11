@@ -1,0 +1,106 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="card card-user">
+                    <div class="image">
+                        <img src="{% static 'lms_user/images/inc-cover.png' %}"
+                             alt="..."/>
+                    </div>
+                    <div class="content">
+                        <div class="author">
+                            <a href="#">
+                                {% if user_detail.image %}
+                                    <img class="avatar border-gray" src="{% static user_detail.image %} " alt="..."/>
+                                {% else %}
+                                    <img class="avatar border-gray" src="{% static 'lms_user/images/photograph.png' %} "
+                                         alt="..."/>
+                                {% endif %}
+                                <h4 class="title">
+                                {% for lms_user in user_detail %}
+                                    {{lms_user}}
+                                {% endfor %}
+                                <br/>                                
+                                    {% comment %} <small>{{ user }}</small> {% endcomment %}
+                                </h4>
+                                <h4>Department: {% for lms_user in user_detail %}
+                                    {{lms_user.department}}
+                                {% endfor %}</h4>
+                            </a>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <a>
+                            <button class="btn btn-simple"><i
+                                    class="fa fa-phone"></i><span>  </span><span>{% for lms_user in user_detail %}
+                                    {{lms_user.phone_number}}
+                                {% endfor %}</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% for leave in leaves %}
+                <div class="col-md-8 col-md-offset-2 mx-auto">
+                <div class="card card-user">
+                    <div class="content">
+                        <h4 class="card-title text-center">Leave Details</h4>
+                        <hr/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>From Date:</label>
+                                <input type="text" value="{{leave.from_date}}" class="form-control" disabled/>
+                            </div>
+                            <div class="col-md-4">
+                                <label>To Date:</label>
+                                <input type="text" value="{{leave.to_date}}" class="form-control" disabled/>                            
+                            </div>
+                            <div class="col-md-4">
+                                <label>Half Day:</label>
+                                <p class="card-text">
+                                {% if leave.half_day %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}         
+                                </p>                  
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Reason</label>
+                                <br/>
+                                <textarea class="form-control" disabled>{{leave.reason}}</textarea>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Type</label>
+                                <p class="card-text">{{leave.type}}</p>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-8">
+                            <label>Leave Response:</label>
+                               {% if leave.leave_approved %}
+                                <p>Leave Approved</p>
+                               {% elif leave.leave_pending %}
+                                <p>Leave Pending</p>
+                                {% else %}
+                                <p>Leave Rejected</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

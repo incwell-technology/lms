@@ -1,0 +1,63 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+.green{
+  color:green;
+  font-size:100px;
+  padding-right:10px;
+}
+.yellow{
+  color:yellow;
+  font-size:100px;
+  padding-right:10px;
+
+}
+.red{
+  color:red;
+  font-size:100px;
+  padding-right:10px;
+
+}
+
+.info p {
+  display:inline;
+}
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="height:440px;overflow-y:auto">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">S.No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+              <label>Compensation Report</label>
+                {% if compensation.leaves %}
+                  {% for l in compensation.leaves %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{l.name}}</td>
+                        <td>
+                        <a href="compensationDetail/{{l.id}}">
+                            <button class="btn btn-primary btn-sm">Details</button>                
+                        </a> 
+                        </td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>      
+    </div>
+{% endblock content %}  

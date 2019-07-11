@@ -1,0 +1,95 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 mx-auto">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Apply Leave</h4>
+                    </div>
+                    <form method="POST" class="leave-form" id="leave-application-form">
+                        {% csrf_token %}
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>From Date</label>
+                                        <input id="datepicker_from" type="date" class="form-control"
+                                               placeholder="MM/DD/YY"
+                                               name="from_date" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>To Date</label>
+                                        <input id="datepicker_to" type="date" class="form-control" name="to_date"
+                                               placeholder="MM/DD/YY" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="leave-type-option">Leave Type</label>
+                                    <select name="leave_type" class="form-control" id="leave-type-option">
+                                        {% for leave_type in leave_types %}
+                                            <option value={{ leave_type.id }}>{{ leave_type.type }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="leave-type-option">Half Leave</label>
+                                        <input type="checkbox" name="half_leave" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Leave Reason</label>
+                                        <textarea rows="5" class="form-control" placeholder="Reason For Leave"
+                                                  name="leave_reason" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-button">
+                                        <button id="btn-chat" type="submit" name="apply" id="signup"
+                                                class="btn btn-fill btn-info pull-right">
+                                            Apply Leave
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block welcome_message %}
+    {% if message %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify({
+                    icon: 'pe-7s-info',
+                    message: "{{ message }}"
+
+                }, {
+                    type: type[4],
+                    timer: 4
+                });
+
+            });
+        </script>
+    {% endif %}
+{% endblock welcome_message %}

@@ -94,3 +94,5 @@ credentials.yml
 static/images/store
 migrations
 .vscode
+lms_user/static/lms_user/site-data
+daemon-services/

@@ -1,0 +1,113 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+.green{
+  color:green;
+  font-size:100px;
+  padding-right:10px;
+}
+.yellow{
+  color:yellow;
+  font-size:100px;
+  padding-right:10px;
+
+}
+.red{
+  color:red;
+  font-size:100px;
+  padding-right:10px;
+
+}
+
+.info p {
+  display:inline;
+}
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div style="height:440px;overflow-y:auto">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">S.No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Leave Type</th>
+                  <th scope="col">From</th>
+                  <th scope="col">To</th>
+                  <th scope="col">Days</th>
+                  <th scope="col">Options</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              <label>Basic Leave</label>
+                      {% if leave.leaves %}
+                        {% for l in leave.leaves %}
+                          <tr>
+                              <th scope="row">{{forloop.counter}}</th>
+                              <td>{{l.name}}</td>
+                              <td>{{ l.leave_type }}</td>
+                              <td>{{ l.from_date }}</td>
+                              <td>{{ l.to_date }}</td>
+                              <td>{{ l.days }}
+                              {% if l.days == 1 %}
+                                day
+                              {% else %}
+                                  days
+                              {% endif %}
+                              </td>
+                              <td>
+                              <a href="detail/{{l.id}}">
+                                  <button class="btn btn-primary btn-sm">Details</button>                
+                              </a> 
+                              </td>
+                          </tr>
+                        {% endfor %}
+                      {% else %}
+                        <tr>
+                          <td colspan=6>
+                            Hurray!! No leaves in this month
+                          </td>
+                        </tr>
+                      {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="height:440px;overflow-y:auto">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">S.No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+              <label>Compensation Leave</label>
+                {% if compensation_leave.leaves %}
+                  {% for l in compensation_leave.leaves %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{l.name}}</td>
+                        <td>
+                        <a href="compensationDetail/{{l.id}}">
+                            <button class="btn btn-primary btn-sm">Details</button>                
+                        </a> 
+                        </td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>      
+    </div>
+{% endblock content %}

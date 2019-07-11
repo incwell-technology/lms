@@ -10,4 +10,17 @@ class LeaveTypeAdmin(admin.ModelAdmin):
 
 @admin.register(leave_models.Leave)
 class LeaveAdmin(admin.ModelAdmin):
-    list_display = ('type', 'from_date', 'to_date')
+    list_display = ('user', 'type', 'from_date', 'to_date', 'half_day', 'leave_approved', 'leave_pending')
+
+@admin.register(leave_models.Holiday)
+class HolidayAdmin(admin.ModelAdmin):
+    list_display = ('title', 'from_date','to_date','description')
+
+@admin.register(leave_models.CompensationLeave)
+class CompensationLeave(admin.ModelAdmin):
+    list_display = ('user','days')
+
+
+# @admin.register(leave_models.LeaveStatus)
+# class LeaveStatusAdmin(admin.ModelAdmin):
+#     list_display = ('status',)
