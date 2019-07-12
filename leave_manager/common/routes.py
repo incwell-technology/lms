@@ -7,6 +7,7 @@ all_navigation_routes = [
     #     'url': reverse_lazy('leave_manager_dashboard'),
     #     'admin': False,
     #     'active': False,
+    #      'password': False,
     #     'icon': 'pe-7s-home'
     # },
 
@@ -15,6 +16,7 @@ all_navigation_routes = [
         'url': reverse_lazy('user-register'),
         'admin': True,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-add-user'
     },
     {
@@ -22,6 +24,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave_manager_my_profile'),
         'admin': False,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-user'
     },
     {
@@ -29,6 +32,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave_manager_users'),
         'admin': False,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-users'
     },
     {
@@ -36,6 +40,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave_manager_leave_today'),
         'admin': False,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-plane'
     },
     {
@@ -43,6 +48,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave_manager_apply_leave'),
         'admin': False,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-paper-plane'
     },
     {
@@ -50,6 +56,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave_manager_get_birthday_today'),
         'admin': False,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-gift'
     },
     {
@@ -57,6 +64,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave_manager_leave_requests'),
         'admin': True,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-bandaid',
         'popup':'badge badge-light'
     },
@@ -65,6 +73,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave-report'),
         'admin': True,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-note2'
     },
     {
@@ -72,6 +81,7 @@ all_navigation_routes = [
         'url': reverse_lazy('company-holiday'),
         'admin': False,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-power'
     },
     {
@@ -79,6 +89,7 @@ all_navigation_routes = [
         'url': reverse_lazy('rhymes'),
         'admin': True,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-headphones'
     },
     {
@@ -86,6 +97,7 @@ all_navigation_routes = [
         'url': reverse_lazy('leave-history'),
         'admin': False,
         'active': False,
+        'password': False,
         'icon': 'pe-7s-graph',
         'pop':'badge badge-light'
 
@@ -95,17 +107,26 @@ all_navigation_routes = [
         'url': reverse_lazy('leave_manager_apply_compensationLeave'),
         'admin': False,
         'active': False,
+        'password': False,
+        'icon': 'pe-7s-pin'
+    },
+    {
+        'title': 'password reset',
+        'url': reverse_lazy('password-change'),
+        'admin': False,
+        'active': False,
+        'password': True,
         'icon': 'pe-7s-pin'
     },
 
 ]
 
-non_admin_navigation_routes = [route for route in all_navigation_routes if not route['admin']]
-
+non_admin_navigation_routes = [route for route in all_navigation_routes if not route['admin'] and not route['password']]
+admin_navigation_routes = [route for route in all_navigation_routes if not route['password']]
 
 def get_routes(user):
     if is_leave_issuer(user):
-        return all_navigation_routes
+        return admin_navigation_routes
     return non_admin_navigation_routes
 
 

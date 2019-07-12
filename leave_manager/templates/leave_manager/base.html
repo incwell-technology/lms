@@ -10,6 +10,27 @@
     {% else %}
         <title>LMS</title>
     {% endif %}
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-messaging.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyApR3Pk49nXiTob4Ij576vSSYrFm6-kLYA",
+        authDomain: "leave-mgmt-34e2d.firebaseapp.com",
+        databaseURL: "https://leave-mgmt-34e2d.firebaseio.com",
+        projectId: "leave-mgmt-34e2d",
+        storageBucket: "leave-mgmt-34e2d.appspot.com",
+        messagingSenderId: "153314675777",
+        appId: "1:153314675777:web:ff0d24951ccfe928"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    </script>
     <script src="{% static 'leave_manager/assets/js/jquery.3.2.1.min.js' %}" type="text/javascript"></script>
 
     <script src="{% static 'leave_manager/assets/js/cropper.min.js' %}"></script>

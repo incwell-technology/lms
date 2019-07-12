@@ -9,9 +9,30 @@
                     <div class="header">
                         <h4 class="title">Add New Company Holidays</h4>
                     </div>
-                    <form method="POST" class="register-form" id="register-form">
+                    <form method="POST" class="register-form" id="register-form" enctype ="multipart/form-data">
                         {% csrf_token %}
+                        {% load addcss %}
                         <div class="content">
+                            {% for field in form %}
+                                    {{field.errors}}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>{{field.label_tag}}</label>
+                                                {{field|addcss:"form-control"}}
+                                            </div>
+                                        </div>
+                                    </div>  
+                            {% endfor %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-button">
+                                        <button type="submit" name="signup" id="signup" class="btn btn-fill btn-info pull-right">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        {% comment %} <div class="content">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -57,7 +78,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </form>
                 </div>
             </div>

@@ -18,12 +18,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
 credentials = yaml.load(open('credentials.yaml'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = credentials['secret_key']
 
-# SECURITY WARNING: don't run with debug turned on in production!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -33,18 +31,22 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'leave_manager',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'leave_manager',
     'department',
     'lms_user',
     'lms_api',
     'leave_rhymes',
     'corsheaders',
+    'mobile_api',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
+
 
 ROOT_URLCONF = 'lms.urls'
 
@@ -136,9 +150,10 @@ STATIC_URL = '/static/'
 import pusher
 
 pusher_client = pusher.Pusher(
-  app_id= credentials['app_id'],
-  key=credentials['key'],
-  secret=credentials['secret'],
-  cluster=credentials['cluster'],
-  ssl=credentials['ssl']
+  app_id=credentials['pusher_app_id'],
+  key=credentials['pusher_key'],
+  secret=credentials['pusher_secret'],
+  cluster=credentials['pusher_cluster'],
+  ssl=credentials['pusher_ssl']
 )
+# pusher_client.trigger('my-channel', 'my-event', {'message': 'hello world'})

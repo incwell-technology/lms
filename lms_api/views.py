@@ -7,7 +7,9 @@ from leave_manager.common.users import get_birthday_today
 from leave_manager.common.leave_manager import get_leave_today, get_user_leave_detail_monthly
 from leave_manager.models import Holiday
 import datetime
-
+from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
+from django.contrib.auth.models import User
 # Create your views here.
 @csrf_exempt
 def index_view(request):
@@ -146,4 +148,5 @@ def is_holiday():
         return msg
     except Holiday.DoesNotExist:
         return msg
-            
+
+        

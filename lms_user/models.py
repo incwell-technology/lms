@@ -19,6 +19,7 @@ class LmsUser(models.Model):
     sick_leave = models.FloatField(default=7)
     annual_leave = models.FloatField(default=12)
     compensation_leave = models.FloatField(default=0)
+    fcm_token = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return '{} {}'.format(self.user.first_name, self.user.last_name)

@@ -37,13 +37,18 @@ class Leave(models.Model):
 
 
 class Holiday(models.Model):
-    title = models.TextField(max_length=1200, blank=False)
+    title = models.CharField(max_length=1200, blank=False)
     from_date = models.DateField(null=False,blank=False,default=datetime.date.today)
     to_date = models.DateField(null=False,blank=False,default=datetime.date.today)
     description = models.TextField(max_length=1200, blank=False)
+    image = models.FileField(upload_to='lms_user/static/lms_user/site-data/holidays', blank=True)
 
     def __str__(self):
         return '{}'.format(self.title)
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args,**kwargs)
 
 
 class CompensationLeave(models.Model):

@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from lms_user import urls as user_urls
+from mobile_api import urls as mobile_urls
 from lms_api import urls as api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(api_urls)),
+    path('v1/api/', include(mobile_urls)),
     path('', include(user_urls))
 ]
