@@ -92,5 +92,7 @@ venv/
 credentials.yaml
 credentials.yml
 static/images/store
+migrations
+!**/migrations/__init__.py
 .vscode
 mobile_api/ServiceAccountKey.json
