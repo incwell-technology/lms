@@ -48,7 +48,7 @@
 ![Register](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/register.png)
 -Admin/H.O.D can view leave request of their respective department
 ![LeaveRequest](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/leaveRequest.png)
-(https://raw.githubusercontent.com/incwell-technology/lms/mobile_api/screencast-www.ubuntupit.com-2019.07.12-14-46-02.webm)
+(https://github.com/incwell-technology/lms/blob/mobile_api/screencast-www.ubuntupit.com-2019.07.12-14-46-02.webm)
 
 ----- 
 # Contribution
