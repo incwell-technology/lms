@@ -6,6 +6,7 @@
 - install django and necessary libraries in venv: ```pip install -r requirements.txt``` (all necessary libraries for project are in requirements.txt file) 
 - make neccessary migrations : ```python manage.py makemigrations```
 - migrate the files: ```python manage.py migrate```
+- create one superuser to access the admin panel: ```python manage.py createsuperuser```
 - finally run the project: ```python manage.py runserver```
 ----- 
 # Tools & Technologies Used 
@@ -32,6 +33,8 @@
   - Forget password feature is also available
 ----- 
 # Demo 
+- The landing page when run server:
+
 ----- 
 # Contribution
 -----
