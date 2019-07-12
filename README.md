@@ -34,7 +34,7 @@
 ----- 
 # Demo 
 - The landing page when run server:
-![alt text](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/landing.png)
+![landing page](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/landing.png)
 ----- 
 # Contribution
 -----
