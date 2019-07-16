@@ -673,7 +673,7 @@ def password_reset_done(request, pk):
         if serializer.is_valid() and send_mail.send_email(request,user,'Password Change') and validlink:
             user.set_password(serializer.data.get('new_password'))
             user.save()
-            return JsonResponse({'status':True,'message':'Password reset sucessfull'}, status=200)
+            return JsonResponse({'status':True,'message':'Password reset successful'}, status=200)
         else:
             return JsonResponse({'status':False,'message':serializer.errors}, status=400)
     else:
