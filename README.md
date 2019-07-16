@@ -33,21 +33,7 @@
   - Forget password feature is also available
 ----- 
 # Demo 
-- The landing page when run server:
-![landing page](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/landing.png)
-- When the users login with valid credentials user is redirected to user dashboard
-![dashboard](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/dashboard.png)
-- After being logged in User can check for birthdays and holidays
-![birthday](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/birthday.png)
-![holidays](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/holidays.png)
-- Users can apply for leave from apply leave form
-![applyLeave](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/applyLeave.png)
-- Users can check their leave history
-![LeaveHistory](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/leaveHistory.png)
-- Admin/H.O.D can register/add new users
-![Register](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/register.png)
--Admin/H.O.D can view leave request of their respective department
-![LeaveRequest](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/leaveRequest.png)
+[![Watch the video](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/landing.png)](https://www.youtube.com/watch?v=ea21fa0YxR0&feature=youtu.be)
 
 ----- 
 # Contribution
