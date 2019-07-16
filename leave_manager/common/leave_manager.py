@@ -584,6 +584,7 @@ def get_users_leaveDetailFor_searchEngine(my_leave_approvees,from_date,to_date):
     name_list = {}
     total_days = 0
     for leave in Leave.objects.order_by("-id").filter(user__in=leave_issuer, from_date__gte=from_date, to_date__lte=to_date, leave_approved=True):
+        print(leave)
         leave_multiplier = 1
         if leave.half_day:
             leave_multiplier = 0.5

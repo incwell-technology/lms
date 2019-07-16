@@ -366,13 +366,13 @@ def generate_leave_report(request):
     if not is_leave_issuer(request.user):
         return JsonResponse({"status":False, "message":"Not authorized to view this"}, status=400)
     if request.method == "POST":
-        from_date = request.data['from_date']
-        to_date = request.data['to_date']
+        from_date = datetime.strptime(request.data['from_date'], '%Y-%m-%d').date()
+        to_date = datetime.strptime(request.data['to_date'], '%Y-%m-%d').date()
         leave_list = leave_manager.get_users_leaveDetailFor_searchEngine(request.user,from_date,to_date)
         if leave_list == {}:
             context.update({'reports':" "})            
         else:
-            context.update({'reports':leave_list})
+            context.update({'reports':sorted(leave_list.items())})
         context.update({'from_date':from_date})
         context.update({'to_date':to_date})
         return JsonResponse({"status":True, "payload":context},status=200)
@@ -650,7 +650,8 @@ def token_verify(request,token):
         user =User.objects.get(email=decoded['email'])
         exp = decoded['expires']
         if exp > str(datetime.now()):
-            return JsonResponse({"status":True,"data":user.pk})
+            user_id = {'id':user.pk} 
+            return JsonResponse({"status":True,"data":user_id})
         else:
             return JsonResponse({"status":False, "message":"Invalid Token"})
     except (User.DoesNotExist, Exception) as e:
