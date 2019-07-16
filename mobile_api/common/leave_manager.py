@@ -55,13 +55,13 @@ def check_leave_applicability(user, leave_type):
     return False
 
 def get_leave_requests_mobile(user):
-    pending_leave_requests = {}
+    pending_leave_requests = []
     my_leave_approvees = LmsUser.objects.filter(leave_issuer=user)
     for leave_request in Leave.objects.order_by("-id").filter(user__in=my_leave_approvees, leave_pending=True):
         leave_multiplier = 1
         if leave_request.half_day:
             leave_multiplier = 0.5
-        pending_leave_requests.update(
+        pending_leave_requests.append(
             {
                 'id': leave_request.id,
                 'full_name': leave_request.user.user.get_full_name(),
