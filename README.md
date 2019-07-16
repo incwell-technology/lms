@@ -33,8 +33,17 @@
   - Forget password feature is also available
 ----- 
 # Demo 
+- Click on the image below to view demo
 [![Watch the video](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/landing.png)](https://www.youtube.com/watch?v=ea21fa0YxR0&feature=youtu.be)
-
 ----- 
 # Contribution
+The main purpose of this repository is to continue to evolve LMS(Leave Management System) app, making it more easier to use with lots of features. Development of LMS happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving LMS.
+In general, we follow the *"fork-and-pull"* Git workflow.
+
+1. **Fork** the repo on GitHub
+2. **Clone** the project to your own machine
+3. **Commit** changes to your own branch
+4. **Push** your work back up to your fork
+5. Submit a **Pull request** so that we can review your changes  
+**NOTE**: Be sure to merge the latest from "upstream" before making a pull request!
 -----
