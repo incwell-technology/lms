@@ -72,6 +72,7 @@ def holidays(request):
             image_url = get_image_url_mobile(None, request, 'holiday' ,i.id)
             if delta.days >= 0:
                 data.append({
+                    'id':i.id,
                     'title':i.title,
                     'date':i.from_date,
                     'days': delta.days,
@@ -498,6 +499,7 @@ def add_holiday(request,format=None):
             holiday_obj = leave_models.Holiday.objects.order_by("-id").filter(title = request.data['title'])[0]
             image_url = get_image_url_mobile(None, request, 'holiday' ,holiday_obj.id)
             holiday.update({
+                "id":holiday_obj.id,
                 "title":request.data["title"],
                 "from_date": request.data["from_date"],
                 "to_date": request.data["to_date"],
@@ -524,6 +526,7 @@ def update_holiday(request, id):
                 serializer.save()
                 image_url = get_image_url_mobile(None, request, 'holiday' ,holiday_obj.id)
                 holiday.update({
+                    "id":holiday_obj.id,
                     "title":request.data["title"],
                     "from_date": request.data["from_date"],
                     "to_date": request.data["to_date"],
