@@ -21,16 +21,8 @@
 - pyjwt==1.7.1
 ----- 
 # Features 
-- Basically this project is all about leave management system so some features are as follows
-  - Users can login and users can be head of department(H.O.D) or employees
-  - Users can apply for leave and leave request is sent to H.O.D for approval/rejection
-  - Users can check their leave history
-  - Users can check for holidays and birthday notification
-  - Users can change their password
-  - Admin/H.O.D can check leave request and approve/reject the request
-  - Admin/H.O.D can register new employees
-  - Admin/H.O.D can generate leave report
-  - Forget password feature is also available
+![features](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/Leave%20Management%20System%20Use%20Case%20Diagram.png)
+
 ----- 
 # Demo 
 - Click on the image below to view demo
