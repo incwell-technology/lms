@@ -1,3 +1,4 @@
+### ***Note:*** [Check Wiki for API Documentation](https://github.com/incwell-technology/lms/wiki)
 # Steps to run project 
 - First make sure you have python install along with pip and virtualenv. Usually pip is installed along python and to install virtualenv: ```pip install virtualenv```  
 - clone the repo 
@@ -21,7 +22,7 @@
 - pyjwt==1.7.1
 ----- 
 # Features 
-![features](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/Leave%20Management%20System%20Use%20Case%20Diagram.png)
+![features](https://github.com/incwell-technology/lms/blob/mobile_api/demo%20images/Leave%20Management%20System%20Use%20Case%20Diagram%20(1).png)
 
 ----- 
 # Demo 
