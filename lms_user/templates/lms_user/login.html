@@ -15,7 +15,11 @@
                     </div>
 
                     <div class="signin-form">
+                    {% if message %}
+                        <h2 class="form-title">{{ message }}</h2>
+                    {% else %}
                         <h2 class="form-title">Login</h2>
+                    {% endif %}
                         <form method="POST" class="register-form" id="login-form" action="/login">
                             {% csrf_token %}
                             <div class="form-group">
