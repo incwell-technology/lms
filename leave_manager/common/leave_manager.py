@@ -4,6 +4,7 @@ from lms_user.models import LmsUser
 from django.urls import reverse_lazy
 from leave_manager.models import Leave, Holiday, CompensationLeave
 from leave_manager.common.send_email_notification import send_email_notification
+from leave_manager.common.user_image import get_image_url
 
 
 def apply_leave(**kwargs):
@@ -322,19 +323,20 @@ def get_monthly_compensationLeave_detail_of_all_user(user):
     leave = CompensationLeave.objects.order_by("-id").filter(user__in=my_leave_approvees)
     return leave
 
-def get_holidays():
+def get_holidays(request):
     holidays = Holiday.objects.all()
     company_holidays = []
     for holiday in holidays:
+        image_url = get_image_url(None,request,'holiday',holiday.id)
         company_holidays.append({
             'id':holiday.id,
             'title':holiday.title,
             'from_date':holiday.from_date,
             'to_date':holiday.to_date,
             'description':holiday.description,
+            'image':image_url,
             'days': get_totalDays_ofEach_holidays(holiday.from_date,holiday.to_date)
         })
-    print(company_holidays)
     return company_holidays
 
 
@@ -582,6 +584,7 @@ def get_users_leaveDetailFor_searchEngine(my_leave_approvees,from_date,to_date):
     name_list = {}
     total_days = 0
     for leave in Leave.objects.order_by("-id").filter(user__in=leave_issuer, from_date__gte=from_date, to_date__lte=to_date, leave_approved=True):
+        print(leave)
         leave_multiplier = 1
         if leave.half_day:
             leave_multiplier = 0.5

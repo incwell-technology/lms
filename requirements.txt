@@ -3,3 +3,7 @@ django-cors-headers==2.4.0
 pytz==2018.7
 PyYAML==3.13
 Pusher
+djangorestframework==3.9.4
+django-rest-auth==0.9.5
+firebase-admin
+pyjwt==1.7.1

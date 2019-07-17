@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">{{ message }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+</div>
+    {% endfor %}
+</ul>
+{% endif %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -65,7 +73,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
                                         <input type="email" class="form-control" placeholder="Email"
-                                            value={{ user_detail.email }}>
+                                            value={{ user_detail.email }} disabled>
                                     </div>
                                 </div>
                             </div>
@@ -131,8 +139,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <a href="">
-                                        <button class="btn btn-primary">Update</button>                                    
+                                    <a href="{% url 'password-change' %}">
+                                        <button class="btn btn-primary">Change Password</button>                                    
                                     </a>
                                 </div>
                             </div>

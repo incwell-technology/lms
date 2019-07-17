@@ -1,2 +1,13 @@
-{% extends 'leave_manager/layout.html' %}
-{% load static %}
+{% for msg in messages %}
+    {% if msg.tags == "1 success"  %}
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" style="margin-right:10px" data-dismiss="alert" aria-label="close">&times;</a>
+            {{msg}}
+        </div>
+    {% elif msg.tags == "0 success" %}
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" style="margin-right:10px" data-dismiss="alert" aria-label="close">&times;</a>
+           {{msg}}
+        </div>
+    {% endif %}
+{% endfor %} 

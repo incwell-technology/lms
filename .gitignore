@@ -93,6 +93,6 @@ credentials.yaml
 credentials.yml
 static/images/store
 migrations
+!**/migrations/__init__.py
 .vscode
-lms_user/static/lms_user/site-data
-daemon-services/
+mobile_api/ServiceAccountKey.json

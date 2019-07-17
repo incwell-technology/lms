@@ -2,17 +2,20 @@
 {% load static %}
 
 {% block content %}
+
     <div class="main">
         <section class="sign-in">
             <div class="container">
+                {% block password_reset %}
+                {% endblock password_reset %}  
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="{% static 'lms_user/images/browser-lock.png' %}" alt="sing in image"></figure>
-                        <a href="#" class="signup-image-link">Forgot Your Password?</a>
+                        <a href="{% url 'password-reset' %}" class="signup-image-link">Forgot Your Password?</a>
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">{{ message }}</h2>
+                        <h2 class="form-title">Login</h2>
                         <form method="POST" class="register-form" id="login-form" action="/login">
                             {% csrf_token %}
                             <div class="form-group">
@@ -28,10 +31,10 @@
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                             </div>
-                        </form>
+                        </form>    
                     </div>
                 </div>
             </div>
-        </section>
+        </section> 
     </div>
 {% endblock content %}

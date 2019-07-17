@@ -9,7 +9,7 @@
                     <div class="header">
                         <h4 class="title">Update Holiday ({{holiday.title}})</h4>
                     </div>
-                    <form method="POST" class="register-form" id="register-form">
+                    <form method="POST" class="register-form" id="register-form" enctype ="multipart/form-data">
                         {% csrf_token %}
                         <div class="content">
                             <div class="row">
@@ -63,6 +63,13 @@
                                     <div class="form-group">
                                         <label>Description</label>
                                         <textarea class="form-control" name="description" required>{{ holiday.description }}</textarea>
+                                    </div>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image</label>
+                                        <input type="file" class="form-control" name="image" value ="{{ holiday.image }}"/>
                                     </div>
                                 </div>
                             </div>

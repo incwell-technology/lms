@@ -23,17 +23,18 @@ import base64
 from django.core.files.base import ContentFile
 from leave_rhymes.models import Rhyme,RhymeType
 from leave_manager.common import check_leave_admin
+from leave_manager.forms import HolidayForm
 import yaml
+
 
 credentials = yaml.load(open('credentials.yaml'))
 pusher_client = pusher.Pusher(
-  app_id= credentials['app_id'],
-  key=credentials['key'],
-  secret=credentials['secret'],
-  cluster=credentials['cluster'],
-  ssl=credentials['ssl']
+  app_id=credentials['pusher_app_id'],
+  key=credentials['pusher_key'],
+  secret=credentials['pusher_secret'],
+  cluster=credentials['pusher_cluster'],
+  ssl=credentials['pusher_ssl']
 )
-
 
 def get_dashboard(request):
     # context = {}
@@ -89,8 +90,6 @@ def get_leave_today(request):
 
 def get_users(request):
     context = {}
-    leaves = leave_manager.get_all_leaves_unseen()
-    context.update({'leave_notify':leaves})
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('user-login'))
     else:
@@ -247,18 +246,11 @@ def generate_report(request):
     context = {}
     routes = get_formatted_routes(get_routes(request.user), active_page='leave report')
     context.update({'routes': routes})
-    # date = datetime.date.today()
-    # lms_user = LmsUser.objects.filter(user__id=request.user.id)[0]
-    # data = leave_manager.get_user_leave_detail_monthly(lms_user.id, date.month, request.user)
-    # compensation_data = leave_manager.get_user_compensationLeave_detail(lms_user.id, request.user)
-    # context.update({"date":date})
-    # context.update({"leave":data})
-    # context.update({"compensation_leave":compensation_data})
     if request.method == "POST":
         from_date = datetime.datetime.strptime(request.POST['from_date'], '%Y-%m-%d').date()
         to_date = datetime.datetime.strptime(request.POST['to_date'], '%Y-%m-%d').date()
         leave_list = leave_manager.get_users_leaveDetailFor_searchEngine(request.user,from_date,to_date)
-        name_list = leave_manager.get_users_leaveDetailFor_searchEngine(request.user,from_date,to_date)
+        # name_list = leave_manager.get_users_leaveDetailFor_searchEngine(request.user,from_date,to_date)
         if leave_list == {}:
             context.update({'reports':" "})            
         else:
@@ -372,7 +364,7 @@ def generate_holidays(request):
     context = {}
     routes = get_formatted_routes(get_routes(request.user), active_page = "company holidays")
     context.update({'routes':routes})
-    holidays = leave_manager.get_holidays()
+    holidays = leave_manager.get_holidays(request)
     context.update({'holidays':holidays})
     if check_leave_admin.is_leave_issuer(request.user):
         context.update({'leave_issuer':1})
@@ -388,15 +380,29 @@ def add_new_holidays(request):
     routes = get_formatted_routes(get_routes(request.user), active_page = "company holidays")
     context.update({'routes':routes})
     
+    # if request.method == "POST":
+    #     title = request.POST['title']
+    #     from_date = datetime.datetime.strptime(request.POST['from_date'], '%Y-%m-%d')
+    #     to_date = datetime.datetime.strptime(request.POST['to_date'], '%Y-%m-%d')
+    #     description = request.POST['description']
+    #     Holiday.objects.create(title=title, from_date=from_date,to_date=to_date,description=description)
+    #     return HttpResponseRedirect(reverse('company-holiday'))
+    # else:   
+    #     return render(request, 'leave_manager/holidays/create.html', context=context)
+    form = HolidayForm(request.POST, request.FILES)
     if request.method == "POST":
-        title = request.POST['title']
-        from_date = datetime.datetime.strptime(request.POST['from_date'], '%Y-%m-%d')
-        to_date = datetime.datetime.strptime(request.POST['to_date'], '%Y-%m-%d')
-        description = request.POST['description']
-        Holiday.objects.create(title=title, from_date=from_date,to_date=to_date,description=description)
-        return HttpResponseRedirect(reverse('company-holiday'))
-    else:   
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('company-holiday'))
+        else:
+            form = HolidayForm()
+            context.update({'form':form})
         return render(request, 'leave_manager/holidays/create.html', context=context)
+    else:
+        form = HolidayForm()
+        context.update({'form':form})
+
+    return render(request, 'leave_manager/holidays/create.html', context=context)
 
 
 def update_company_holidays_by_id(request,id):
@@ -406,11 +412,25 @@ def update_company_holidays_by_id(request,id):
         
 
     if request.method == "POST":
-        if Holiday.objects.filter(id=id).update(title=request.POST['title'],from_date=request.POST['from_date'],to_date=request.POST['to_date'],description=request.POST['description']):
+        instance = get_object_or_404(Holiday, id=id)
+        form = HolidayForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            form.save(commit=False)
+            try:
+                image = request.FILES['image']
+                instance.image = image
+            except Exception as e:
+                print(e)
+            instance.save()
             messages.success(request, "Holiday has been successfully updated.", extra_tags="1")
         else:
-            messages.success(request, "Holiday eas unable to update. Please try again.", extra_tags="0")
+            messages.success(request, "Holiday was unable to update. Please try again.", extra_tags="0")
         return HttpResponseRedirect(reverse('company-holiday'))
+        # if Holiday.objects.filter(id=id).update(title=request.POST['title'],from_date=request.POST['from_date'],to_date=request.POST['to_date'],description=request.POST['description']):
+        #     messages.success(request, "Holiday has been successfully updated.", extra_tags="1")
+        # else:
+        #     messages.success(request, "Holiday eas unable to update. Please try again.", extra_tags="0")
+        # return HttpResponseRedirect(reverse('company-holiday'))
     else:
         try:
             holiday = Holiday.objects.get(id=id)
@@ -454,7 +474,8 @@ def delete_company_holidays_by_id(request, id):
             url = reverse('user-login')
             return HttpResponseRedirect(url)
         else:
-            holiday = Holiday.objects.filter(id=id).delete()
+            holiday = Holiday.objects.filter(id=id)
+            holiday.delete()
             return HttpResponseRedirect(reverse('company-holiday'))
     except Exception as e:
         print(e)
@@ -731,6 +752,7 @@ def generate_compensationReport(request):
     try:
         lms_user_id = LmsUser.objects.filter(user=request.user)[0]
         compensation = leave_manager.get_user_compensationLeave_detail(lms_user_id.id,request.user)
+        print(compensation)
         context = {}
         routes = get_formatted_routes(get_routes(request.user), active_page='leave report')
         context.update({'routes': routes})
