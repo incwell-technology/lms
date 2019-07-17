@@ -1,4 +1,4 @@
-# ***Note:*** [Check Wiki for API Documentation](https://github.com/incwell-technology/lms/wiki)
+### ***Note:*** [Check Wiki for API Documentation](https://github.com/incwell-technology/lms/wiki)
 # Steps to run project 
 - First make sure you have python install along with pip and virtualenv. Usually pip is installed along python and to install virtualenv: ```pip install virtualenv```  
 - clone the repo 
