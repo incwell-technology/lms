@@ -78,8 +78,8 @@ def holidays(request):
                     'days': delta.days,
                     'image': image_url
                 })
-            if delta.days == 0:
-                fcm(None,i.title,"holiday")
+            if delta.days == 1:
+                fcm(None,i,"holiday")
         return JsonResponse({"status":True,"data":data}, status=200)
     except Exception as e:
         print(e)

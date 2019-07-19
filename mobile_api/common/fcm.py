@@ -8,17 +8,6 @@ def fcm(fcm, data, reason):
         cred = credentials.Certificate('mobile_api/ServiceAccountKey.json')
         default_app = firebase_admin.initialize_app(cred)
 
-    if reason == "holiday": 
-        message = messaging.Message(
-            android=messaging.AndroidConfig(
-                priority='normal',
-                notification=messaging.AndroidNotification(
-                    title='Holiday Notice',
-                    body= "Today is holiday for " + data
-                ),
-            ),
-            topic = reason,
-        )
     if reason == "leave_apply": 
         title='Leave Request'
         body= data.user.first_name + " " + data.user.last_name +" has applied for leave"
@@ -39,16 +28,29 @@ def fcm(fcm, data, reason):
         body= "Your compensation leave has been approved by " + data
                 
     if reason == "holiday": 
-        message = messaging.Message(
-            android=messaging.AndroidConfig(
-                priority='normal',
-                notification=messaging.AndroidNotification(
-                    title='Holiday Notice',
-                    body= "Today is holiday for " + data
+        delta =  data.to_date- data.from_date
+        if delta.days > 0:
+            message = messaging.Message(
+                android=messaging.AndroidConfig(
+                    priority='normal',
+                    notification=messaging.AndroidNotification(
+                        title='Holiday Notice',
+                        body= "We have upcoming Holiday for " + data.title + " from " + str(data.from_date) + " to " + str(data.to_date)
+                    ),
                 ),
-            ),
-            topic = reason,
-        )
+                topic = reason,
+            )    
+        else:
+            message = messaging.Message(
+                android=messaging.AndroidConfig(
+                    priority='normal',
+                    notification=messaging.AndroidNotification(
+                        title='Holiday Notice',
+                        body= "Tomorrow is holiday for " + data.title
+                    ),
+                ),
+                topic = reason,
+            )
     if not reason == "holiday":
         message = messaging.Message(
             android=messaging.AndroidConfig(
