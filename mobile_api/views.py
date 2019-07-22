@@ -682,3 +682,19 @@ def password_reset_done(request, pk):
 
 def doc(request):
     return render(request,'mobile_api/doc.html')
+
+
+@csrf_exempt
+@api_view(["POST"])
+def create_notice(request):
+    if not is_leave_issuer(request.user):
+        return JsonResponse({"status":False, "message":"Not authorized to view this"}, status=400)
+    if request.method == "POST":
+        serializer = mobile_api_serializers.NoticeSerializer(data=request.data)
+        print(serializer)
+        if serializer.is_valid():
+            notice = serializer.save()
+            fcm(None,notice,"notice")
+            return JsonResponse({'status':True,'message':'Notice sent successfully'}, status=200)
+        else:
+            return JsonResponse({'status':False,'message':serializer.errors}, status=400)

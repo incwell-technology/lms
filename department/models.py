@@ -10,3 +10,11 @@ class Department(models.Model):
 
     def __str__(self):
         return self.department
+
+
+class Notice(models.Model):
+    topic = models.CharField(max_length=100, default="Emergency Notice")
+    message = models.TextField()
+
+    def __str__(self):
+        return self.topic
