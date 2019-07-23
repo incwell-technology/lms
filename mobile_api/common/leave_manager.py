@@ -4,6 +4,21 @@ from lms_user.models import LmsUser
 from mobile_api.common.user_image import get_image_url_mobile
 from mobile_api.common.fcm import fcm
 from leave_manager.common.leave_manager import get_compensationLeave_detail
+from leave_manager.common.send_email_notification import send_email_notification
+from django.urls import reverse_lazy
+import pusher
+from pusher import Pusher
+import yaml
+
+
+credentials = yaml.load(open('credentials.yaml'))
+pusher_client = pusher.Pusher(
+  app_id=credentials['pusher_app_id'],
+  key=credentials['pusher_key'],
+  secret=credentials['pusher_secret'],
+  cluster=credentials['pusher_cluster'],
+  ssl=credentials['pusher_ssl']
+)
 
 def get_leave_today_mobile(request):
     leaves_today = []
@@ -367,3 +382,61 @@ def get_data(leave_of_lmsUser):
         })
 
     return data
+
+
+def apply_leave(**kwargs):
+    leave_details = kwargs['leave_details']
+    request = kwargs['request']
+    try:
+        leaves = get_all_leaves_unseen()
+        leaves += 1
+        update_details = {
+            'recipient_email': leave_details['issuer'].email,
+            'email_subject': 'LMS | A new Leave Request Has Arrived ',
+            'email_body': '''
+                    Hi {}, A new leave Request has arrived.
+                    From: {}
+                    Leave Type: {}
+                    Half Day: {}
+                    Leave Reason: {}
+                    URL: {}
+                    '''.format(leave_details['issuer'].get_full_name(), leave_details['user'].user.get_full_name(),
+                               leave_details['leave_type'],
+                               leave_details['half_day'],
+                               leave_details['leave_reason'],
+                               'http://{}{}'.format(request.META['HTTP_HOST'],
+                                                    reverse_lazy('leave_manager_leave_requests')))
+        }
+        if send_email_notification(update_details=update_details):
+            pusher_client.trigger('my-channel', 'my-event', leaves)
+    except Exception as e:
+        print(e)
+
+
+def get_all_leaves_unseen():
+    leave = Leave.objects.filter(notification=True).count()
+    return leave
+
+
+def apply_CompensationLeave(**kwargs):
+    leave_details = kwargs['leave_details']
+    request = kwargs['request']
+    try:
+        update_details = {
+            'recipient_email': leave_details['issuer'].email,
+            'email_subject': 'LMS | A new Leave Request Has Arrived ',
+            'email_body': '''
+                    Hi {}, A new compensation leave Request has arrived.
+                    From: {}
+                    Leave Reason: {}
+                    Days: {}
+                    URL: {}
+                    '''.format(leave_details['issuer'].get_full_name(), leave_details['user'].user.get_full_name(),
+                               leave_details['leave_reason'], leave_details['days'],
+                               'http://{}{}'.format(request.META['HTTP_HOST'],
+                                                    reverse_lazy('leave_manager_leave_requests')))
+        }
+        if send_email_notification(update_details=update_details):
+            pusher_client.trigger('my-channel', 'my-event', {})
+    except Exception as e:
+        print(e)

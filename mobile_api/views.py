@@ -191,8 +191,6 @@ def create_leaves(request):
             if leave_manager.check_leave_applicability(request.user, request.data["type"]): 
                 user = lms_user_models.LmsUser.objects.get(user=request.user)
                 leave_type = LeaveType.objects.get(type=request.data["type"])
-                leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
-                leave_issuer_fcm = leave_issuer.fcm_token
                 lms_user = {}
                 lms_user.update({
                     "user":user.pk,
@@ -202,10 +200,29 @@ def create_leaves(request):
                     "reason": request.data["leave_reason"],
                     "half_day": request.data["half_day"]
                 })
+                leave_multiplier = 1
+                if request.data["half_day"] == True:
+                    leave_multiplier = 0.5
+                leave_details = {
+                    "user": lms_user_models.LmsUser.objects.get(user=request.user),
+                    "from_date": request.data["from_date"],
+                    "to_date": request.data["to_date"],
+                    "leave_reason": request.data["leave_reason"],
+                    "half_day": request.data["half_day"],
+                    "leave_type": leave_type.type,
+                    'issuer': lms_user_models.LmsUser.objects.get(user=request.user).leave_issuer,
+                    'leave_multiplier': leave_multiplier
+                }
                 serializer = mobile_api_serializers.LeaveSerializer(data = lms_user)
                 if serializer.is_valid():
                     serializer.save()
-                    fcm(leave_issuer_fcm,user,"leave_apply")
+                    try:
+                        leave_manager.apply_leave(request=request, leave_details=leave_details)
+                        leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
+                        leave_issuer_fcm = leave_issuer.fcm_token
+                        fcm(leave_issuer_fcm,user,"leave_apply")
+                    except Exception as e:
+                        print(e)
                     return JsonResponse({"status":True, "payload":lms_user}, status=200)
                 else:
                     return JsonResponse({"status":False, "mesasge":"Invalid data"}, status=400)
@@ -273,18 +290,28 @@ def compensation_leave(request):
     try:
         if request.method == 'POST':
             user = lms_user_models.LmsUser.objects.get(user=request.user)  
-            leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
-            leave_issuer_fcm = leave_issuer.fcm_token
             leave_details = {}
             leave_details.update({
                 "user": user.pk,
                 "reason": request.data['leave_reason'],
                 "days":request.data['days']
             })
+            leave_detail = {
+            'user': lms_user_models.LmsUser.objects.get(user=request.user),
+            'leave_reason': request.data['leave_reason'],
+            'issuer': lms_user_models.LmsUser.objects.get(user=request.user).leave_issuer,
+            'days':request.data['days']
+            }
             serializer = mobile_api_serializers.CompensationSerializer(data = leave_details)
             if serializer.is_valid():
                 serializer.save()
-                fcm(leave_issuer_fcm,user,"compensation_apply")
+                try:
+                    leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
+                    leave_issuer_fcm = leave_issuer.fcm_token
+                    leave_manager.apply_CompensationLeave(request=request, leave_details=leave_detail)
+                    fcm(leave_issuer_fcm,user,"compensation_apply")
+                except Exception as e:
+                    print(e)    
                 return JsonResponse({"status":True, "payload":leave_details}, status=200)
             else:
                 print(serializer.errors)

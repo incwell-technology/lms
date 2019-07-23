@@ -17,6 +17,7 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 import jwt
 import yaml
+from lms_user import models as lms_user_models
 # from lms_user.login import nothing
 
 
@@ -73,8 +74,14 @@ def user_register(request):
             return HttpResponseRedirect(url)
         else:
             try:
+                phone = lms_user_models.LmsUser.objects.get(phone_number=request.POST['phone_number'])
+                context.update({'message': 'Could register to LMS. Phone number Already exists'})
+                return render(request, 'lms_user/register.html', context=context)   
+            except (lms_user_models.LmsUser.DoesNotExist, Exception) as e:   
+                print(e)             
+            try:
                 existing_user = User.objects.get(email=request.POST['email'])
-                context.update({'message': 'Could not register. Please contact Admin or try again later'})
+                context.update({'message': 'Could register to LMS. Email Already exists'}) 
                 return render(request, 'lms_user/register.html', context=context)
             except (User.DoesNotExist, Exception) as e:
                 print(e)
@@ -82,6 +89,9 @@ def user_register(request):
                     if register_django_user(request):
                         user = User.objects.get(username=request.POST['username'])
                         department = Department.objects.get(id=int(request.POST['department']))
+                        if request.POST['date_of_birth'] > str(datetime.today()) or request.POST['joined_date'] > str(datetime.today()) or len(request.POST['phone_number']) < 7 or len(request.POST['phone_number'])>15:
+                            context.update({'message': 'Invalid Date of Birth/Joined Date/Phone Number'})
+                            return render(request, 'lms_user/register.html', context=context)
                         lms_user_details = {
                             'user': user,
                             'phone_number': request.POST['phone_number'],
@@ -91,6 +101,7 @@ def user_register(request):
                             'joined_date': datetime.strptime(request.POST['joined_date'], '%Y-%m-%d')
                         }
                         if register_lms_user(user_details=lms_user_details):
+                            messages.success(request, 'Sucessfully registered user')
                             return HttpResponseRedirect(reverse('user-index'))
                         else:
                             try:
@@ -101,7 +112,7 @@ def user_register(request):
                                 print(e)
                                 return render(request, 'lms_user/register.html', context=context)
                     else:
-                        context.update({'message': 'Could register to Django. Please contact Admin or try again later'})
+                        context.update({'message': 'Username/Password Invalid'})
                         return render(request, 'lms_user/register.html', context=context)
 
                 except (User.DoesNotExist, Department.DoesNotExist, Exception) as e:

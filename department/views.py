@@ -9,14 +9,15 @@ from mobile_api.common.fcm import fcm
 # Create your views here.
 
 def create_notice(request):
-    context = {}
-    routes = get_formatted_routes(get_routes(request.user), active_page = "notice")
-    context.update({'routes':routes})
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('user-login'))
     if not is_leave_issuer(request.user):
         return HttpResponseRedirect(reverse('leave_manager_dashboard'))
-
+    
+    context = {}
+    routes = get_formatted_routes(get_routes(request.user), active_page = "notice")
+    context.update({'routes':routes})
+    
     if request.method == "POST":
         form = NoticeForm(request.POST)
         if form.is_valid():
@@ -36,11 +37,11 @@ def create_notice(request):
 
 
 def get_notice(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('user-login'))
     context = {}
     routes = get_formatted_routes(get_routes(request.user), active_page = "notice board")
     context.update({'routes':routes})
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('user-login'))
     notice = Notice.objects.all()
     context.update({'notices':notice})
     return render(request, 'department/noticeboard.html', context=context)

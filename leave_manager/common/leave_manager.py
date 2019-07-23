@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from leave_manager.models import Leave, Holiday, CompensationLeave
 from leave_manager.common.send_email_notification import send_email_notification
 from leave_manager.common.user_image import get_image_url
+from mobile_api.common.fcm import fcm
+from lms_user import models as lms_user_models
 
 
 def apply_leave(**kwargs):
@@ -40,6 +42,13 @@ def apply_leave(**kwargs):
                                                     reverse_lazy('leave_manager_leave_requests')))
         }
         if send_email_notification(update_details=update_details):
+            try:
+                user =lms_user_models.LmsUser.objects.get(user=request.user)
+                leave_issuer = lms_user_models.LmsUser.objects.get(user=leave_details['issuer'])
+                leave_issuer_fcm = leave_issuer.fcm_token
+                fcm(leave_issuer_fcm,user,"leave_apply")
+            except Exception as e:
+                print(e)
             return True
         else:
             leave.delete()
@@ -257,6 +266,11 @@ def approve_leave_request(request, leave_id):
         user.save()
         leave.save()
         if send_email_notification(update_details=update_details):
+            try:
+                leave_issuer_fcm = user.fcm_token
+                fcm(leave_issuer_fcm,request.user.get_full_name(),"approve_leave")
+            except Exception as e:
+                print(e)
             return True
         else:
             return False
@@ -288,6 +302,11 @@ def reject_leave_request(request, leave_id):
         leave.save()
         
         if send_email_notification(update_details=update_details):
+            try:
+                leave_issuer_fcm = user.fcm_token
+                fcm(leave_issuer_fcm,request.user.get_full_name(),"reject_leave")
+            except Exception as e:
+                print(e)
             return True
         else:
             return False
@@ -372,6 +391,13 @@ def apply_CompensationLeave(**kwargs):
                                                     reverse_lazy('leave_manager_leave_requests')))
         }
         if send_email_notification(update_details=update_details):
+            try:
+                user =lms_user_models.LmsUser.objects.get(user=request.user)
+                leave_issuer = lms_user_models.LmsUser.objects.get(user=leave_details['issuer'])
+                leave_issuer_fcm = leave_issuer.fcm_token
+                fcm(leave_issuer_fcm,user,"compensation_apply")
+            except Exception as e:
+                print(e)
             return True
         else:
             leave.delete()
@@ -434,6 +460,11 @@ def reject_compensationLeave_request(request, leave_id):
         leave.save()
         
         if send_email_notification(update_details=update_details):
+            try:
+                leave_issuer_fcm = user.fcm_token
+                fcm(leave_issuer_fcm,request.user.get_full_name(),"reject_compensation")
+            except Exception as e:
+                print(e)
             return True
         else:
             return False
@@ -478,6 +509,11 @@ def approve_compensationLeave_request(request, leave_id):
         user.save()
         leave.save()
         if send_email_notification(update_details=update_details):
+            try:
+                leave_issuer_fcm = user.fcm_token
+                fcm(leave_issuer_fcm,request.user.get_full_name(),"approve_compensation")
+            except Exception as e:
+                print(e)
             return True
         else:
             return False
