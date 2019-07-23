@@ -267,13 +267,20 @@ def leave_approval_or_rejection(request, id):
         leave.save()
         if request.method == 'POST':
             if leave.leave_pending == True:
+                leave_details = {
+                    "lms_user": lms_user_models.LmsUser.objects.get(user=leave.user.user),
+                    "total_days": leave.to_date - leave.from_date,
+                    "leave_reason": leave.reason,
+                    "half_leave":leave.half_day,
+                    "leave_type":leave.type
+                }
                 if request.data['leave_response'] == '2':
-                    if leave_manager.reject_leave_request(request, id):
+                    if leave_manager.reject_leave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True, "message": "Rejection Success"},status=200)
                     else:
-                        return JsonResponse({"message":"Rejection Failed"},status=400)
+                        return JsonResponse({"status":False, "message":"Rejection Failed"},status=400)
                 elif request.data['leave_response'] == '1':
-                    if leave_manager.approve_leave_request(request, id):
+                    if leave_manager.approve_leave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True,"message": "Approval Success"},status=200)
                     else:
                         return JsonResponse({"status":False, "message":"Approval Failed"},status=400)
@@ -297,10 +304,10 @@ def compensation_leave(request):
                 "days":request.data['days']
             })
             leave_detail = {
-            'user': lms_user_models.LmsUser.objects.get(user=request.user),
-            'leave_reason': request.data['leave_reason'],
-            'issuer': lms_user_models.LmsUser.objects.get(user=request.user).leave_issuer,
-            'days':request.data['days']
+                'user': lms_user_models.LmsUser.objects.get(user=request.user),
+                'leave_reason': request.data['leave_reason'],
+                'issuer': lms_user_models.LmsUser.objects.get(user=request.user).leave_issuer,
+                'days':request.data['days']
             }
             serializer = mobile_api_serializers.CompensationSerializer(data = leave_details)
             if serializer.is_valid():
@@ -347,15 +354,21 @@ def compensation_approval_reject(request, id):
         leave = leave_models.CompensationLeave.objects.get(id=id)
         leave.notification = False
         leave.save()
+        print(leave)
         if request.method == 'POST':
             if leave.leave_pending == True:
+                leave_details = {
+                    "lms_user": lms_user_models.LmsUser.objects.get(user=leave.user.user),
+                    "days": leave.days,
+                    "leave_reason": leave.reason,
+                }
                 if request.data['leave_response'] == '2':
-                    if leave_manager.reject_compensationLeave_request(request, id):
+                    if leave_manager.reject_compensationLeave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True, "message": "Rejection Success"},status=200)
                     else:
                         return JsonResponse({"message":"Rejection Failed"},status=400)
                 elif request.data['leave_response'] == '1':
-                    if leave_manager.approve_compensationLeave_request(request, id):
+                    if leave_manager.approve_compensationLeave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True,"message": "Approval Success"},status=200)
                     else:
                         return JsonResponse({"status":False, "message":"Approval Failed"},status=400)
