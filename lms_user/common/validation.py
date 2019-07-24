@@ -31,10 +31,10 @@ def register_validation(request, context):
     if len(request.POST['phone_number']) > 10 or len(request.POST['phone_number']) < 10:
         context.update({'message': 'Invalid Phone Number.Phone number should be 10 digits'})
         return context
-    if request.POST['date_of_birth'] > str(datetime.today()) or request.POST['date_of_birth'] < str(datetime.today() - timedelta(days=365*65)):
+    if request.POST['date_of_birth'] > str(datetime.today()).split(' ')[0] or request.POST['date_of_birth'] < str(datetime.today() - timedelta(days=365*65)):
         context.update({'message': 'Invalid Date of Birth'})
         return context
-    if request.POST['joined_date'] > str(datetime.today()):
+    if request.POST['joined_date'] > str(datetime.today()).split(' ')[0]:
         context.update({'message': 'Invalid Joined Date'})
         return context
     return False
