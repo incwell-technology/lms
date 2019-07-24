@@ -3,6 +3,7 @@ from calendar import monthrange
 from datetime import datetime, timedelta
 from lms_user.models import LmsUser
 from leave_manager.common import check_leave_admin
+from department.models import Notice
 
 def get_birthday_notification(request):
     have_birthday = {}
@@ -22,4 +23,7 @@ def get_birthday_notification(request):
 
     if counter > 0:
         have_birthday.update({'upcoming_birthday':counter})
+    
+    notice = Notice.objects.all()
+    have_birthday.update({'notice':len(notice)})
     return have_birthday

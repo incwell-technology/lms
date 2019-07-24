@@ -9,7 +9,17 @@
                         {% for notice in notices %}
                             <div class="card" style="width: 100%;padding:5px">
                                 <div class="card-body">
-                                    <h4 style="text-align:center;margin-botton:10px;">{{ notice.topic }}</h4><hr>
+                                    <h4 style="text-align:center;margin-botton:3px;">{{ notice.topic }}
+                                    {% if leave_issuer %}
+                                        <form action="{% url 'notice-delete' notice.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn btn-danger btn-flat margin btn-sm" style="float:right;position:relative;top:-54px; margin-right:20px;" type="submit">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                    </h4>
+                                    <hr style="width:100%">
                                     <p class="card-text" style="text-align:center;">{{ notice.message }}</p>
                                 </div>
                             </div>

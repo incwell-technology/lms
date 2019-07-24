@@ -5,6 +5,7 @@ from leave_manager.common.routes import get_formatted_routes, get_routes, is_lea
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from mobile_api.common.fcm import fcm
+from leave_manager.common import check_leave_admin
 
 # Create your views here.
 
@@ -44,6 +45,14 @@ def get_notice(request):
     context.update({'routes':routes})
     notice = Notice.objects.all()
     context.update({'notices':notice})
+    if check_leave_admin.is_leave_issuer(request.user):
+        context.update({'leave_issuer':1})
     return render(request, 'department/noticeboard.html', context=context)
 
-    
+
+def delete_notice(request,id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('user-login'))
+    notice = Notice.objects.filter(id=id)
+    notice.delete()
+    return HttpResponseRedirect(reverse('notice-board'))

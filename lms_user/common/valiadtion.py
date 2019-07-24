@@ -1,10 +1,34 @@
 from datetime import datetime,timedelta
+from lms_user import models as lms_user_models
+from django.contrib.auth.models import User
+import re
 
 
 def register_validation(request, context):
+    pattern = '^[A-Za-z]+$'
+    email = '^[a-zA-Z0-9_.+-]*@[a-zA-Z0-9-]*\.[a-zA-Z0-9-.]+$'
+    if not re.match(pattern, request.POST['first_name']) or not re.match(pattern, request.POST['last_name']):
+        context.update({'message':'First and Last name should not contain special characters'})
+        return context 
     if len(request.POST['first_name'])<2 or len(request.POST['first_name'])>50 or len(request.POST['last_name'])<2 or len(request.POST['last_name'])>50:
         context.update({'message': 'First and Last name should not be less than 2 and greater than 50'})
         return context
+    if not re.match(email, request.POST['email']):
+        context.update({'message':'Invalid Email'})
+        return context 
+    try:
+        existing_user = User.objects.get(email=request.POST['email'])
+        print(existing_user)
+        context.update({'message': 'Could register to LMS. Email Already exists'}) 
+        return context
+    except (User.DoesNotExist, Exception)  as e:
+        print(e)
+    try:
+        phone = lms_user_models.LmsUser.objects.get(phone_number=request.POST['phone_number'])
+        context.update({'message': 'Could register to LMS. Phone number Already exists'})
+        return context 
+    except (lms_user_models.LmsUser.DoesNotExist, Exception) as e:   
+        print(e)  
     if len(request.POST['phone_number']) < 7 or len(request.POST['phone_number'])>15:
         context.update({'message': 'Invalid Phone Number.Phone number should not be less than 7 and greater than 15'})
         return context
@@ -32,4 +56,3 @@ def compensation_validtion(request,context):
         context.update({'message': 'Invalid Number of days'})
         return context
     return False
-
