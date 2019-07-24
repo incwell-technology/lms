@@ -18,19 +18,18 @@ def register_validation(request, context):
         return context 
     try:
         existing_user = User.objects.get(email=request.POST['email'])
-        print(existing_user)
-        context.update({'message': 'Could register to LMS. Email Already exists'}) 
+        context.update({'message': 'Could not register to LMS. Email Already exists'}) 
         return context
     except (User.DoesNotExist, Exception)  as e:
         print(e)
     try:
         phone = lms_user_models.LmsUser.objects.get(phone_number=request.POST['phone_number'])
-        context.update({'message': 'Could register to LMS. Phone number Already exists'})
+        context.update({'message': 'Could not register to LMS. Phone number Already exists'})
         return context 
     except (lms_user_models.LmsUser.DoesNotExist, Exception) as e:   
         print(e)  
-    if len(request.POST['phone_number']) < 7 or len(request.POST['phone_number'])>15:
-        context.update({'message': 'Invalid Phone Number.Phone number should not be less than 7 and greater than 15'})
+    if len(request.POST['phone_number']) > 10 or len(request.POST['phone_number']) < 10:
+        context.update({'message': 'Invalid Phone Number.Phone number should be 10 digits'})
         return context
     if request.POST['date_of_birth'] > str(datetime.today()) or request.POST['date_of_birth'] < str(datetime.today() - timedelta(days=365*65)):
         context.update({'message': 'Invalid Date of Birth'})

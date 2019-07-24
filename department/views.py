@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Notice
-from .froms import NoticeForm
+from .forms import NoticeForm
 from leave_manager.common.routes import get_formatted_routes, get_routes, is_leave_issuer
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -53,6 +53,16 @@ def get_notice(request):
 def delete_notice(request,id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('user-login'))
-    notice = Notice.objects.filter(id=id)
-    notice.delete()
+    context = {}
+    routes = get_formatted_routes(get_routes(request.user), active_page = "notice board")
+    context.update({'routes':routes})
+    notice = Notice.objects.all()
+    context.update({'notices':notice})
+    try:
+        notice = Notice.objects.get(id=id)
+        notice.delete()
+    except (Notice.DoesNotExists, Exception) as e:
+        print(e)
+        context.update({'message':'Notice Not Deleted'})
+        return render(request, 'department/noticeboard.html', context=context)
     return HttpResponseRedirect(reverse('notice-board'))

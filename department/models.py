@@ -13,8 +13,8 @@ class Department(models.Model):
 
 
 class Notice(models.Model):
-    topic = models.CharField(max_length=100, default="Emergency Notice")
-    message = models.TextField()
+    topic = models.CharField(max_length=100, default="Emergency Notice", null=False, blank=False)
+    message = models.TextField(null=False, blank=False)
 
     def __str__(self):
         return self.topic

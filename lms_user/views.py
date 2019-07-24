@@ -18,7 +18,7 @@ from django.utils.http import urlsafe_base64_decode
 import jwt
 import yaml
 from lms_user import models as lms_user_models
-from lms_user.common import valiadtion as validation
+from lms_user.common import validation as validation
 # from lms_user.login import nothing
 
 
@@ -76,19 +76,6 @@ def user_register(request):
 
         if validation.register_validation(request, context):
             return render(request, 'lms_user/register.html', context=context)
-        # else:
-        #     try:
-        #         phone = lms_user_models.LmsUser.objects.get(phone_number=request.POST['phone_number'])
-        #         context.update({'message': 'Could register to LMS. Phone number Already exists'})
-        #         return render(request, 'lms_user/register.html', context=context)   
-        #     except (lms_user_models.LmsUser.DoesNotExist, Exception) as e:   
-        #         print(e)             
-        #     try:
-        #         existing_user = User.objects.get(email=request.POST['email'])
-        #         context.update({'message': 'Could register to LMS. Email Already exists'}) 
-        #         return render(request, 'lms_user/register.html', context=context)
-        #     except (User.DoesNotExist, Exception) as e:
-        #         print(e)
         try:    
             if register_django_user(request):
                 user = User.objects.get(username=request.POST['username'])

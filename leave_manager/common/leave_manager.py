@@ -41,14 +41,15 @@ def apply_leave(**kwargs):
                                'http://{}{}'.format(request.META['HTTP_HOST'],
                                                     reverse_lazy('leave_manager_leave_requests')))
         }
+        
+        try:
+            user =lms_user_models.LmsUser.objects.get(user=request.user)
+            leave_issuer = lms_user_models.LmsUser.objects.get(user=leave_details['issuer'])
+            leave_issuer_fcm = leave_issuer.fcm_token
+            fcm(leave_issuer_fcm,user,"leave_apply")
+        except (lms_user_models.LmsUser.DoesNotExist, Exception) as e:
+            print(e)
         if send_email_notification(update_details=update_details):
-            try:
-                user =lms_user_models.LmsUser.objects.get(user=request.user)
-                leave_issuer = lms_user_models.LmsUser.objects.get(user=leave_details['issuer'])
-                leave_issuer_fcm = leave_issuer.fcm_token
-                fcm(leave_issuer_fcm,user,"leave_apply")
-            except Exception as e:
-                print(e)
             return True
         else:
             leave.delete()
@@ -238,6 +239,7 @@ def approve_leave_request(request, leave_id):
         leave.leave_approved = True
         leave_detail = get_leave_detail(leave)
         user = leave_detail['lms_user']
+        print(user)
         if leave_detail['leave_type'] == 'Compensation Leave':
             user.compensation_leave -= leave_detail['total_days']
             if user.compensation_leave < 0:
@@ -265,16 +267,18 @@ def approve_leave_request(request, leave_id):
         }
         user.save()
         leave.save()
+        try:
+            print('as')
+            leave_issuer_fcm = user.fcm_token
+            fcm(leave_issuer_fcm,request.user.get_full_name(),"approve_leave")
+        except Exception as e:
+            print(e)
         if send_email_notification(update_details=update_details):
-            try:
-                leave_issuer_fcm = user.fcm_token
-                fcm(leave_issuer_fcm,request.user.get_full_name(),"approve_leave")
-            except Exception as e:
-                print(e)
+            print('ass')
             return True
         else:
             return False
-    except Exception as e:
+    except (Leave.DoesNotExist, Exception) as e:
         print(e)
         return False
 
@@ -300,17 +304,16 @@ def reject_leave_request(request, leave_id):
         }
 
         leave.save()
-        
+        try:
+            leave_issuer_fcm = user.fcm_token
+            fcm(leave_issuer_fcm,request.user.get_full_name(),"reject_leave")
+        except Exception as e:
+            print(e)
         if send_email_notification(update_details=update_details):
-            try:
-                leave_issuer_fcm = user.fcm_token
-                fcm(leave_issuer_fcm,request.user.get_full_name(),"reject_leave")
-            except Exception as e:
-                print(e)
             return True
         else:
             return False
-    except Exception as e:
+    except (Leave.DoesNotExist,Exception) as e:
         print(e)
         return False
 
@@ -390,14 +393,14 @@ def apply_CompensationLeave(**kwargs):
                                'http://{}{}'.format(request.META['HTTP_HOST'],
                                                     reverse_lazy('leave_manager_leave_requests')))
         }
+        try:
+            user = lms_user_models.LmsUser.objects.get(user=request.user)
+            leave_issuer = lms_user_models.LmsUser.objects.get(user=leave_details['issuer'])
+            leave_issuer_fcm = leave_issuer.fcm_token
+            fcm(leave_issuer_fcm,user,"compensation_apply")
+        except (lms_user_models.LmsUser.DoesNotExist,Exception) as e:
+            print(e)
         if send_email_notification(update_details=update_details):
-            try:
-                user =lms_user_models.LmsUser.objects.get(user=request.user)
-                leave_issuer = lms_user_models.LmsUser.objects.get(user=leave_details['issuer'])
-                leave_issuer_fcm = leave_issuer.fcm_token
-                fcm(leave_issuer_fcm,user,"compensation_apply")
-            except Exception as e:
-                print(e)
             return True
         else:
             leave.delete()
@@ -458,13 +461,13 @@ def reject_compensationLeave_request(request, leave_id):
                                leave_detail['days'], leave_detail['leave_reason'])
         }
         leave.save()
+        try:
+            leave_issuer_fcm = user.fcm_token
+            fcm(leave_issuer_fcm,request.user.get_full_name(),"reject_compensation")
+        except Exception as e:
+            print(e)
         
         if send_email_notification(update_details=update_details):
-            try:
-                leave_issuer_fcm = user.fcm_token
-                fcm(leave_issuer_fcm,request.user.get_full_name(),"reject_compensation")
-            except Exception as e:
-                print(e)
             return True
         else:
             return False
@@ -508,12 +511,12 @@ def approve_compensationLeave_request(request, leave_id):
         }
         user.save()
         leave.save()
+        try:
+            leave_issuer_fcm = user.fcm_token
+            fcm(leave_issuer_fcm,request.user.get_full_name(),"approve_compensation")
+        except Exception as e:
+            print(e)
         if send_email_notification(update_details=update_details):
-            try:
-                leave_issuer_fcm = user.fcm_token
-                fcm(leave_issuer_fcm,request.user.get_full_name(),"approve_compensation")
-            except Exception as e:
-                print(e)
             return True
         else:
             return False
@@ -548,7 +551,7 @@ def get_own_compensationLeave_detail_monthly(lms_user_id):
         })
 
         return user_detail
-    except Exception as e:
+    except (LmsUser.DoesNotExist,Exception) as e:
         print(e)
         return user_detail
 
@@ -586,7 +589,7 @@ def get_user_compensationLeave_detail(lms_user_id, user):
         })
 
         return user_detail
-    except Exception as e:
+    except (LmsUser.DoesNotExist, Exception) as e:
         print(e)
         return user_detail
 
