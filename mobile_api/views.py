@@ -205,8 +205,8 @@ def create_leaves(request):
                     leave_multiplier = 0.5
                 leave_details = {
                     "user": lms_user_models.LmsUser.objects.get(user=request.user),
-                    "from_date": request.data["from_date"],
-                    "to_date": request.data["to_date"],
+                    'from_date': datetime.strptime(request.data['from_date'], '%Y-%m-%d'),
+                    'to_date': datetime.strptime(request.data['to_date'], '%Y-%m-%d'),
                     "leave_reason": request.data["leave_reason"],
                     "half_day": request.data["half_day"],
                     "leave_type": leave_type.type,

@@ -18,6 +18,7 @@ from django.utils.http import urlsafe_base64_decode
 import jwt
 import yaml
 from lms_user import models as lms_user_models
+from lms_user.common import valiadtion as validation
 # from lms_user.login import nothing
 
 
@@ -89,8 +90,7 @@ def user_register(request):
                     if register_django_user(request):
                         user = User.objects.get(username=request.POST['username'])
                         department = Department.objects.get(id=int(request.POST['department']))
-                        if request.POST['date_of_birth'] > str(datetime.today()) or request.POST['joined_date'] > str(datetime.today()) or len(request.POST['phone_number']) < 7 or len(request.POST['phone_number'])>15:
-                            context.update({'message': 'Invalid Date of Birth/Joined Date/Phone Number'})
+                        if validation.register_validation(request, context):
                             return render(request, 'lms_user/register.html', context=context)
                         lms_user_details = {
                             'user': user,

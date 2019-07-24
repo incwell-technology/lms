@@ -464,11 +464,14 @@ def apply_leave(**kwargs):
                     From: {}
                     Leave Type: {}
                     Half Day: {}
+                    Days : {}
                     Leave Reason: {}
                     URL: {}
                     '''.format(leave_details['issuer'].get_full_name(), leave_details['user'].user.get_full_name(),
                                leave_details['leave_type'],
                                leave_details['half_day'],
+                               ((leave_details['to_date'] - leave_details['from_date']).days + 1) * leave_details[
+                                                             'leave_multiplier'],
                                leave_details['leave_reason'],
                                'http://{}{}'.format(request.META['HTTP_HOST'],
                                                     reverse_lazy('leave_manager_leave_requests')))
