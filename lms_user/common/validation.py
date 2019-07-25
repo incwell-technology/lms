@@ -37,6 +37,9 @@ def register_validation(request, context):
     if request.POST['joined_date'] > str(datetime.today()).split(' ')[0]:
         context.update({'message': 'Invalid Joined Date'})
         return context
+    if len(request.POST['username']) >30  or len(request.POST['username']) < 5:
+        context.update({'message': 'Invalid Username'})
+        return context 
     return False
 
 

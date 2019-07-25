@@ -61,6 +61,9 @@ def register_validation(request):
     if request.data['joined_date'] > str(datetime.today()):
         message= 'Invalid Joined Date'
         return message
+    if len(request.data['username']) >30  or len(request.data['username']) <5:
+        message = 'Invalid Username'
+        return message
     return False
 
 
