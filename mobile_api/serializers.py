@@ -2,6 +2,7 @@ from rest_framework import serializers
 from lms_user import models as lms_user_models
 from leave_manager import models as leave_manager_models
 from mobile_api import models as mobile_api_models
+from department import models as dept_models
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,4 +62,9 @@ class PasswordResetDoneSerializer(serializers.Serializer):
     """
     new_password = serializers.CharField(required=True)
     confirm_password = serializers.CharField(required=True)
+    
 
+class NoticeSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = dept_models.Notice

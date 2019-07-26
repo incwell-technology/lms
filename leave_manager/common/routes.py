@@ -118,7 +118,22 @@ all_navigation_routes = [
         'password': True,
         'icon': 'pe-7s-pin'
     },
-
+    {
+        'title': 'notice',
+        'url': reverse_lazy('notice'),
+        'admin': True,
+        'active': False,
+        'password': False,
+        'icon': 'pe-7s-note2'
+    },
+    {
+        'title': 'notice board',
+        'url': reverse_lazy('notice-board'),
+        'admin': False,
+        'active': False,
+        'password': False,
+        'icon': 'pe-7s-note2'
+    },
 ]
 
 non_admin_navigation_routes = [route for route in all_navigation_routes if not route['admin'] and not route['password']]

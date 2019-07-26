@@ -30,5 +30,5 @@ urlpatterns = [
     path('users/reset/<token>/', mobile_views.token_verify, name='verify_token'),
     path('users/password-reset-done/<int:pk>', mobile_views.password_reset_done),
     path('doc', mobile_views.doc),
-
+    path('notice', mobile_views.create_notice),
 ]

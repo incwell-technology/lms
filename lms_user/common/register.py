@@ -1,5 +1,8 @@
 from lms_user.models import LmsUser
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+
 
 
 def register_django_user(request, **kwargs):
@@ -7,7 +10,12 @@ def register_django_user(request, **kwargs):
         user = User.objects.create(username=request.POST['username'],
                                    email=request.POST['email'], first_name=request.POST['first_name'],
                                    last_name=request.POST['last_name'])
-        user.set_password(request.POST['password'])
+        try:
+            validate_password(request.POST['password'], user)
+            user.set_password(request.POST['password'])
+        except ValidationError as e:
+            print(e)
+            return False
         user.save()
         return True
 

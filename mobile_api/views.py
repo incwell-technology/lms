@@ -21,7 +21,7 @@ from mobile_api.common.register import register_django_user
 from leave_manager import common as leave_common
 from lms_user.models import Department
 from django.contrib.auth.models import User
-from mobile_api.common.validation import  validation
+from mobile_api.common import validation as validation
 import firebase_admin
 from firebase_admin import messaging
 from leave_manager.models import LeaveType
@@ -78,8 +78,8 @@ def holidays(request):
                     'days': delta.days,
                     'image': image_url
                 })
-            if delta.days == 0:
-                fcm(None,i.title,"holiday")
+            if delta.days == 1:
+                fcm(None,i,"holiday")
         return JsonResponse({"status":True,"data":data}, status=200)
     except Exception as e:
         print(e)
@@ -121,41 +121,40 @@ def leave(request):
 def user_register(request):
     if is_leave_issuer(request.user):
         if request.method == 'POST':
-            if validation(request):
-                try:
-                    existing_user = User.objects.get(email=request.data['email'])
-                    return JsonResponse({'status':False,'message':'User with this email already exists'}, status=500) 
-                except (User.DoesNotExist, Exception):
-                    if register_django_user(request):
-                        try:
-                            user = User.objects.get(username=request.data['username'])
-                            department = Department.objects.get(id=int(request.data['department']))
-                        except (User.DoesNotExist, Department.DoesNotExist):
-                            return JsonResponse({}, status=500) 
-                        lms_user = {}
-                        lms_user.update({
-                            'user': user.pk,
-                            'phone_number': request.data['phone_number'],
-                            'department': department.pk,
-                            'leave_issuer': department.head_of_department.pk,
-                            'date_of_birth': request.data['date_of_birth'],
-                            'joined_date': request.data['joined_date']
-                        })
-                        serializer = mobile_api_serializers.UserSerializer(data = lms_user)
-                        if serializer.is_valid():
-                            serializer.save()
-                            lms_user = mobile_user_info.get_lms_user_mobile(user, request)
-                            return JsonResponse({"status":True, "payload":lms_user}, status=201)
-                        else:
-                            try:
-                                user.delete()
-                                return JsonResponse({"status":False,"mesasge":"Couldn't register user"}, status=400)
-                            except Exception as e:
-                                print(e)
-                                return JsonResponse({"status":False,"mesasge":"Couldn't delete registered user"}, status=400)
-
+            if validation.validation(request):
+                message = validation.register_validation(request)
+                if message:
+                    return JsonResponse({'status':False,'message': message}, status=500)
+                if register_django_user(request):
+                    try:
+                        user = User.objects.get(username=request.data['username'])
+                        department = Department.objects.get(id=int(request.data['department']))
+                    except (User.DoesNotExist, Department.DoesNotExist):
+                        return JsonResponse({}, status=500) 
+                    lms_user = {}
+                    lms_user.update({
+                        'user': user.pk,
+                        'phone_number': request.data['phone_number'],
+                        'department': department.pk,
+                        'leave_issuer': department.head_of_department.pk,
+                        'date_of_birth': request.data['date_of_birth'],
+                        'joined_date': request.data['joined_date']
+                    })
+                    serializer = mobile_api_serializers.UserSerializer(data = lms_user)
+                    if serializer.is_valid():
+                        serializer.save()
+                        lms_user = mobile_user_info.get_lms_user_mobile(user, request)
+                        return JsonResponse({"status":True, "payload":lms_user}, status=201)
                     else:
-                        return JsonResponse({"status":False,"mesasge":"User already exists"}, status=400)
+                        try:
+                            user.delete()
+                            return JsonResponse({"status":False,"mesasge":"Couldn't register user"}, status=400)
+                        except Exception as e:
+                            print(e)
+                            return JsonResponse({"status":False,"mesasge":"Couldn't delete registered user"}, status=400)
+
+                else:
+                    return JsonResponse({"status":False,"mesasge":"User already exists"}, status=400)
             else:
                 return JsonResponse({"status":False,"message":"All fields required"}, status=400)
     else:
@@ -187,12 +186,13 @@ def users(request):
 @api_view(['POST'])
 def create_leaves(request):
     if request.method == 'POST':
+        message = validation.leave_validation(request)
+        if message:
+            return JsonResponse({'status':False,'message': message}, status=500)
         try:
             if leave_manager.check_leave_applicability(request.user, request.data["type"]): 
                 user = lms_user_models.LmsUser.objects.get(user=request.user)
                 leave_type = LeaveType.objects.get(type=request.data["type"])
-                leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
-                leave_issuer_fcm = leave_issuer.fcm_token
                 lms_user = {}
                 lms_user.update({
                     "user":user.pk,
@@ -202,10 +202,29 @@ def create_leaves(request):
                     "reason": request.data["leave_reason"],
                     "half_day": request.data["half_day"]
                 })
+                leave_multiplier = 1
+                if request.data["half_day"] == True:
+                    leave_multiplier = 0.5
+                leave_details = {
+                    "user": lms_user_models.LmsUser.objects.get(user=request.user),
+                    'from_date': datetime.strptime(request.data['from_date'], '%Y-%m-%d'),
+                    'to_date': datetime.strptime(request.data['to_date'], '%Y-%m-%d'),
+                    "leave_reason": request.data["leave_reason"],
+                    "half_day": request.data["half_day"],
+                    "leave_type": leave_type.type,
+                    'issuer': lms_user_models.LmsUser.objects.get(user=request.user).leave_issuer,
+                    'leave_multiplier': leave_multiplier
+                }
                 serializer = mobile_api_serializers.LeaveSerializer(data = lms_user)
                 if serializer.is_valid():
                     serializer.save()
-                    fcm(leave_issuer_fcm,user,"leave_apply")
+                    try:
+                        leave_manager.apply_leave(request=request, leave_details=leave_details)
+                        leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
+                        leave_issuer_fcm = leave_issuer.fcm_token
+                        fcm(leave_issuer_fcm,user,"leave_apply")
+                    except Exception as e:
+                        print(e)
                     return JsonResponse({"status":True, "payload":lms_user}, status=200)
                 else:
                     return JsonResponse({"status":False, "mesasge":"Invalid data"}, status=400)
@@ -250,13 +269,20 @@ def leave_approval_or_rejection(request, id):
         leave.save()
         if request.method == 'POST':
             if leave.leave_pending == True:
+                leave_details = {
+                    "lms_user": lms_user_models.LmsUser.objects.get(user=leave.user.user),
+                    "total_days": leave.to_date - leave.from_date,
+                    "leave_reason": leave.reason,
+                    "half_leave":leave.half_day,
+                    "leave_type":leave.type
+                }
                 if request.data['leave_response'] == '2':
-                    if leave_manager.reject_leave_request(request, id):
+                    if leave_manager.reject_leave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True, "message": "Rejection Success"},status=200)
                     else:
-                        return JsonResponse({"message":"Rejection Failed"},status=400)
+                        return JsonResponse({"status":False, "message":"Rejection Failed"},status=400)
                 elif request.data['leave_response'] == '1':
-                    if leave_manager.approve_leave_request(request, id):
+                    if leave_manager.approve_leave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True,"message": "Approval Success"},status=200)
                     else:
                         return JsonResponse({"status":False, "message":"Approval Failed"},status=400)
@@ -272,19 +298,32 @@ def leave_approval_or_rejection(request, id):
 def compensation_leave(request):
     try:
         if request.method == 'POST':
+            message = validation.compensation_validtion(request)
+            if message:
+                return JsonResponse({'status':False,'message': message}, status=500)
             user = lms_user_models.LmsUser.objects.get(user=request.user)  
-            leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
-            leave_issuer_fcm = leave_issuer.fcm_token
             leave_details = {}
             leave_details.update({
                 "user": user.pk,
                 "reason": request.data['leave_reason'],
                 "days":request.data['days']
             })
+            leave_detail = {
+                'user': lms_user_models.LmsUser.objects.get(user=request.user),
+                'leave_reason': request.data['leave_reason'],
+                'issuer': lms_user_models.LmsUser.objects.get(user=request.user).leave_issuer,
+                'days':request.data['days']
+            }
             serializer = mobile_api_serializers.CompensationSerializer(data = leave_details)
             if serializer.is_valid():
                 serializer.save()
-                fcm(leave_issuer_fcm,user,"compensation_apply")
+                try:
+                    leave_issuer = lms_user_models.LmsUser.objects.get(user=user.leave_issuer)
+                    leave_issuer_fcm = leave_issuer.fcm_token
+                    leave_manager.apply_CompensationLeave(request=request, leave_details=leave_detail)
+                    fcm(leave_issuer_fcm,user,"compensation_apply")
+                except Exception as e:
+                    print(e)    
                 return JsonResponse({"status":True, "payload":leave_details}, status=200)
             else:
                 print(serializer.errors)
@@ -320,15 +359,21 @@ def compensation_approval_reject(request, id):
         leave = leave_models.CompensationLeave.objects.get(id=id)
         leave.notification = False
         leave.save()
+        print(leave)
         if request.method == 'POST':
             if leave.leave_pending == True:
+                leave_details = {
+                    "lms_user": lms_user_models.LmsUser.objects.get(user=leave.user.user),
+                    "days": leave.days,
+                    "leave_reason": leave.reason,
+                }
                 if request.data['leave_response'] == '2':
-                    if leave_manager.reject_compensationLeave_request(request, id):
+                    if leave_manager.reject_compensationLeave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True, "message": "Rejection Success"},status=200)
                     else:
                         return JsonResponse({"message":"Rejection Failed"},status=400)
                 elif request.data['leave_response'] == '1':
-                    if leave_manager.approve_compensationLeave_request(request, id):
+                    if leave_manager.approve_compensationLeave_request(request=request, leave_id=id, leave_detail=leave_details):
                         return JsonResponse({"status":True,"message": "Approval Success"},status=200)
                     else:
                         return JsonResponse({"status":False, "message":"Approval Failed"},status=400)
@@ -682,3 +727,19 @@ def password_reset_done(request, pk):
 
 def doc(request):
     return render(request,'mobile_api/doc.html')
+
+
+@csrf_exempt
+@api_view(["POST"])
+def create_notice(request):
+    if not is_leave_issuer(request.user):
+        return JsonResponse({"status":False, "message":"Not authorized to view this"}, status=400)
+    if request.method == "POST":
+        serializer = mobile_api_serializers.NoticeSerializer(data=request.data)
+        print(serializer)
+        if serializer.is_valid():
+            notice = serializer.save()
+            fcm(None,notice,"notice")
+            return JsonResponse({'status':True,'message':'Notice sent successfully'}, status=200)
+        else:
+            return JsonResponse({'status':False,'message':serializer.errors}, status=400)
