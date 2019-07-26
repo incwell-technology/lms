@@ -175,7 +175,7 @@ def reject_leave_request(request, leave_id, **kwargs):
         return False
 
 
-def approve_compensationLeave_request(request, leave_id):
+def approve_compensationLeave_request(request, leave_id, **kwargs):
     try:
         leave = CompensationLeave.objects.get(id=leave_id)
         leave.leave_pending = False
