@@ -1,0 +1,41 @@
+body {
+    background-color: #fafafa;
+}
+
+.col-sm, .col-sm-2 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.nav {
+    background-color: #0099e8;
+    min-height: 100vh;
+}
+
+.nav-item a,
+.navbar-brand {
+    color: #fff;
+    text-align: center;
+}
+
+.nav-link {
+    padding-left: 0;
+}
+
+.navbar-brand {
+    background-color: #0089d0;
+    margin-right: 0;
+}
+
+i {
+    margin-right: 6px;
+}
+
+nav {
+    background-color: #fff
+}
+
+.navbar {
+    justify-content: space-between;
+    padding: .5rem 2rem;
+}
