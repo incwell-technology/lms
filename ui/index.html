@@ -6,61 +6,158 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+    <!--Custom CSS-->
     <link rel="stylesheet" href="css/style.css">
-    <title>LMS</title>
+    <title>Incwell LMS</title>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2">
-                <ul class="nav flex-column" id="navbarSupportedContent">
-                    <div class="navbar-brand mb-4 h1">
-                        Home
-                    </div>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-chart-line"></i> Link</a>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark blue lighten-1">
+        <div class='container'>    
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+                aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Link</a>
+                        <a class="nav-link" href="#">Features</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Link</a>
+                        <a class="nav-link" href="#">Pricing</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Link</a>
+                </ul>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item dropdown avatar">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                                class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                            aria-labelledby="navbarDropdownMenuLink-333">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Apply Leave</a>
+                            <a class="dropdown-item" href="#">Apply Compensation</a>
+                            <a class="dropdown-item" href="#">Leave History</a>
+                        </div>
                     </li>
                 </ul>
             </div>
-            <div class="col-sm">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <span>My Profile</span>
-                    <span><i class="fas fa-bell"></i> Logout</span>
-                </nav>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <!-- Notice board -->
+                <div class="card mt-4">
+                    <!-- Card content -->
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h4 class="card-title"><a>Notice Board</a></h4>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est
+                                perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
+                                esse soluta quas doloremque, ut architecto sequi?
+                                <span class="badge badge-primary badge-pill">new</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est
+                                perferendis magnam.
+                                <span class="badge badge-primary badge-pill">new</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est
+                                perferendis magnam. Facere deleniti laudantium, accusamus odit
+                            </li>
+                        </ul>
+                        <!-- Button -->
+                        <div class="d-flex justify-content-end">
+                            <button class="btn-floating btn-primary btn-lg">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Notice board -->
+            </div>
+
+            <div class="col-md">.
+                <!-- Leave today -->
+                <div class="card">
+                    <!-- Card content -->
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h4 class="card-title"><a>Leave Today</a></h4>
+                        <ul class="list-unstyled">
+                            <li class="media mt-2">
+                                <img class="d-flex rounded-circle mr-3"
+                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min1.jpg"
+                                    alt="Generic placeholder image">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-2 font-weight-bold">Anna Smith</h5>
+                                    <p>Annual leave</p>
+                                </div>
+                            </li>
+                            <li class="media mt-2">
+                                <img class="d-flex rounded-circle mr-3"
+                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
+                                    alt="Generic placeholder image">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-2 font-weight-bold">Tom Brown</h5>
+                                    <p>Half leave</p>
+                                </div>
+                            </li>
+                            <li class="media mt-2">
+                                <img class="d-flex rounded-circle mr-3"
+                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min3.jpg"
+                                    alt="Generic placeholder image">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-2 font-weight-bold">Natalie Doe</h5>
+                                    <p>Annual leave</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Button -->
+                        <div class="d-flex justify-content-end">
+                            <button class="btn-floating btn-primary btn-lg">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--/ Leave today -->
             </div>
         </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+    
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
 </body>
-
 </html>
