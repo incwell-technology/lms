@@ -42,13 +42,13 @@
                 </ul>
                 <ul class="navbar-nav ml-auto nav-flex-icons">
                     <li class="nav-item dropdown avatar">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
                                 class="rounded-circle z-depth-0" alt="avatar image" height="35">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-default"
-                            aria-labelledby="navbarDropdownMenuLink-333">
+                            aria-labelledby="profileDropdown">
                             <a class="dropdown-item" href="#">Profile</a>
                             <a class="dropdown-item" href="#">Apply Leave</a>
                             <a class="dropdown-item" href="#">Apply Compensation</a>
@@ -66,10 +66,10 @@
         <p class=" text-center lead">This is a modified jumbotron that occupies the entire horizontal
             space of its parent.
         </p>
-        <div class="row mt-5">
-            <div class="col-md-7">
+        <div class="row">
+            <div class="col-md">
                 <!-- Notice board -->
-                <div class="card">
+                <div class="card mt-3 mb-3">
                     <!-- Card content -->
                     <div class="card-body">
 
@@ -92,9 +92,39 @@
                                 perferendis magnam. Facere deleniti laudantium, accusamus odit
                             </li>
                         </ul>
+
+
+                        <div class="modal fade" id="newNotice" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <form class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">Add New Notice</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form">
+                                            <i class="fas fa-pencil prefix grey-text"></i>
+                                            <textarea type="text" id="form8" class="md-textarea form-control"
+                                                rows="4"></textarea>
+                                            <label data-error="wrong" data-success="right" for="form8">Notice</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <button class="btn btn-primary">Send <i
+                                                class="fas fa-paper-plane-o ml-1"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
                         <!-- Button -->
                         <div class="d-flex justify-content-end">
-                            <button class="btn-floating btn-primary btn-lg">
+                            <button class="btn-floating btn-primary btn-lg" data-toggle="modal"
+                                data-target="#newNotice">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -105,35 +135,36 @@
 
             <div class="col-md">
                 <!-- Leave today -->
-                <div class="card">
+                <div class="card mt-3 mb-3">
                     <!-- Card content -->
                     <div class="card-body">
 
                         <!-- Title -->
                         <h4 class="card-title"><a>Leave Today</a></h4>
                         <ul class="list-unstyled">
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min1.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min1.jpg" alt="Generic placeholder image">
+                                </div>
                                 <div class="media-body">
                                     <h5 class="mt-0 mb-2 font-weight-bold">Anna Smith</h5>
                                     <p>Annual leave</p>
                                 </div>
                             </li>
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg" alt="Generic placeholder image">
+                                </div>
                                 <div class="media-body">
                                     <h5 class="mt-0 mb-2 font-weight-bold">Tom Brown</h5>
                                     <p>Half leave</p>
                                 </div>
                             </li>
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min3.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min3.jpg"
+                                        alt="Generic placeholder image">
+                                </div>
                                 <div class="media-body">
                                     <h5 class="mt-0 mb-2 font-weight-bold">Natalie Doe</h5>
                                     <p>Annual leave</p>
@@ -147,89 +178,154 @@
         </div>
 
 
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md">
                 <!-- Upcoming Holidays -->
-                <div class="card">
+                <div class="card mt-3 mb-3">
                     <!-- Card content -->
                     <div class="card-body">
 
                         <!-- Title -->
                         <h4 class="card-title"><a>Upcoming Holidays</a></h4>
                         <ul class="list-unstyled">
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min1.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://images.unsplash.com/photo-1468234847176-28606331216a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1015&q=80" alt="Generic placeholder image">
+                                </div>
+                                
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-2 font-weight-bold">Anna Smith</h5>
-                                    <p>Annual leave</p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">Gai Jatra</h5>
+                                            <p>March 12</p>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">2</h5>
+                                            <p>Days Remaining</p>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </li>
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://images.unsplash.com/photo-1482840309350-9139cdbddd9d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                                        alt="Generic placeholder image">
+                                </div>
+
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-2 font-weight-bold">Tom Brown</h5>
-                                    <p>Half leave</p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">Christmas</h5>
+                                            <p>December 21</p>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">14</h5>
+                                            <p>Days Remaining</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min3.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://images.unsplash.com/photo-1480835382106-d1923af88f3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+                                        alt="Generic placeholder image">
+                                </div>
+
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-2 font-weight-bold">Natalie Doe</h5>
-                                    <p>Annual leave</p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">Holi</h5>
+                                            <p>August 20</p>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">21</h5>
+                                            <p>Days Remaining</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <!--/ Leave today -->
+                <!--/ Upcomming holidays -->
             </div>
 
             <div class="col-md">
-                <!-- Upcoming Holidays -->
-                <div class="card">
+                <!-- Birthdays this month -->
+                <div class="card mt-3 mb-3">
                     <!-- Card content -->
                     <div class="card-body">
 
                         <!-- Title -->
                         <h4 class="card-title"><a>Birthdays This Month</a></h4>
                         <ul class="list-unstyled">
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min1.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
+                                        alt="Generic placeholder image">
+                                </div>
+
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-2 font-weight-bold">Anna Smith</h5>
-                                    <p>Annual leave</p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">Tom Brown</h5>
+                                            <p>November 5</p>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">6</h5>
+                                            <p>Days Remaining</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min3.jpg"
+                                        alt="Generic placeholder image">
+                                </div>
+
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-2 font-weight-bold">Tom Brown</h5>
-                                    <p>Half leave</p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">Natalie Doe</h5>
+                                            <p>November 12</p>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">8</h5>
+                                            <p>Days Remaining</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
-                            <li class="media mt-2">
-                                <img class="d-flex rounded-circle mr-3"
-                                    src="https://mdbootstrap.com/img/Photos/Others/avatar-min3.jpg"
-                                    alt="Generic placeholder image">
+                            <li class="media mt-4">
+                                <div class="image-cropper mr-3">
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min1.jpg"
+                                        alt="Generic placeholder image">
+                                </div>
+
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-2 font-weight-bold">Natalie Doe</h5>
-                                    <p>Annual leave</p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">Anna Smith</h5>
+                                            <p>November 23</p>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h5 class="mt-0 mb-2 font-weight-bold">16</h5>
+                                            <p>Days Remaining</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <!--/ Leave today -->
+                <!--/ Birthdays this month -->
             </div>
         </div>
     </div>
