@@ -45,6 +45,7 @@ td i {
 
 tr:hover i {
     visibility: visible;
+    cursor: pointer;
 }
 
 .fixed-action-btn {
