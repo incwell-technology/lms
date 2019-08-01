@@ -61,3 +61,7 @@ tr:hover i {
 .icons-align-mid {
     padding-top: 14px;
 }
+
+.hide {
+    display: none;
+}
