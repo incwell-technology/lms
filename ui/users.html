@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
@@ -137,6 +137,51 @@
     </div>
     <!--/Modal: Edit user info-->
 
+    <!--Modal: User details-->
+    <div class="modal fade" id="userDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header">
+                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar"
+                        class="rounded-circle img-responsive">
+                </div>
+                <!--Body-->
+                <div class="modal-body text-center mb-1">
+
+                    <h4 class="mt-1 mb-2">Maria Doe</h4>
+
+                    <div class="m-auto">
+                        <div class="mt-3"><i class="fas fa-phone-alt mr-1"></i>9811111111</div>
+                        <div class="mt-2"><i class="far fa-envelope mr-1"></i>maria@example.com</div>
+                        <div class="mt-2"><i class="fas fa-birthday-cake mr-1"></i>December 12, 1989</div>
+                        <div class="mt-2"><i class="fas fa-building mr-1"></i>Tech Team</div>
+                    </div>
+                    <div class="m-auto">
+                        <div data-dismiss="modal" data-toggle="modal" data-target="#editUserInfo"
+                            class="text-info mt-3 cursor-pointer">
+                            <i class="fas fa-pen mr-1"></i>Edit
+                        </div>
+                        <div data-dismiss="modal" data-toggle="modal" data-target="#deleteUser"
+                            class="text-danger mt-2 cursor-pointer">
+                            <i class="far fa-trash-alt mr-1"></i>Delete
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button class="btn btn-cyan mt-1" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--/Modal: User details-->
+
     <div class="container">
         <table class="table table-hover">
             <thead>
@@ -146,15 +191,20 @@
                     <th scope="col">Last</th>
                     <th scope="col" class="hide d-sm-table-cell">Phone Number</th>
                     <th scope="col" class="hide d-sm-table-cell">Email</th>
+                    <!-- Only for admin -->
+                    <th scope="col" class="hide d-sm-table-cell"></th>
+                    <th scope="col" class="hide d-sm-table-cell"></th>
+                    <!--/ -->
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td class="hide d-sm-table-cell">1111111</td>
-                    <td class="hide d-sm-table-cell">markotto@exmaple.com</td>
+                    <th scope="row" data-toggle="modal" data-target="#userDetails">1</th>
+                    <td data-toggle="modal" data-target="#userDetails">Mark</td>
+                    <td data-toggle="modal" data-target="#userDetails">Otto</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">1111111</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">markotto@exmaple.com
+                    </td>
                     <td class="hide d-sm-table-cell">
                         <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
                     </td>
@@ -162,7 +212,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
@@ -175,7 +225,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -188,7 +238,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -201,7 +251,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -214,7 +264,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -227,7 +277,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -240,7 +290,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -253,7 +303,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -266,7 +316,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -279,7 +329,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -292,7 +342,7 @@
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
-                <tr>
+                <tr data-toggle="modal" data-target="#userDetails">
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>Bird</td>
@@ -307,50 +357,54 @@
                 </tr>
             </tbody>
         </table>
+    </div>
 
-        <div class="modal fade" id="addNewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Add New User</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="md-form mx-4">
-                        <input type="text" id="form29" class="form-control">
-                        <label data-error="wrong" data-success="right" for="form29">First Name</label>
-                    </div>
-                    <div class="md-form mx-4">
-                        <input type="text" id="form29" class="form-control">
-                        <label data-error="wrong" data-success="right" for="form29">Last Name</label>
-                    </div>
-                    <div class="md-form mx-4">
-                        <input type="text" id="form29" class="form-control">
-                        <label data-error="wrong" data-success="right" for="form29">Phone Number</label>
-                    </div>
-                    <div class="md-form mx-4">
-                        <input type="email" id="form29" class="form-control">
-                        <label data-error="wrong" data-success="right" for="form29">Email</label>
-                    </div>
-                    <div class="md-form mx-4">
-                        <input type="text" id="form29" class="form-control">
-                        <label data-error="wrong" data-success="right" for="form29">Department</label>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-primary">Post <i class="fas fa-paper-plane-o ml-1"></i></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="fixed-action-btn">
-            <button class="btn-floating btn-primary btn-lg" data-toggle="modal" data-target="#addNewUser">
-                <i class="fas fa-plus"></i>
-            </button>
+    <!-- Modal: Add new user -->
+    <div class="modal fade" id="addNewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="text" id="form29" class="form-control">
+                    <label data-error="wrong" data-success="right" for="form29">First Name</label>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="text" id="form29" class="form-control">
+                    <label data-error="wrong" data-success="right" for="form29">Last Name</label>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="text" id="form29" class="form-control">
+                    <label data-error="wrong" data-success="right" for="form29">Phone Number</label>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="email" id="form29" class="form-control">
+                    <label data-error="wrong" data-success="right" for="form29">Email</label>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="text" id="form29" class="form-control">
+                    <label data-error="wrong" data-success="right" for="form29">Department</label>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-primary">Post <i class="fas fa-paper-plane-o ml-1"></i></button>
+                </div>
+            </form>
         </div>
     </div>
+    <!--/ Add new user -->
+
+    <!-- Floating Add User Button -->
+    <div class="fixed-action-btn">
+        <button class="btn-floating btn-primary btn-lg" data-toggle="modal" data-target="#addNewUser">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+    <!--/ Floating Add User Button  -->
     
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
