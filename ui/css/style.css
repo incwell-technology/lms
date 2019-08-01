@@ -69,3 +69,7 @@ tr:hover i {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.modal-footer {
+    border: none;
+}
