@@ -1,3 +1,13 @@
+.welcome-img {
+    width: 350px;
+    margin-top:-38px;
+    margin-bottom: -38px;
+}
+
+.welcome-text {
+    font-size: 2.5rem;
+}
+
 .btn-floating {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18),
     0 4px 15px 0 rgba(0, 0, 0, .15);
