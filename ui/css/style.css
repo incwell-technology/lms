@@ -52,10 +52,23 @@ tr:hover i {
 .fixed-action-btn {
     position: fixed;
     z-index: 998;
-    right: 8%;
+    right: 35px;
     bottom: 35px;
     margin-bottom: 0;
     /* padding-top: 15px; */
+}
+
+.fixed-apply-btn {
+    position: fixed;
+    z-index: 998;
+    right: 35px;
+    bottom: 82px;
+    margin-bottom: 0;
+    /* padding-top: 15px; */
+}
+
+.fixed-apply-btn button {
+    width: 95%;
 }
 
 .icons-align-mid {
@@ -72,4 +85,18 @@ tr:hover i {
 
 .modal-footer {
     border: none;
+}
+
+.custom-blue, .custom-blue:hover {
+    background-color:#3bbedb;
+    color: #fff
+}
+
+.custom-blue-text, .custom-blue-text:hover {
+    color: #3bbedb;
+}
+
+.floating-shadow {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18),
+    0 4px 15px 0 rgba(0, 0, 0, .15);
 }
