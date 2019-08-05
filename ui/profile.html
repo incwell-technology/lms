@@ -12,6 +12,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+    <!-- Circular Progess CSS -->
+    <link href="css/css-circular-prog-bar.css" rel="stylesheet">
     <!--Custom CSS-->
     <link rel="stylesheet" href="css/style.css">
     <title>Incwell LMS</title>
@@ -51,7 +53,7 @@
                             class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="profile.html">Profile</a>
                         <a class="dropdown-item" href="#">Leave History</a>
                         <a class="dropdown-item" href="#">Log Out</a>
                     </div>
@@ -87,16 +89,87 @@
                     <!-- Title -->
                     <div class='card-body pb-0'>
                         <h4 class="card-title"><a>My Details</a></h4>
-                        <div class="my-details mt-4">
-                            <div class="mt-3">December 12, 1989 <i class="fas fa-birthday-cake ml-2"></i></div>
-                            <div class="mt-3">Joined Date: March 10, 2019</div>
-                            <div class="mt-3">Department: Administration</div>
-                            <div class="mt-3">Company: Incwell</div>
+                        <div class="my-details mt-3">
+                            <div class="mt-2">December 12, 1989 <i class="fas fa-birthday-cake ml-2"></i></div>
+                            <div class="mt-2">Joined Date: March 10, 2019</div>
+                            <div class="mt-2">Department: Administration</div>
+                            <div class="mt-2">Company: Incwell</div>
                         </div>
                     </div>
                 </div>
                 <!--/ Leave today -->
+            </div>
+        </div>
+        <!--/ User card -->
+
+        <!-- User card -->
+        <div class="card mt-3 mb-3">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Card content -->
+                    <div class="card-body">
+                        <h4 class="card-title"><a>My Leave History</a></h4>
+                    </div>
                 </div>
+                <div class="col-md">
+                    <!-- Leave today -->
+                    <!-- Card content -->
+                    <!-- Title -->
+                    <div class='card-body pb-0'>
+                        <div class="text-center wrapper-progress-circle">
+                             <div class="mx-0 mb-0 progress-circle p10">
+                                 <span>10%</span>
+                                 <div class="left-half-clipper">
+                                     <div class="first50-bar"></div>
+                                     <div class="value-bar"></div>
+                                 </div>
+                             </div>
+                             <span class="circular-progress-label">Approved</span>
+                        </div>
+                       
+                        <div class="text-center wrapper-progress-circle">
+                            <div class="mx-0 mb-0 progress-circle p10">
+                                <span>10%</span>
+                                <div class="left-half-clipper">
+                                    <div class="first50-bar"></div>
+                                    <div class="value-bar"></div>
+                                </div>
+                            </div>
+                            <span class="circular-progress-label">Rejected</span>
+                        </div>
+                        <div class="text-center wrapper-progress-circle">
+                            <div class="mx-0 mb-0 progress-circle p10">
+                                <span>10%</span>
+                                <div class="left-half-clipper">
+                                    <div class="first50-bar"></div>
+                                    <div class="value-bar"></div>
+                                </div>
+                            </div>
+                            <span class="circular-progress-label">Annual Leave</span>
+                        </div>
+                        <div class="text-center wrapper-progress-circle">
+                            <div class="mx-0 mb-0 progress-circle p10">
+                                <span>10%</span>
+                                <div class="left-half-clipper">
+                                    <div class="first50-bar"></div>
+                                    <div class="value-bar"></div>
+                                </div>
+                            </div>
+                            <span class="circular-progress-label">Sick Leave</span>
+                        </div>
+                        <div class="text-center wrapper-progress-circle">
+                            <div class="mx-0 mb-0 progress-circle p10">
+                                <span>10%</span>
+                                <div class="left-half-clipper">
+                                    <div class="first50-bar"></div>
+                                    <div class="value-bar"></div>
+                                </div>
+                            </div>
+                            <span class="circular-progress-label">Compensation Leave</span>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Leave today -->
             </div>
         </div>
         <!--/ User card -->

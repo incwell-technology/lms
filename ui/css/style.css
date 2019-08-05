@@ -139,3 +139,16 @@ tr:hover i {
     display: inline;
     padding-bottom: 25px;
 }
+
+.wrapper-progress-circle {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.progress-circle {
+    font-size: 16px;
+}
+
+.circular-progress-label {
+    font-size: 12px;
+}
