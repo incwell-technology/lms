@@ -322,7 +322,7 @@ def compensation_leave(request):
                     leave_issuer_fcm = leave_issuer.fcm_token
                     leave_manager.apply_CompensationLeave(request=request, leave_details=leave_detail)
                     fcm(leave_issuer_fcm,user,"compensation_apply")
-                except Exception as e:
+                except (lms_user_models.LmsUser.DoesNotExist, Exception) as e:
                     print(e)    
                 return JsonResponse({"status":True, "payload":leave_details}, status=200)
             else:

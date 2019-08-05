@@ -96,7 +96,7 @@ def user_register(request):
                         user.delete()
                         context.update({'message': 'Could register to LMS. Please contact Admin or try again later'})
                         return render(request, 'lms_user/register.html', context=context)
-                    except Exception as e:
+                    except (User.DoesNotExist,Exception) as e:
                         print(e)
                         return render(request, 'lms_user/register.html', context=context)
             else:

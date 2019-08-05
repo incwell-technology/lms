@@ -26,7 +26,6 @@ def create_notice(request):
             fcm(None,notice,"notice")
             return HttpResponseRedirect(reverse('notice-board'))
         else:
-            form = NoticeForm()
             context.update({'form':form})
         return render(request, 'department/notice.html', context=context)
     else:

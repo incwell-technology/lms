@@ -28,7 +28,7 @@ def register_validation(request, context):
         return context 
     except (lms_user_models.LmsUser.DoesNotExist, Exception) as e:   
         print(e)  
-    if len(request.POST['phone_number']) > 10 or len(request.POST['phone_number']) < 10:
+    if not len(request.POST['phone_number']) == 10:
         context.update({'message': 'Invalid Phone Number.Phone number should be 10 digits'})
         return context
     if request.POST['date_of_birth'] > str(datetime.today()).split(' ')[0] or request.POST['date_of_birth'] < str(datetime.today() - timedelta(days=365*65)):
