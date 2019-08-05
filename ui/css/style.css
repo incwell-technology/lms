@@ -41,6 +41,11 @@
     width: auto;
 }
 
+.profile-image {
+    width: 100px;
+    height: 100px;
+}
+
 .view-more {
     display: inline-block;
 }
@@ -106,6 +111,13 @@ tr:hover i {
     color: #3bbedb;
 }
 
+.custom-blue-outline,
+.custom-blue-outline:hover {
+    color: #3bbedb;
+    background-color: transparent;
+    border: 1px solid #3bbedb;
+}
+
 .floating-shadow {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18),
     0 4px 15px 0 rgba(0, 0, 0, .15);
@@ -116,4 +128,14 @@ tr:hover i {
     color: #fff;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18),
     0 4px 15px 0 rgba(0, 0, 0, .15);
+}
+
+.btn-rounded {
+    border-radius: 10em;
+}
+
+#username {
+    border-bottom: 1px solid #6a6a6a;
+    display: inline;
+    padding-bottom: 25px;
 }

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
@@ -19,33 +19,26 @@
 
 <body>
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark blue lighten-1">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark custom-blue">
         <div class='container'>
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="#">Navbar</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="users.html">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Leave Requests<span class="badge badge-danger">2</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Rhymes</a>
-                    </li>
-                </ul>
-            </div>
+            <a class="navbar-brand" href="index.html">Home</a>
             <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item dropdown">
+                    <a class="icons-align-mid nav-link waves-effect waves-light dropdown-toggle" id="adminDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-tools"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="adminDropdown">
+                        <a class="dropdown-item" href="#">Leave Requests<span class="badge badge-danger">2</span></a>
+                        <a class="dropdown-item" href="#">Leave Reports</a>
+                        <a class="dropdown-item" href="#">Rhymes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="users.html" class="icons-align-mid nav-link waves-effect waves-light">
+                        <i class="fas fa-users"></i>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="icons-align-mid nav-link waves-effect waves-light">
                         <i class="fas fa-bell"></i><span class="badge badge-danger">4</span>
@@ -59,8 +52,6 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="profileDropdown">
                         <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Apply Leave</a>
-                        <a class="dropdown-item" href="#">Apply Compensation</a>
                         <a class="dropdown-item" href="#">Leave History</a>
                         <a class="dropdown-item" href="#">Log Out</a>
                     </div>
@@ -71,31 +62,44 @@
     <!--/.Navbar -->
 
     <div class="container">
-        <!-- Card Regular -->
-        <div class="card card-cascade">
-
-            <!-- Card image -->
-            <div class="view view-cascade overlay">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/men.jpg" alt="Card image cap">
-                <a>
-                    <div class="mask rgba-white-slight"></div>
-                </a>
+        <!-- User card -->
+        <div class="card mt-3 mb-3">
+            <div class="row">
+                <div class="col-md">
+                    <!-- Card content -->
+                    <div class="card-body text-center">
+                        <div id="username">
+                            <div class="profile-image mx-auto image-cropper">
+                                <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
+                                    alt="Generic placeholder image">
+                            </div>
+                            <h5 class="mt-1 mb-1 font-weight-bold">Tom Brown</h5>
+                            <div>username</div>
+                            <button type="button" class="btn btn-sm custom-blue-outline btn-rounded waves-effect">Edit Profile</button>
+                        </div>
+                        <div class="mt-4"><i class="fas fa-phone-alt mr-1"></i>9811111111</div>
+                        <div class="mt-2"><i class="far fa-envelope mr-1"></i>maria@example.com</div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <!-- Leave today -->
+                    <!-- Card content -->
+                    <!-- Title -->
+                    <div class='card-body pb-0'>
+                        <h4 class="card-title"><a>My Details</a></h4>
+                        <div class="my-details mt-4">
+                            <div class="mt-3">December 12, 1989 <i class="fas fa-birthday-cake ml-2"></i></div>
+                            <div class="mt-3">Joined Date: March 10, 2019</div>
+                            <div class="mt-3">Department: Administration</div>
+                            <div class="mt-3">Company: Incwell</div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Leave today -->
+                </div>
             </div>
-
-            <!-- Card content -->
-            <div class="card-body card-body-cascade text-center">
-                <!-- Title -->
-                <h4 class="card-title"><strong>Billy Coleman</strong></h4>
-                <!-- Subtitle -->
-                <h6 class="font-weight-bold indigo-text py-2">Web developer</h6>
-                <!-- Text -->
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, ex,
-                    recusandae. Facere modi sunt, quod quibusdam.
-                </p>
-            </div>
-
         </div>
-        <!-- Card Regular -->
+        <!--/ User card -->
     </div>
     
     <!-- JQuery -->
