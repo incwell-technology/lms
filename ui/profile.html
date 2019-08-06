@@ -75,16 +75,16 @@
                     </button>
                 </div>
                 <div class="md-form mx-4">
-                    <input type="password" id="form29" class="form-control">
-                    <label data-error="wrong" data-success="right" for="form29">Old Password</label>
+                    <input type="password" id="oldPassword" class="form-control">
+                    <label data-error="wrong" data-success="right" for="oldPassword">Old Password</label>
                 </div>
                 <div class="md-form mx-4">
-                    <input type="password" id="form29" class="form-control">
-                    <label data-error="wrong" data-success="right" for="form29">New Password</label>
+                    <input type="password" id="newPassword" class="form-control">
+                    <label data-error="wrong" data-success="right" for="newPassword">New Password</label>
                 </div>
                 <div class="md-form mx-4">
-                    <input type="password" id="form29" class="form-control">
-                    <label data-error="wrong" data-success="right" for="form29">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control">
+                    <label data-error="wrong" data-success="right" for="confirmPassword">Confirm Password</label>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button class="btn custom-blue">Save<i class="fas fa-paper-plane-o ml-1"></i></button>
@@ -92,7 +92,34 @@
             </form>
         </div>
     </div>
-    <!--/ Add new user -->
+    <!--/ Change password -->
+
+    <!-- Modal: Change Phone Number -->
+    <div class="modal fade" id="changeNumber" tabindex="-1" role="dialog" aria-labelledby="Change Phone Number"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Change Phone Number</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="md-form mx-4">
+                    <input value="9811111111" type="text" id="oldNumber" class="form-control" disabled>
+                    <label data-error="wrong" data-success="right" for="oldNumber">Old Number</label>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="text" id="newNumber" class="form-control">
+                    <label data-error="wrong" data-success="right" for="newNumber">New Number</label>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn custom-blue">Save<i class="fas fa-paper-plane-o ml-1"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Change Phone Number -->
 
     <div class="container">
         <!-- User card -->
@@ -111,7 +138,7 @@
                         <h5 class="mt-1 mb-1 font-weight-bold">Tom Brown</h5>
                         <div>username</div>
                         <i class="fas fa-phone-alt mr-1"></i>9811111111
-                        <div data-dismiss="modal" data-toggle="modal" data-target="#editPhoto"
+                        <div data-dismiss="modal" data-toggle="modal" data-target="#changeNumber"
                             class="ml-1 d-inline custom-blue-text cursor-pointer">
                             Edit
                         </div>
