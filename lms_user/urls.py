@@ -2,6 +2,7 @@ from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 from lms_user import views as users_views
 from leave_manager import urls as leave_manager_urls
+from department import urls as dept_urls
 
 urlpatterns = [
     path('login', users_views.user_login, name='user-login'),
@@ -14,4 +15,5 @@ urlpatterns = [
     path('password-reset/done', auth_views.PasswordResetDoneView.as_view(template_name = 'lms_user/password_reset_done.html'), name='password_reset_done'),
     path('reset/<token>/', users_views.password_reset_done, name='password_reset_confirm'),
     path('reset/done', auth_views.PasswordResetCompleteView.as_view(template_name='lms_user/password_reset_complete.html'), name='password_reset_complete'),
+    path('notice/', include(dept_urls)),    
 ]

@@ -51,13 +51,25 @@ def fcm(fcm, data, reason):
                 ),
                 topic = reason,
             )
-    if not reason == "holiday":
+    if reason == "notice":
+        print("abc")
         message = messaging.Message(
             android=messaging.AndroidConfig(
                 priority='normal',
                 notification=messaging.AndroidNotification(
-                    title= title,
-                    body= body
+                    title = data.topic,
+                    body = data.message 
+                ),
+            ),
+            topic = 'holiday',
+        )
+    if not reason == "holiday" and not reason == "notice":
+        message = messaging.Message(
+            android=messaging.AndroidConfig(
+                priority='normal',
+                notification=messaging.AndroidNotification(
+                    title = title,
+                    body = body
                 ),
             ),
             token = fcm,

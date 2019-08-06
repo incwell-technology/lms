@@ -4,6 +4,21 @@ from lms_user.models import LmsUser
 from mobile_api.common.user_image import get_image_url_mobile
 from mobile_api.common.fcm import fcm
 from leave_manager.common.leave_manager import get_compensationLeave_detail
+from leave_manager.common.send_email_notification import send_email_notification
+from django.urls import reverse_lazy
+import pusher
+from pusher import Pusher
+import yaml
+
+
+credentials = yaml.load(open('credentials.yaml'))
+pusher_client = pusher.Pusher(
+  app_id=credentials['pusher_app_id'],
+  key=credentials['pusher_key'],
+  secret=credentials['pusher_secret'],
+  cluster=credentials['pusher_cluster'],
+  ssl=credentials['pusher_ssl']
+)
 
 def get_leave_today_mobile(request):
     leaves_today = []
@@ -78,7 +93,7 @@ def get_leave_requests_mobile(user):
     return pending_leave_requests
 
 
-def approve_leave_request(request, leave_id):
+def approve_leave_request(request, leave_id,**kwargs):
     try:
         leave = Leave.objects.get(id=leave_id)
         leave.leave_pending = False
@@ -86,9 +101,6 @@ def approve_leave_request(request, leave_id):
         leave.save()
         leave_detail = get_leave_detail(leave)
         user = leave_detail['lms_user']
-        leave_applicant = LmsUser.objects.get(user = user.user)
-        leave_issuer = LmsUser.objects.get(user = leave_applicant.leave_issuer)
-        fcm_token = leave_applicant.fcm_token
         if leave_detail['leave_type'] == 'Compensation Leave':
             user.compensation_leave -= leave_detail['total_days']
             if user.compensation_leave < 0:
@@ -102,29 +114,68 @@ def approve_leave_request(request, leave_id):
             if user.sick_leave < 0:
                 return False
         user.save()
-        fcm(fcm_token, leave_issuer.user.get_full_name(), "approve_leave")
-        return True
-    except (Leave.DoesNotExist,LmsUser.DoesNotExist, Exception):
+        update_details = {
+            'recipient_email': user.user.email,
+            'email_subject': 'LMS | Your Leave Request Has Been Approved',
+            'email_body': '''
+                    Hi {}, Your Leave Request Has just been approved by {}.
+                    Leave Type: {}
+                    Half Leave: {}
+                    Days: {}
+                    Leave Reason {}
+                    '''.format(user.user.get_full_name(), request.user.get_full_name(), leave_detail['leave_type'],
+                               leave_detail['half_day'],
+                               leave_detail['total_days'], leave_detail['leave_reason'])
+        }
+        try:       
+            fcm_token = user.fcm_token
+            fcm(fcm_token, request.user.get_full_name(), "approve_leave")
+        except Exception as e:
+            print(e)
+        if send_email_notification(update_details=update_details):
+            return True
+        else:
+            return False
+    except (Leave.DoesNotExist,LmsUser.DoesNotExist, Exception) as e:
+        print(e)
         return False    
 
-def reject_leave_request(request, leave_id):
+def reject_leave_request(request, leave_id, **kwargs):
     try:
         leave = Leave.objects.get(id=leave_id)
         leave_detail = get_leave_detail(leave)
-        lms_user = leave_detail['lms_user']
+        user = leave_detail['lms_user']
         leave.leave_pending = False
         leave.leave_approved = False
         leave.save()
-        leave_applicant = LmsUser.objects.get(user = lms_user.user)
-        leave_issuer = LmsUser.objects.get(user = leave_applicant.leave_issuer)
-        fcm_token = leave_applicant.fcm_token
-        fcm(fcm_token, leave_issuer.user.get_full_name(), "reject_leave")
-        return True
+        update_details = {
+            'recipient_email': user.user.email,
+            'email_subject': 'LMS | Your Leave Request Has Been Rejected',
+            'email_body': '''
+                    Hi {}, Your Leave Request Has just been rejected by {}.
+                    Leave Type: {}
+                    Half Leave: {}
+                    Days: {}
+                    Leave Reason {}
+                    '''.format(user.user.get_full_name(), request.user.get_full_name(), leave_detail['leave_type'],
+                               leave_detail['half_day'],
+                               leave_detail['total_days'], leave_detail['leave_reason'])
+        }
+        try:       
+            fcm_token = user.fcm_token
+            fcm(fcm_token, request.user.get_full_name(), "reject_leave")
+        except Exception as e:
+            print(e)
+        if send_email_notification(update_details=update_details):
+            return True
+        else:
+            return False
     except (Leave.DoesNotExist,LmsUser.DoesNotExist, Exception) as e:  
+        print(e)
         return False
 
 
-def approve_compensationLeave_request(request, leave_id):
+def approve_compensationLeave_request(request, leave_id, **kwargs):
     try:
         leave = CompensationLeave.objects.get(id=leave_id)
         leave.leave_pending = False
@@ -134,15 +185,30 @@ def approve_compensationLeave_request(request, leave_id):
         user.compensation_leave += leave_detail['days']
         user.save()
         leave.save()
-        leave_issuer = LmsUser.objects.get(user = user.leave_issuer)
-        fcm_token = user.fcm_token
-        fcm(fcm_token, leave_issuer.user.get_full_name(), "approve_compensation")
-        return True
+        update_details = {
+            'recipient_email': user.user.email,
+            'email_subject': 'LMS | Your Compensation Leave Request Has Been Approved',
+            'email_body': '''
+            Hi {}, Your Leave Request Has just been approved by {}.
+            Days: {}
+            Leave Reason {}
+            '''.format(user.user.get_full_name(), request.user.get_full_name(),
+                       leave_detail['days'], leave_detail['leave_reason'])
+        }
+        try:
+            fcm_token = user.fcm_token
+            fcm(fcm_token, request.user.get_full_name(), "approve_compensation")
+        except Exception as e:
+            print(e)
+        if send_email_notification(update_details=update_details):
+            return True
+        else:
+            return False
     except (CompensationLeave.DoesNotExist, Exception) as e:
         print(e)
         return False
 
-def reject_compensationLeave_request(request, leave_id):
+def reject_compensationLeave_request(request, leave_id, **kwargs):
     try:
         leave = CompensationLeave.objects.get(id=leave_id)
         leave_detail = get_compensationLeave_detail(leave)
@@ -150,10 +216,25 @@ def reject_compensationLeave_request(request, leave_id):
         leave.leave_pending = False
         leave.leave_approved = False
         leave.save()
-        leave_issuer = LmsUser.objects.get(user = user.leave_issuer)
-        fcm_token = user.fcm_token
-        fcm(fcm_token, leave_issuer.user.get_full_name(), "reject_compensation")
-        return True
+        update_details = {
+            'recipient_email': user.user.email,
+            'email_subject': 'LMS | Your Compensation Leave Request Has Been Rejected',
+            'email_body': '''
+            Hi {}, Your Leave Request Has just been rejected by {}.
+            Days: {}
+            Leave Reason {}
+            '''.format(user.user.get_full_name(), request.user.get_full_name(),
+                       leave_detail['days'], leave_detail['leave_reason'])
+        }
+        try:
+            fcm_token = user.fcm_token
+            fcm(fcm_token,request.user.get_full_name(), "reject_compensation")
+        except Exception as e:
+            print(e)
+        if send_email_notification(update_details=update_details):
+            return True
+        else:
+            return False
     except (CompensationLeave.DoesNotExist, Exception) as e:
         print(e)
         return False
@@ -367,3 +448,64 @@ def get_data(leave_of_lmsUser):
         })
 
     return data
+
+
+def apply_leave(**kwargs):
+    leave_details = kwargs['leave_details']
+    request = kwargs['request']
+    try:
+        leaves = get_all_leaves_unseen()
+        leaves += 1
+        update_details = {
+            'recipient_email': leave_details['issuer'].email,
+            'email_subject': 'LMS | A new Leave Request Has Arrived ',
+            'email_body': '''
+                    Hi {}, A new leave Request has arrived.
+                    From: {}
+                    Leave Type: {}
+                    Half Day: {}
+                    Days : {}
+                    Leave Reason: {}
+                    URL: {}
+                    '''.format(leave_details['issuer'].get_full_name(), leave_details['user'].user.get_full_name(),
+                               leave_details['leave_type'],
+                               leave_details['half_day'],
+                               ((leave_details['to_date'] - leave_details['from_date']).days + 1) * leave_details[
+                                                             'leave_multiplier'],
+                               leave_details['leave_reason'],
+                               'http://{}{}'.format(request.META['HTTP_HOST'],
+                                                    reverse_lazy('leave_manager_leave_requests')))
+        }
+        if send_email_notification(update_details=update_details):
+            pusher_client.trigger('my-channel', 'my-event', leaves)
+    except Exception as e:
+        print(e)
+
+
+def get_all_leaves_unseen():
+    leave = Leave.objects.filter(notification=True).count()
+    return leave
+
+
+def apply_CompensationLeave(**kwargs):
+    leave_details = kwargs['leave_details']
+    request = kwargs['request']
+    try:
+        update_details = {
+            'recipient_email': leave_details['issuer'].email,
+            'email_subject': 'LMS | A new Leave Request Has Arrived ',
+            'email_body': '''
+                    Hi {}, A new compensation leave Request has arrived.
+                    From: {}
+                    Leave Reason: {}
+                    Days: {}
+                    URL: {}
+                    '''.format(leave_details['issuer'].get_full_name(), leave_details['user'].user.get_full_name(),
+                               leave_details['leave_reason'], leave_details['days'],
+                               'http://{}{}'.format(request.META['HTTP_HOST'],
+                                                    reverse_lazy('leave_manager_leave_requests')))
+        }
+        if send_email_notification(update_details=update_details):
+            pusher_client.trigger('my-channel', 'my-event', {})
+    except Exception as e:
+        print(e)

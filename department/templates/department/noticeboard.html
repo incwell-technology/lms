@@ -1,0 +1,37 @@
+{% extends 'leave_manager/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="{% if leave_issuer %} col-md-10 {% else %} col-md-12 {% endif %}">
+                    {% if notices %}
+                        {% for notice in notices %}
+                            <div class="card" style="width: 100%;padding:5px">
+                                <div class="card-body">
+                                    <h4 style="text-align:center;margin-botton:3px;">{{ notice.topic }}
+                                    {% if leave_issuer %}
+                                        <form action="{% url 'notice-delete' notice.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn btn-danger btn-flat margin btn-sm" style="float:right;position:relative;top:-54px; margin-right:20px;" type="submit">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                    </h4>
+                                    <hr style="width:100%">
+                                    <p class="card-text" style="text-align:center;">{{ notice.message }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan=4>
+                                <h5>No Notice</h5>
+                            </td>
+                        </tr>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -25,6 +25,7 @@ from leave_rhymes.models import Rhyme,RhymeType
 from leave_manager.common import check_leave_admin
 from leave_manager.forms import HolidayForm
 import yaml
+from lms_user.common import validation as validation
 
 
 credentials = yaml.load(open('credentials.yaml'))
@@ -105,6 +106,8 @@ def get_users(request):
 
 
 def apply_leave(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('user-login'))
 
     leave_types = LeaveType.objects.all()
     routes = get_formatted_routes(get_routes(request.user), active_page='apply leave')
@@ -113,9 +116,9 @@ def apply_leave(request):
     leaves = leave_manager.get_all_leaves_unseen()
     leaves += 1
     context.update({'leave_notify':leaves})
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('user-login'))
     if request.method == 'POST':
+        if validation.leave_validation(request, context):
+            return render(request, 'leave_manager/apply_leave.html', context=context)
         leave_details = {
             'user': LmsUser.objects.get(user=request.user),
             'from_date': datetime.datetime.strptime(request.POST['from_date'], '%Y-%m-%d'),
@@ -159,6 +162,10 @@ def get_leave_requests(request):
 
 
 def get_leave_requests_by_id(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('user-login'))
+    if not is_leave_issuer(request.user):
+        return HttpResponseRedirect(reverse('leave_manager_dashboard'))
     context = {}
     leaves = leave_manager.get_all_leaves_unseen()
     context.update({'leave_notify':leaves})
@@ -166,10 +173,6 @@ def get_leave_requests_by_id(request, id):
     context.update({'routes': routes})
     context.update({'leave_requests': leave_manager.get_leave_requests(request.user)})
 
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('user-login'))
-    if not is_leave_issuer(request.user):
-        return HttpResponseRedirect(reverse('leave_manager_dashboard'))
 
     leave = Leave.objects.get(id=id)
     leave.notification = False
@@ -184,7 +187,7 @@ def get_leave_requests_by_id(request, id):
                     'message': 'Reject Success'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave rejected ")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
             else:
                 context.update({'leave_requests': leave_manager.get_leave_requests(request.user)})
                 context.update({
@@ -192,17 +195,18 @@ def get_leave_requests_by_id(request, id):
                     'message': 'Reject Failed'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave rejeted failed")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
 
         elif request.POST['leave_response'] == '1':
             if leave_manager.approve_leave_request(request=request, leave_id=int(request.POST['leave_id'])):
+                
                 context.update({'leave_requests': leave_manager.get_leave_requests(request.user)})
                 context.update({
                     'leave_response_success': True,
                     'message': 'Approve Success'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave approved")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
             else:
                 context.update({'leave_requests': leave_manager.get_leave_requests(request.user)})
                 context.update({
@@ -210,31 +214,30 @@ def get_leave_requests_by_id(request, id):
                     'message': 'Approve Failed'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave approved reject")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
     else:
         context.update({'leave_requests': leave_manager.get_leave_requests_by_id(request.user, id)})
         return render(request, 'leave_manager/leave_requests_details.html', context=context)
 
 
 def get_birthday_today(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('user-login'))
     context = {}
     leaves = leave_manager.get_all_leaves_unseen()
     context.update({'leave_notify':leaves})
     routes = get_formatted_routes(get_routes(request.user), active_page='birthdays')
     context.update({'routes': routes})
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('user-login'))
-    else:
-        birthday_today = users.get_birthday_today()['users']
-        context.update({'birthdays': birthday_today})
-        upcoming_bday = users.get_birthday_today()['upcoming']
+    birthday_today = users.get_birthday_today()['users']
+    context.update({'birthdays': birthday_today})
+    upcoming_bday = users.get_birthday_today()['upcoming']
 
-        upcoming_bday_visible = False
-        if is_leave_issuer(request.user):
-            upcoming_bday_visible = True
-            context.update({'upcoming_bday': upcoming_bday})
-            context.update({'upcoming_bday_visible': upcoming_bday_visible})
-        return render(request, 'leave_manager/birthdays.html', context=context)
+    upcoming_bday_visible = False
+    if is_leave_issuer(request.user):
+        upcoming_bday_visible = True
+        context.update({'upcoming_bday': upcoming_bday})
+        context.update({'upcoming_bday_visible': upcoming_bday_visible})
+    return render(request, 'leave_manager/birthdays.html', context=context)
 
 
 def generate_report(request):
@@ -474,7 +477,7 @@ def delete_company_holidays_by_id(request, id):
             url = reverse('user-login')
             return HttpResponseRedirect(url)
         else:
-            holiday = Holiday.objects.filter(id=id)
+            holiday = Holiday.objects.get(id=id)
             holiday.delete()
             return HttpResponseRedirect(reverse('company-holiday'))
     except Exception as e:
@@ -650,6 +653,8 @@ def apply_compensationLeave(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('user-login'))
     if request.method == 'POST':
+        if validation.compensation_validtion(request, context):
+            return render(request, 'leave_manager/apply_compensationLeave.html', context=context)
         leave_details = {
             'user': LmsUser.objects.get(user=request.user),
             'leave_reason': request.POST['leave_reason'],
@@ -693,7 +698,7 @@ def leave_manager_compensationLeave_requests_by_id(request, id):
                     'message': 'Reject Success'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave rejected ")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
             else:
                 context.update({'leave_requests': leave_manager.get_compensationLeave_requests(request.user)})
                 context.update({
@@ -701,8 +706,7 @@ def leave_manager_compensationLeave_requests_by_id(request, id):
                     'message': 'Reject Failed'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave rejeted failed")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
-
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
         elif request.POST['leave_response'] == '1':
             if leave_manager.approve_compensationLeave_request(request=request, leave_id=int(request.POST['leave_id'])):
                 context.update({'leave_requests': leave_manager.get_compensationLeave_requests(request.user)})
@@ -711,7 +715,7 @@ def leave_manager_compensationLeave_requests_by_id(request, id):
                     'message': 'Approve Success'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave approved")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
             else:
                 context.update({'leave_requests': leave_manager.get_compensationLeave_requests(request.user)})
                 context.update({
@@ -719,7 +723,7 @@ def leave_manager_compensationLeave_requests_by_id(request, id):
                     'message': 'Approve Failed'
                 })
                 pusher_client.trigger('my-leave-notify', 'my-event2', "Leave approved reject")
-                return render(request, 'leave_manager/leave_requests.html', context=context)
+                return HttpResponseRedirect(reverse('leave_manager_leave_requests'))
     else:
         context.update({'compensationLeave_requests': leave_manager.get_compensationLeave_requests_by_id(request.user, id)})
         return render(request, 'leave_manager/compensationLeave_requests_details.html', context=context)

@@ -83,7 +83,10 @@
                            Admin Features
                         </div>
                         <li>
-                            <span class="badge badge-success" style="margin-left:150px;margin-top:-475px;">{{upcoming_birthday}}</span>
+                            <span class="badge badge-success" style="margin-left:150px;margin-top:-582px;">{{upcoming_birthday}}</span>
+                        </li>
+                        <li>
+                            <span class="badge badge-success" style="margin-left:161px;margin-top:-146px;">{{notice}}</span>
                         </li>
                     {% endif %}
                     {% if route.admin %}
@@ -103,7 +106,16 @@
                     </li>
                     {% endif %}
             {% endfor %}
-            
+            {% for route in routes|slice:":1" %}
+                {% if not route.admin %}
+                    {% if notice > 0 %}
+                        <li>
+                            <span class="badge badge-success" style="margin-left:161px;margin-top:-83px;">{{notice}}</span>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                
+            {% endfor %}
         </ul>
     </div>
 {% endblock sidebar %}

@@ -17,6 +17,8 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 import jwt
 import yaml
+from lms_user import models as lms_user_models
+from lms_user.common import validation as validation
 # from lms_user.login import nothing
 
 
@@ -71,43 +73,40 @@ def user_register(request):
         if not request.user.is_authenticated:
             url = reverse('user-login')
             return HttpResponseRedirect(url)
-        else:
-            try:
-                existing_user = User.objects.get(email=request.POST['email'])
-                context.update({'message': 'Could not register. Please contact Admin or try again later'})
-                return render(request, 'lms_user/register.html', context=context)
-            except (User.DoesNotExist, Exception) as e:
-                print(e)
-                try:    
-                    if register_django_user(request):
-                        user = User.objects.get(username=request.POST['username'])
-                        department = Department.objects.get(id=int(request.POST['department']))
-                        lms_user_details = {
-                            'user': user,
-                            'phone_number': request.POST['phone_number'],
-                            'department': department,
-                            'leave_issuer': department.head_of_department,
-                            'date_of_birth': datetime.strptime(request.POST['date_of_birth'], '%Y-%m-%d'),
-                            'joined_date': datetime.strptime(request.POST['joined_date'], '%Y-%m-%d')
-                        }
-                        if register_lms_user(user_details=lms_user_details):
-                            return HttpResponseRedirect(reverse('user-index'))
-                        else:
-                            try:
-                                user.delete()
-                                context.update({'message': 'Could register to LMS. Please contact Admin or try again later'})
-                                return render(request, 'lms_user/register.html', context=context)
-                            except Exception as e:
-                                print(e)
-                                return render(request, 'lms_user/register.html', context=context)
-                    else:
-                        context.update({'message': 'Could register to Django. Please contact Admin or try again later'})
-                        return render(request, 'lms_user/register.html', context=context)
 
-                except (User.DoesNotExist, Department.DoesNotExist, Exception) as e:
-                    print(e)
-                    context.update({'message': 'Could not register. Please contact Admin or try again later'})
-                    return render(request, 'lms_user/register.html', context=context)
+        if validation.register_validation(request, context):
+            return render(request, 'lms_user/register.html', context=context)
+        try:    
+            if register_django_user(request):
+                user = User.objects.get(username=request.POST['username'])
+                department = Department.objects.get(id=int(request.POST['department']))
+                lms_user_details = {
+                    'user': user,
+                    'phone_number': request.POST['phone_number'],
+                    'department': department,
+                    'leave_issuer': department.head_of_department,
+                    'date_of_birth': datetime.strptime(request.POST['date_of_birth'], '%Y-%m-%d'),
+                    'joined_date': datetime.strptime(request.POST['joined_date'], '%Y-%m-%d')
+                }
+                if register_lms_user(user_details=lms_user_details):
+                    messages.success(request, 'Sucessfully registered user')
+                    return HttpResponseRedirect(reverse('user-index'))
+                else:
+                    try:
+                        user.delete()
+                        context.update({'message': 'Could register to LMS. Please contact Admin or try again later'})
+                        return render(request, 'lms_user/register.html', context=context)
+                    except (User.DoesNotExist,Exception) as e:
+                        print(e)
+                        return render(request, 'lms_user/register.html', context=context)
+            else:
+                context.update({'message': 'Username/Password Invalid'})
+                return render(request, 'lms_user/register.html', context=context)
+
+        except (User.DoesNotExist, Department.DoesNotExist, Exception) as e:
+            print(e)
+            context.update({'message': 'Could not register. Please contact Admin or try again later'})
+            return render(request, 'lms_user/register.html', context=context)
 
 
 def index(request):
