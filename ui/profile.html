@@ -70,55 +70,99 @@
                 <div class="col-md">
                     <!-- Card content -->
                     <div class="card-body text-center">
-                        <div id="username">
-                            <div class="profile-image mx-auto image-cropper">
-                                <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
-                                    alt="Generic placeholder image">
-                            </div>
-                            <h5 class="mt-1 mb-1 font-weight-bold">Tom Brown</h5>
-                            <div>username</div>
-                            <button type="button" class="btn btn-sm custom-blue-outline btn-rounded waves-effect">Edit Profile</button>
+                        <div class="profile-image mx-auto image-cropper">
+                            <img src="https://mdbootstrap.com/img/Photos/Others/avatar-min2.jpg"
+                                alt="Generic placeholder image">
                         </div>
-                        <div class="mt-4"><i class="fas fa-phone-alt mr-1"></i>9811111111</div>
-                        <div class="mt-2"><i class="far fa-envelope mr-1"></i>maria@example.com</div>
+                        <div data-dismiss="modal" data-toggle="modal" data-target="#editPhoto" class="custom-blue-text cursor-pointer">
+                            Edit Photo
+                        </div>
+                        <h5 class="mt-1 mb-1 font-weight-bold">Tom Brown</h5>
+                        <div>username</div>
+                        <i class="fas fa-phone-alt mr-1"></i>9811111111
+                        <div data-dismiss="modal" data-toggle="modal" data-target="#editPhoto"
+                            class="ml-1 d-inline custom-blue-text cursor-pointer">
+                            Edit
+                        </div>
+                        <div><i class="far fa-envelope mr-1"></i>maria@example.com</div>
                     </div>
                 </div>
                 <div class="col-md">
-                    <!-- Leave today -->
+                    <!-- My Details -->
                     <!-- Card content -->
-                    <!-- Title -->
-                    <div class='card-body pb-0'>
+                    <div class='card-body text-center'>
+                        <!-- Title -->
                         <h4 class="card-title"><a>My Details</a></h4>
                         <div class="my-details mt-3">
                             <div class="mt-2">December 12, 1989 <i class="fas fa-birthday-cake ml-2"></i></div>
                             <div class="mt-2">Joined Date: March 10, 2019</div>
                             <div class="mt-2">Department: Administration</div>
                             <div class="mt-2">Company: Incwell</div>
+                            <button type="button" class="btn btn-sm custom-blue-outline btn-rounded waves-effect">Change Password</button>
                         </div>
                     </div>
                 </div>
-                <!--/ Leave today -->
+                <!--/ My Details-->
             </div>
         </div>
         <!--/ User card -->
 
-        <!-- User card -->
+        <!-- Leave history -->
         <div class="card mt-3 mb-3">
             <div class="row">
                 <div class="col-md-8">
                     <!-- Card content -->
-                    <div class="card-body">
-                        <h4 class="card-title"><a>My Leave History</a></h4>
+                    <div class="leave-history card-body">
+                        <h4 class="card-title mb-0"><a>My Leave History</a></h4>
+                        <div class="text-center text-color-indicator mb-4">
+                            <span class="text-success">.<p>Approved</p></span>
+                            <span class="text-warning">.<p>Pending</p></span>
+                            <span class="text-danger">.<p>Rejected</p></span>
+                        </div>
+
+                        <h6>Basic Leave</h6>
+                        <table class="d-table table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Leave Type</th>
+                                    <th scope="col">From</th>
+                                    <th scope="col">To</th>
+                                    <th scope="col">Days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5">No leave</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h6>Compensation Leave</h6>
+                        <table class="d-table table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-success">
+                                    <td>1</td>
+                                    <td><span class="badge badge-warning">Compensation</span></td>
+                                    <td>1 Day</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
                 <div class="col-md">
-                    <!-- Leave today -->
-                    <!-- Card content -->
-                    <!-- Title -->
-                    <div class='card-body pb-0'>
+                    <div class='card-body'>
                         <div class="text-center wrapper-progress-circle">
-                             <div class="mx-0 mb-0 progress-circle p10">
-                                 <span>10%</span>
+                             <div class="approved mx-0 mb-0 progress-circle p10">
+                                 <span>11.0</span>
                                  <div class="left-half-clipper">
                                      <div class="first50-bar"></div>
                                      <div class="value-bar"></div>
@@ -128,8 +172,8 @@
                         </div>
                        
                         <div class="text-center wrapper-progress-circle">
-                            <div class="mx-0 mb-0 progress-circle p10">
-                                <span>10%</span>
+                            <div class="rejected mx-0 mb-0 progress-circle p12">
+                                <span>6.0</span>
                                 <div class="left-half-clipper">
                                     <div class="first50-bar"></div>
                                     <div class="value-bar"></div>
@@ -139,7 +183,7 @@
                         </div>
                         <div class="text-center wrapper-progress-circle">
                             <div class="mx-0 mb-0 progress-circle p10">
-                                <span>10%</span>
+                                <span>11.0</span>
                                 <div class="left-half-clipper">
                                     <div class="first50-bar"></div>
                                     <div class="value-bar"></div>
@@ -148,8 +192,8 @@
                             <span class="circular-progress-label">Annual Leave</span>
                         </div>
                         <div class="text-center wrapper-progress-circle">
-                            <div class="mx-0 mb-0 progress-circle p10">
-                                <span>10%</span>
+                            <div class="mx-0 mb-0 progress-circle p20">
+                                <span>6.0</span>
                                 <div class="left-half-clipper">
                                     <div class="first50-bar"></div>
                                     <div class="value-bar"></div>
@@ -158,8 +202,9 @@
                             <span class="circular-progress-label">Sick Leave</span>
                         </div>
                         <div class="text-center wrapper-progress-circle">
-                            <div class="mx-0 mb-0 progress-circle p10">
-                                <span>10%</span>
+                            <!-- For over 50% use 'over50' class <div class="mx-0 mb-0 over50 progress-circle p60"> -->
+                            <div class="mx-0 mb-0 progress-circle p0">
+                                <span>0.0</span>
                                 <div class="left-half-clipper">
                                     <div class="first50-bar"></div>
                                     <div class="value-bar"></div>
@@ -169,10 +214,9 @@
                         </div>
                     </div>
                 </div>
-                <!--/ Leave today -->
             </div>
         </div>
-        <!--/ User card -->
+        <!--/ Leave History -->
     </div>
     
     <!-- JQuery -->

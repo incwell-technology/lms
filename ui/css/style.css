@@ -50,11 +50,6 @@
     display: inline-block;
 }
 
-.card {
-    max-height: 440px;
-    box-sizing: border-box
-}
-
 td i {
     visibility: hidden;
 }
@@ -109,6 +104,7 @@ tr:hover i {
 
 .custom-blue-text, .custom-blue-text:hover {
     color: #3bbedb;
+    font-size: 15px;
 }
 
 .custom-blue-outline,
@@ -134,15 +130,14 @@ tr:hover i {
     border-radius: 10em;
 }
 
-#username {
-    border-bottom: 1px solid #6a6a6a;
-    display: inline;
-    padding-bottom: 25px;
-}
-
 .wrapper-progress-circle {
     display: inline-block;
     margin-right: 20px;
+    color: #828080;
+}
+
+.wrapper-progress-circle span {
+    color: #7b7b7b
 }
 
 .progress-circle {
@@ -151,4 +146,39 @@ tr:hover i {
 
 .circular-progress-label {
     font-size: 12px;
+}
+
+.progress-circle.over50 .first50-bar {
+    border: 0.45em solid #3bbedb;
+}
+
+.value-bar {
+    border: 0.45em solid #3bbedb;
+}
+
+.approved .value-bar {
+    border: 0.45em solid #48c131;
+}
+
+.rejected .value-bar {
+    border: 0.45em solid #db3b3b;
+}
+
+.text-color-indicator {
+    font-size: 100px;
+    line-height: 0px;
+}
+
+.text-color-indicator p {
+    font-size: 16px;
+    display: inline;
+}
+
+.leave-history table {
+    overflow: scroll;
+    display: block;
+}
+
+table td {
+    font-weight: 400;
 }
