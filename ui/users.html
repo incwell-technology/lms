@@ -109,11 +109,10 @@
                     <div class="mt-2">Joined Date: March 10, 2019</div>
                     <div class="mt-2">Department: Administration</div>
                     <div class="mt-2">Company: Incwell</div>
+                    <a data-dismiss="modal" type="button" class="mt-2 btn btn-sm btn-outline-primary waves-effect"
+                        data-toggle="modal" data-target="#deleteUser">Generate Report</a>
                     <div class="text-center mt-3">
-                        <button class="btn btn-sm custom-blue waves-effect mt-1" data-dismiss="modal">Close</button>
-                        <button data-dismiss="modal" type="button"
-                            class="btn btn-sm btn-danger waves-effect" data-toggle="modal"
-                            data-target="#deleteUser" class="custom-blue-text cursor-pointer">Delete</button>
+                        <button class="btn custom-blue waves-effect mt-1" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 
@@ -128,147 +127,49 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col" class="hide d-sm-table-cell">Phone Number</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Phone Number</th>
                     <th scope="col" class="hide d-sm-table-cell">Email</th>
                     <th scope="col" class="hide d-sm-table-cell">Department</th>
-                    <!-- for admin only -->
-                    <th scope="col" class="hide d-sm-table-cell"></th>
-                    <!--/ -->
+                    <th scope="col" class="hide d-sm-table-cell">Leave Issuer</th>
+                    <th scope="col" class="hide d-sm-table-cell">Generate Report</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th scope="row" data-toggle="modal" data-target="#userDetails">1</th>
-                    <td data-toggle="modal" data-target="#userDetails">Mark</td>
-                    <td data-toggle="modal" data-target="#userDetails">Otto</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">1111111</td>
+                    <td data-toggle="modal" data-target="#userDetails">Mark Otto</td>
+                    <td data-toggle="modal" data-target="#userDetails">1111111</td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">markotto@exmaple.com
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Mark Otto</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
+                        <a class="btn btn-sm btn-outline-primary" href="#">Generate Report</a>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row" data-toggle="modal" data-target="#userDetails">2</th>
-                    <td data-toggle="modal" data-target="#userDetails">Jacob</td>
-                    <td data-toggle="modal" data-target="#userDetails">Thornton</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">22222222</td>
+                    <td data-toggle="modal" data-target="#userDetails">Jacob Thornton</td>
+                    <td data-toggle="modal" data-target="#userDetails">22222222</td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">jacob@exmaple.com
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Jacob Thornton</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
+                        <a class="btn btn-sm btn-outline-primary" href="#">Generate Report</a>
                     </td>
                 </tr>
                 <tr>
                     <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
+                    <td data-toggle="modal" data-target="#userDetails">Larry Bird</td>
+                    <td data-toggle="modal" data-target="#userDetails">3333333</td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Larry Bird</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
+                        <a class="btn btn-sm btn-outline-primary" href="#">Generate Report</a>
                     </td>
                 </tr>
             </tbody>
