@@ -52,7 +52,6 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="profileDropdown">
                         <a class="dropdown-item" href="profile.html">Profile</a>
-                        <a class="dropdown-item" href="#">Leave History</a>
                         <a class="dropdown-item" href="#">Log Out</a>
                     </div>
                 </li>
@@ -81,7 +80,7 @@
                 <!--Footer-->
                 <div class="modal-footer flex-center">
                     <a href="https://example.com" class="btn btn-danger">Yes</a>
-                    <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">No</a>
+                    <a type="button" class="btn custom-blue waves-effect" data-dismiss="modal">No</a>
                 </div>
             </div>
             <!--/.Content-->
@@ -89,52 +88,12 @@
     </div>
     <!--/Modal: Confirm delete operation-->
 
-    <!--Modal: Edit user info-->
-    <div class="modal fade" id="editUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form class="modal-content">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Edit User Info</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="md-form mx-4 mb-0">
-                    <input type="text" id="firstName" class="form-control">
-                    <label data-error="wrong" data-success="right" for="firstName">First Name</label>
-                </div>
-                <div class="md-form mx-4 mb-0">
-                    <input type="text" id="lastName" class="form-control">
-                    <label data-error="wrong" data-success="right" for="lastName">Last Name</label>
-                </div>
-                <div class="md-form mx-4 mb-0">
-                    <input type="text" id="phoneNumber" class="form-control">
-                    <label data-error="wrong" data-success="right" for="phoneNumber">Phone Number</label>
-                </div>
-                <div class="md-form mx-4 mb-0">
-                    <input type="email" id="email" class="form-control">
-                    <label data-error="wrong" data-success="right" for="email">Email</label>
-                </div>
-                <div class="md-form mx-4 mb-0">
-                    <input type="text" id="department" class="form-control">
-                    <label data-error="wrong" data-success="right" for="department">Department</label>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn custom-blue">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!--/Modal: Edit user info-->
-
     <!--Modal: User details-->
     <div class="modal fade" id="userDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
             <!--Content-->
             <div class="modal-content">
-
                 <!--Header-->
                 <div class="modal-header">
                     <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar"
@@ -142,28 +101,19 @@
                 </div>
                 <!--Body-->
                 <div class="modal-body text-center mb-1">
-
-                    <h4 class="mt-1 mb-2">Maria Doe</h4>
-
-                    <div class="m-auto">
-                        <div class="mt-3"><i class="fas fa-phone-alt mr-1"></i>9811111111</div>
-                        <div class="mt-2"><i class="far fa-envelope mr-1"></i>maria@example.com</div>
-                        <div class="mt-2"><i class="fas fa-birthday-cake mr-1"></i>December 12, 1989</div>
-                        <div class="mt-2"><i class="fas fa-building mr-1"></i>Tech Team</div>
-                    </div>
-                    <div class="m-auto">
-                        <div data-dismiss="modal" data-toggle="modal" data-target="#editUserInfo"
-                            class="custom-blue-text mt-3 cursor-pointer">
-                            <i class="fas fa-pen mr-1"></i>Edit
-                        </div>
-                        <div data-dismiss="modal" data-toggle="modal" data-target="#deleteUser"
-                            class="text-danger mt-2 cursor-pointer">
-                            <i class="far fa-trash-alt mr-1"></i>Delete
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <button class="btn custom-blue mt-1" data-dismiss="modal">Close</button>
+                    <h5 class="mt-1 mb-1 font-weight-bold">Maria Doe</h5>
+                    <div>username</div>
+                    <div class="mt-2"><i class="fas fa-phone-alt"></i> 9811111111</div>
+                    <div class="mt-2"><i class="far fa-envelope"></i> maria@example.com</div>
+                    <div class="mt-2"><i class="fas fa-birthday-cake"></i> December 12, 1989</div>
+                    <div class="mt-2">Joined Date: March 10, 2019</div>
+                    <div class="mt-2">Department: Administration</div>
+                    <div class="mt-2">Company: Incwell</div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-sm custom-blue waves-effect mt-1" data-dismiss="modal">Close</button>
+                        <button data-dismiss="modal" type="button"
+                            class="btn btn-sm btn-danger waves-effect" data-toggle="modal"
+                            data-target="#deleteUser" class="custom-blue-text cursor-pointer">Delete</button>
                     </div>
                 </div>
 
@@ -183,8 +133,7 @@
                     <th scope="col" class="hide d-sm-table-cell">Phone Number</th>
                     <th scope="col" class="hide d-sm-table-cell">Email</th>
                     <th scope="col" class="hide d-sm-table-cell">Department</th>
-                    <!-- Only for admin -->
-                    <th scope="col" class="hide d-sm-table-cell"></th>
+                    <!-- for admin only -->
                     <th scope="col" class="hide d-sm-table-cell"></th>
                     <!--/ -->
                 </tr>
@@ -199,9 +148,6 @@
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
-                    </td>
-                    <td class="hide d-sm-table-cell">
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
@@ -214,8 +160,17 @@
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
+                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
+                </tr>
+                <tr>
+                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
+                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
+                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
+                    </td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
@@ -229,8 +184,17 @@
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
+                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
+                </tr>
+                <tr>
+                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
+                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
+                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
+                    </td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
@@ -244,8 +208,17 @@
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
+                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
+                </tr>
+                <tr>
+                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
+                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
+                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
+                    </td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
@@ -259,8 +232,17 @@
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
+                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
+                </tr>
+                <tr>
+                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
+                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
+                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
+                    </td>
+                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
@@ -274,9 +256,6 @@
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
                     <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
-                    </td>
-                    <td class="hide d-sm-table-cell">
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
                 </tr>
@@ -288,69 +267,6 @@
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
                     </td>
                     <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
-                    </td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
-                    </td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
-                    </td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
-                    </td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th data-toggle="modal" data-target="#userDetails" scope="row">3</th>
-                    <td data-toggle="modal" data-target="#userDetails">Larry</td>
-                    <td data-toggle="modal" data-target="#userDetails">Bird</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">3333333</td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">arry@exmaple.com
-                    </td>
-                    <td data-toggle="modal" data-target="#userDetails" class="hide d-sm-table-cell">Administration</td>
-                    <td class="hide d-sm-table-cell">
-                        <i class="fas fa-pen" data-toggle="modal" data-target="#editUserInfo"></i>
-                    </td>
                     <td class="hide d-sm-table-cell">
                         <i class="far fa-trash-alt" data-toggle="modal" data-target="#deleteUser"></i>
                     </td>
