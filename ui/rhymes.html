@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Incwell LMS</title>
+</head>
+
+<body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark custom-blue">
+        <div class='container'>
+            <a class="navbar-brand" href="index.html">Home</a>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item dropdown">
+                    <a class="icons-align-mid nav-link waves-effect waves-light dropdown-toggle" id="adminDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-tools"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="adminDropdown">
+                        <a class="dropdown-item" href="leave-requests.html">Leave Requests<span class="badge badge-danger">2</span></a>
+                        <a class="dropdown-item" href="#">Leave Reports</a>
+                        <a class="dropdown-item" href="rhymes.html">Rhymes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="users.html" class="icons-align-mid nav-link waves-effect waves-light">
+                        <i class="fas fa-users"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="icons-align-mid nav-link waves-effect waves-light">
+                        <i class="fas fa-bell"></i><span class="badge badge-danger">4</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown avatar">
+                    <a class="nav-link dropdown-toggle" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="profile.html">Profile</a>
+                        <a class="dropdown-item" href="#">Log Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+
+    <!-- Modal: Add New Rhyme -->
+    <div class="modal fade" id="addNewRhymes" tabindex="-1" role="dialog" aria-labelledby="Add New Rhymes"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Rhymes</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="text" id="rhyme-title" class="form-control">
+                    <label data-error="wrong" data-success="right" for="rhyme-title">Title</label>
+                </div>
+                <div class="md-form mx-4">
+                    <select class="mdb-select form-control" data-error="wrong" data-success="right">
+                        <option value="" disabled>Choose option</option>
+                        <option value="1" selected>Feedback</option>
+                        <option value="2">Report a bug</option>
+                        <option value="3">Feature request</option>
+                        <option value="4">Feature request</option>
+                    </select>
+                    <!-- <input type="text" id="newNumber" class="form-control">
+                    <label data-error="wrong" data-success="right" for="newNumber">New Number</label> -->
+                </div>
+                <div class="md-form">
+                    <i class="fas fa-pencil prefix grey-text"></i>
+                    <textarea type="text" id="rhyme" class="mx-auto md-textarea form-control" rows="4"></textarea>
+                    <label class="ml-4" data-error="wrong" data-success="right" for="rhyme">Rhyme</label>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn custom-blue">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Add New Rhyme -->
+
+    <div class="container">
+        <div class="card mt-3 mb-3">
+            <div class='card-body'>
+                <!-- Title -->
+                <h4 class="card-title">Rhymes</h4>
+                <table class="overflow-scroll d-sm-table table">
+                    <thead>
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Rhyme</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>title 1title 1title 1</td>
+                            <td class="w-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et cum reiciendis
+                                inventore odit fugiat, aperiam repudiandae quis fugit sed? Consectetur delectus unde ea
+                                perspiciatis tenetur cupiditate ad sequi nam veritatis?</td>
+                            <td>title 1title 1title </td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-success mr-2" href="#">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger" href="#">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-sm custom-blue waves-effect" type="button"
+                    data-toggle="modal" data-target="#addNewRhymes">Add Rhymes</button>
+            </div>
+        </div>
+
+        <div class="card mt-3 mb-3">
+            <div class='card-body'>
+                <!-- Title -->
+                <h4 class="card-title">Rhyme Types</h4>
+                <table class="overflow-scroll d-sm-table table">
+                    <thead>
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Type 1</td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-success mr-2" href="#">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger" href="#">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-sm custom-blue">Add Rhyme Types</button>
+            </div>
+        </div>
+    </div>
+        
+    
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
+</body>
+</html>
