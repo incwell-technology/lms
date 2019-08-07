@@ -174,7 +174,7 @@ tr:hover i {
     display: inline;
 }
 
-.leave-history table {
+.leave-history table, .overflow-scroll {
     overflow: scroll;
     display: block;
 }
