@@ -182,3 +182,24 @@ tr:hover i {
 table td {
     font-weight: 400;
 }
+
+.custom-select {
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid #ced4da;
+    transition: border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out,
+    -webkit-box-shadow .15s ease-in-out;
+}
+
+.custom-select:active,
+.custom-select:focus {
+    outline: 0;
+    box-shadow: 0 1px 0 0 #4285f4;
+    border-bottom: 2px solid #4285f4;
+}
+
+.custom-select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
