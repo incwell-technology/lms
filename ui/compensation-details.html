@@ -29,7 +29,8 @@
                         <i class="fas fa-tools"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="adminDropdown">
-                        <a class="dropdown-item" href="leave-requests.html">Leave Requests<span class="badge badge-danger">2</span></a>
+                        <a class="dropdown-item" href="leave-requests.html">Leave Requests<span
+                                class="badge badge-danger">2</span></a>
                         <a class="dropdown-item" href="leave-report.html">Leave Reports</a>
                         <a class="dropdown-item" href="rhymes.html">Rhymes</a>
                     </div>
@@ -61,55 +62,83 @@
     <!--/.Navbar -->
 
     <div class="container">
-        <div class="card mt-3 mb-3">
-            <div class='card-body'>
-                <form>
-                    <!-- Title -->
-                    <h4 class="card-title">Leave Report</h4>
-                    <div class="row">
-                        <div class="col-md">
-                            <div class="md-form">
-                                <input type="date" id="fromDate" class="form-control" value="2019-06-04">
-                                <label for="fromDate">From Date</label>
+        <div class="card mt-3">
+            <!--Card content-->
+            <div class="card-body">
+                <div class="media">
+                    <div class="image-cropper mr-3">
+                        <img src="https://images.unsplash.com/photo-1480835382106-d1923af88f3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+                            alt="Generic placeholder image">
+                    </div>
+
+                    <div class="media-body">
+                        <div class="row">
+                            <div class="col-11">
+                                <h3 class="mt-1 mb-0 font-weight-bold">John Wick</h3>
+                                <p class="card-text">Compensation Details</p>
                             </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="md-form">
-                                <input type="date" id="toDate" class="form-control" value="2019-08-04">
-                                <label for="toDate">To Date</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center">
-                            <button class="btn btn-sm custom-blue waves-effect">Generate</button>
                         </div>
                     </div>
-                </form>
+                </div>
 
-
-                <table class="overflow-scroll d-sm-table table">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col">S.No</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Total Days</th>
-                            <th scope="col">Option</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-center">
-                            <td>1</td>
-                            <td>John Wick</td>
-                            <td>2</td>
-                            <td>
-                                <a href="leave-details.html" class="btn btn-sm btn-outline-info mr-2">Details</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <ul class="list-group mt-3">
+                    <li class="list-group-item">
+                        <div class="mb-3">
+                            <span class="card-text">Number of Days: </span> 12 Days
+                        </div>
+                        <div class="mb-3 card-text">
+                            Leave Response: <span class="text-warning"> Pending</span>
+                        </div>
+                        <!--Text-->
+                        <span class="card-text">Reason:</span>
+                        <p>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est
+                            perferendis
+                            magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum esse soluta quas
+                            doloremque, ut architecto sequi?
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="mb-3">
+                            <span class="card-text">Number of Days: </span> 12 Days
+                        </div>
+                        <div class="mb-3 card-text">
+                            Leave Response: <span class="text-warning"> Pending</span>
+                        </div>
+                        <!--Text-->
+                        <span class="card-text">Reason:</span>
+                        <p>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est
+                            perferendis
+                            magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum esse soluta quas
+                            doloremque, ut architecto sequi?
+                        </p>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
         
+
+        <!-- Compensation Details-->
+        <!-- <div class="card mt-3">
+            <div class="card-body">
+                <div class="mb-3">
+                    <span class="card-text">Number of Days: </span> 12 Days
+                </div>
+                <div class="mb-3 card-text">
+                    Leave Response: <span class="text-warning"> Pending</span>
+                </div>
+                <span class="card-text">Reason:</span>
+                <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est perferendis
+                    magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum esse soluta quas
+                    doloremque, ut architecto sequi?
+                </p>
+            </div>
+        </div> -->
+        <!--/ Compensation Details -->
+
+    </div>
     
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
