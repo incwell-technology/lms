@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Incwell LMS</title>
+</head>
+
+<body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark custom-blue">
+        <div class='container'>
+            <a class="navbar-brand" href="index.html">Home</a>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item dropdown">
+                    <a class="icons-align-mid nav-link waves-effect waves-light dropdown-toggle" id="adminDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-tools"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="adminDropdown">
+                        <a class="dropdown-item" href="leave-requests.html">Leave Requests<span
+                                class="badge badge-danger">2</span></a>
+                        <a class="dropdown-item" href="leave-report.html">Leave Reports</a>
+                        <a class="dropdown-item" href="rhymes.html">Rhymes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="users.html" class="icons-align-mid nav-link waves-effect waves-light">
+                        <i class="fas fa-users"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="icons-align-mid nav-link waves-effect waves-light">
+                        <i class="fas fa-bell"></i><span class="badge badge-danger">4</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown avatar">
+                    <a class="nav-link dropdown-toggle" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="profile.html">Profile</a>
+                        <a class="dropdown-item" href="#">Log Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+
+    <div class="container">
+        <div class="card mt-3">
+            <!--Card content-->
+            <div class="card-body media">
+                <div class="image-cropper mr-3">
+                    <img src="https://images.unsplash.com/photo-1480835382106-d1923af88f3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+                        alt="Generic placeholder image">
+                </div>
+
+                <div class="media-body">
+                    <div class="row">
+                        <div class="col-11">
+                            <h3 class="mt-1 mb-0 font-weight-bold">John Wick</h3>
+                            <p class="card-text">Leave Details</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Leave Details-->
+        <div class="card mt-3">
+            <!--Card content-->
+            <div class="card-body">
+                <!--Title-->
+                <h5 class="font-weight-bolder card-title mb-0">Annual Leave</h5>
+                <div class="card-text mb-2">July 1, 2019 - July 3, 2019</div>
+
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        Leave Response: <span class="text-warning"> Pending</span>
+                    </div>
+                    <div class="col-sm custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input  position-relative" id="halfLeave" checked
+                            disabled>
+                        <label class="custom-control-label label-color" for="halfLeave">Half Leave</label>
+                    </div>
+                </div>
+
+                <!--Text-->
+                <span>Leave Reason:</span>
+                <p class="card-text d-flex justify-content-between align-items-center">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est perferendis
+                    magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum esse soluta quas
+                    doloremque, ut architecto sequi?
+                </p>
+            </div>
+        </div>
+        <!--/ Leave Details -->
+
+        <!-- Leave Details-->
+        <div class="card mt-3">
+            <!--Card content-->
+            <div class="card-body">
+                <!--Title-->
+                <h5 class="font-weight-bolder card-title mb-0">Annual Leave</h5>
+                <div class="card-text mb-2">July 1, 2019 - July 3, 2019</div>
+
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        Leave Response: <span class="text-danger"> Rejected</span>
+                    </div>
+                    <div class="col-sm custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input  position-relative" id="halfLeave" checked
+                            disabled>
+                        <label class="custom-control-label label-color" for="halfLeave">Half Leave</label>
+                    </div>
+                </div>
+
+                <!--Text-->
+                <span>Leave Reason:</span>
+                <p class="card-text d-flex justify-content-between align-items-center">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est perferendis
+                    magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum esse soluta quas
+                    doloremque, ut architecto sequi?
+                </p>
+            </div>
+        </div>
+        <!--/ Leave Details -->
+
+        <!-- Leave Details-->
+        <div class="card my-3">
+            <!--Card content-->
+            <div class="card-body">
+                <!--Title-->
+                <h5 class="font-weight-bolder card-title mb-0">Sick Leave</h5>
+                <div class="card-text mb-2">July 1, 2019 - July 3, 2019</div>
+
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        Leave Response: <span class="text-success"> Approved</span>
+                    </div>
+                    <div class="col-sm custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input  position-relative" id="halfLeave"
+                            disabled>
+                        <label class="custom-control-label label-color" for="halfLeave">Half Leave</label>
+                    </div>
+                </div>
+
+                <!--Text-->
+                <span>Leave Reason:</span>
+                <p class="card-text d-flex justify-content-between align-items-center">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores est perferendis
+                    magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum esse soluta quas
+                    doloremque, ut architecto sequi?
+                </p>
+            </div>
+        </div>
+        <!--/ Leave Details -->
+    </div>
+    
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
+</body>
+</html>
