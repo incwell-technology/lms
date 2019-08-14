@@ -75,7 +75,7 @@
 
                 <!--Footer-->
                 <div class="modal-footer flex-center">
-                    <a href="https://example.com" class="btn btn-danger">Yes</a>
+                    <a id="confirmDeletion" class="btn btn-danger">Yes</a>
                     <a type="button" class="btn custom-blue waves-effect" data-dismiss="modal">No</a>
                 </div>
             </div>
@@ -136,6 +136,58 @@
     </div>
     <!--/ Modal: Add holidays -->
 
+    <!-- Modal: Edit holidays -->
+    <div class="modal fade" id="editHoliday" tabindex="-1" role="dialog" aria-labelledby="Edit holidays"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Edit Holidays</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mx-auto">
+                        <input type="text" id="holidayTitle" class="form-control" value="title">
+                        <label data-error="wrong" data-success="right" for="holidayTitle" value="title">Title</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="md-form">
+                                <input type="date" id="fromDate" class="form-control">
+                                <label for="fromDate">From Date</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="md-form">
+                                <input type="date" id="toDate" class="form-control">
+                                <label for="toDate">To Date</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form">
+                        <textarea type="text" id="holidayDescription" class="mx-auto md-textarea form-control"
+                            rows="4">description</textarea>
+                        <label data-error="wrong" data-success="right" for="holidayDescription">Description</label>
+                    </div>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="holidayImage"
+                                aria-describedby="Upload holiday image">
+                            <label class="custom-file-label" for="holidayImage">Upload Holiday Image</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn custom-blue">Post <i class="fas fa-paper-plane-o ml-1"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Modal: Edit holidays -->
+
     <div class="container">
         <!-- Upcoming Holidays -->
         <div class="card mt-3">
@@ -152,23 +204,23 @@
                         <div class="row">
                             <div class="col-11">
                                 <h4 class="mt-0 mb-2 font-weight-bold">Christmas</h4>
-                                <p>March 12 - March 14</p>
+                                <p><span class="from">Mar 12</span> - <span class="to">Mar 14</span></p>
                             </div>
                         </div>
                     </div>   
                 </div>
                 
                 <!--Description-->
-                <p class="card-text">
+                <p class="description card-text">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
                     est
                     perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
                     esse soluta quas doloremque, ut architecto sequi?
                 </p>
-                <button type="button" class="btn btn-outline-default btn-sm" data-toggle="modal"
-                    data-target="#addHoliday">Edit</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#deleteNotice">Delete</button>
+                <button type="button" class="btn btn-outline-info btn-sm editButton" data-toggle="modal"
+                    data-target="#editHoliday">Edit</button>
+                <button type="button" class="btn btn-outline-danger btn-sm deleteButton delete" data-toggle="modal"
+                    data-target="#deleteNotice" href="https://example.com/holiday/delete/1">Delete</button>
             </div>
         </div>
         <!--/ Upcoming Holidays -->
@@ -188,98 +240,27 @@
                         <div class="row">
                             <div class="col-11">
                                 <h4 class="mt-0 mb-2 font-weight-bold">Christmas</h4>
-                                <p>March 12 - March 14</p>
+                                <p><span class="from">Mar 12</span> - <span class="to">Mar 14</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!--Description-->
-                <p class="card-text">
+                <p class="description card-text">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
                     est
                     perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
                     esse soluta quas doloremque, ut architecto sequi?
                 </p>
-                <button type="button" class="btn btn-outline-default btn-sm" data-toggle="modal"
-                    data-target="#addHoliday">Edit</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#deleteNotice">Delete</button>
-            </div>
-        </div>
-        <!--/ Upcoming Holidays -->
-
-        <!-- Upcoming Holidays -->
-        <div class="card mt-3">
-            <!--Card content-->
-            <div class="card-body">
-                <!--Title-->
-                <div class="media">
-                    <div class="image-cropper mr-3">
-                        <img src="https://images.unsplash.com/photo-1480835382106-d1923af88f3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
-                            alt="Generic placeholder image">
-                    </div>
-
-                    <div class="media-body">
-                        <div class="row">
-                            <div class="col-11">
-                                <h4 class="mt-0 mb-2 font-weight-bold">Christmas</h4>
-                                <p>March 12 - March 14</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Description-->
-                <p class="card-text">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
-                    est
-                    perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
-                    esse soluta quas doloremque, ut architecto sequi?
-                </p>
-                <button type="button" class="btn btn-outline-default btn-sm" data-toggle="modal"
-                    data-target="#addHoliday">Edit</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#deleteNotice">Delete</button>
+                <button type="button" class="btn btn-outline-info btn-sm editButton" data-toggle="modal"
+                    data-target="#editHoliday">Edit</button>
+                <button type="button" class="btn btn-outline-danger btn-sm deleteButton delete" data-toggle="modal"
+                    data-target="#deleteNotice" href="https://example.com/holiday/delete/2">Delete</button>
             </div>
         </div>
         <!--/ Upcoming Holidays -->
         
-        <!-- Upcoming Holidays -->
-        <div class="card mt-3">
-            <!--Card content-->
-            <div class="card-body">
-                <!--Title-->
-                <div class="media">
-                    <div class="image-cropper mr-3">
-                        <img src="https://images.unsplash.com/photo-1480835382106-d1923af88f3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
-                            alt="Generic placeholder image">
-                    </div>
-
-                    <div class="media-body">
-                        <div class="row">
-                            <div class="col-11">
-                                <h4 class="mt-0 mb-2 font-weight-bold">Christmas</h4>
-                                <p>March 12 - March 14</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Description-->
-                <p class="card-text">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
-                    est
-                    perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
-                    esse soluta quas doloremque, ut architecto sequi?
-                </p>
-                <button type="button" class="btn btn-outline-default btn-sm" data-toggle="modal"
-                    data-target="#addHoliday">Edit</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#deleteNotice">Delete</button>
-            </div>
-        </div>
-        <!--/ Upcoming Holidays -->
 
         <!-- Floating Add Notice Button -->
         <div class="fixed-action-btn">
@@ -299,5 +280,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
+
+    <script src="js/holidays.js"></script>
 </body>
 </html>
