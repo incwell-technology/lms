@@ -6,3 +6,4 @@ body.onclick = () => {
         $('.collapse').collapse('toggle');
     }
 };
+

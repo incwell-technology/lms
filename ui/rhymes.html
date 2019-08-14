@@ -77,7 +77,7 @@
 
                 <!--Footer-->
                 <div class="modal-footer flex-center">
-                    <a href="https://example.com" class="btn btn-danger">Yes</a>
+                    <a href="https://example.com" id="confirmDeletion" class="btn btn-danger">Yes</a>
                     <a type="button" class="btn custom-blue waves-effect" data-dismiss="modal">No</a>
                 </div>
             </div>
@@ -122,6 +122,42 @@
     </div>
     <!--/ Add New Rhyme -->
 
+    <!-- Modal: Edit Rhyme -->
+    <div class="modal fade" id="editRhymesModal" tabindex="-1" role="dialog" aria-labelledby="Add New Rhymes"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Edit Rhymes</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="md-form mx-4">
+                    <input type="text" id="rhyme-title" class="form-control" value="placeholder">
+                    <label data-error="wrong" data-success="right" for="rhyme-title">Title</label>
+                </div>
+                <div class="md-form mx-4">
+                    <select class="custom-select form-control" data-error="wrong" data-success="right">
+                        <option class="bg-white" value="" disabled>Choose option</option>
+                        <option class="bg-white" value="1" selected>Rhyme type 1</option>
+                        <option class="bg-white" value="2">Rhyme type 2</option>
+                        <option class="bg-white" value="3">Rhyme type 3</option>
+                    </select>
+                </div>
+                <div class="md-form">
+                    <i class="fas fa-pencil prefix grey-text"></i>
+                    <textarea type="text" id="rhyme" class="mx-auto md-textarea form-control" rows="4">Placeholder</textarea>
+                    <label class="ml-4" data-error="wrong" data-success="right" for="rhyme">Rhyme</label>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn custom-blue">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Edit Rhyme -->
+
     <div class="container">
         <div class="card mt-3 mb-3">
             <div class='card-body'>
@@ -140,16 +176,31 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>title 1title 1title 1</td>
-                            <td class="w-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et cum reiciendis
+                            <td class="rhymeTitle">title 1title 1title 1</td>
+                            <td class="rhymeContent w-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et cum reiciendis
                                 inventore odit fugiat, aperiam repudiandae quis fugit sed? Consectetur delectus unde ea
                                 perspiciatis tenetur cupiditate ad sequi nam veritatis?</td>
-                            <td>title 1title 1title </td>
+                            <td class="rhymeType">title 1title 1title </td>
                             <td>
-                                <a class="btn btn-sm btn-outline-success mr-2" data-toggle="modal"
-                                    data-target="#addNewRhymes">Edit</a>
-                                <a class="btn btn-sm btn-outline-danger" data-toggle="modal"
-                                    data-target="#deleteRhyme">Delete</a>
+                                <a class="btn btn-sm btn-outline-success mr-2 editRhyme" data-toggle="modal"
+                                    data-target="#editRhymesModal">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger delete" data-toggle="modal"
+                                    data-target="#deleteRhyme" href="https://example.com/rhyme/delete/1">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td class="rhymeTitle">title 2</td>
+                            <td class="rhymeContent w-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+                                cum reiciendis
+                                inventore odit fugiat, aperiam repudiandae quis fugit sed? Consectetur delectus unde ea
+                                perspiciatis tenetur cupiditate ad sequi nam veritatis?</td>
+                            <td class="rhymeType">Type 2 </td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-success mr-2 editRhyme" data-toggle="modal"
+                                    data-target="#editRhymesModal">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger delete" data-toggle="modal"
+                                    data-target="#deleteRhyme" href="https://example.com/rhyme/delete/2">Delete</a>
                             </td>
                         </tr>
                     </tbody>
@@ -171,8 +222,8 @@
                         </button>
                     </div>
                     <div class="md-form mx-4">
-                        <input type="text" id="rhyme-title" class="form-control">
-                        <label data-error="wrong" data-success="right" for="rhyme-title">Type</label>
+                        <input type="text" id="rhyme-type" class="form-control">
+                        <label data-error="wrong" data-success="right" for="rhyme-type">Type</label>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <button class="btn custom-blue">Add</button>
@@ -182,11 +233,34 @@
         </div>
         <!--/ Add New Rhyme Type -->
 
+        <!-- Modal: Edit Rhyme Type -->
+        <div class="modal fade" id="editRhymeType" tabindex="-1" role="dialog" aria-labelledby="Edit Rhyme Type"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Edit Rhyme Type</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="md-form mx-4">
+                        <input type="text" id="rhyme-type" class="form-control" value="placeholder">
+                        <label data-error="wrong" data-success="right" for="rhyme-type">Type</label>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn custom-blue">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/ Edit Rhyme Type -->
+
         <div class="card mt-3 mb-3">
             <div class='card-body'>
                 <!-- Title -->
                 <h4 class="card-title">Rhyme Types</h4>
-                <table class="overflow-scroll d-sm-table table">
+                <table class="overflow-scroll d-sm-table table text-center">
                     <thead>
                         <tr>
                             <th scope="col">S.No</th>
@@ -197,12 +271,22 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Type 1</td>
+                            <td class="rhymeType">Type 1</td>
                             <td>
-                                <a class="btn btn-sm btn-outline-success mr-2" data-toggle="modal"
-                                    data-target="#addNewRhymeType">Edit</a>
-                                <a class="btn btn-sm btn-outline-danger" data-toggle="modal"
-                                    data-target="#deleteRhyme">Delete</a>
+                                <a class="btn btn-sm btn-outline-success mr-2 editRhymeType" data-toggle="modal"
+                                    data-target="#editRhymeType">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger delete" data-toggle="modal"
+                                    data-target="#deleteRhyme" href="https://example.com/rhymetype/delete/1">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td class="rhymeType">Type 2</td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-success mr-2 editRhymeType" data-toggle="modal"
+                                    data-target="#editRhymeType">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger delete" data-toggle="modal"
+                                    data-target="#deleteRhyme" href="https://example.com/rhymetype/delete/2">Delete</a>
                             </td>
                         </tr>
                     </tbody>
@@ -222,5 +306,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
+    
+    <script src="js/rhymes.js"></script>
 </body>
 </html>
