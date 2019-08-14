@@ -75,7 +75,7 @@
 
                 <!--Footer-->
                 <div class="modal-footer flex-center">
-                    <a href="https://example.com" class="btn btn-danger">Yes</a>
+                    <a class="btn btn-danger" id="confirmDeletion">Yes</a>
                     <a type="button" class="btn custom-blue waves-effect" data-dismiss="modal">No</a>
                 </div>
             </div>
@@ -83,6 +83,64 @@
         </div>
     </div>
     <!--/Modal: Confirm delete operation-->
+
+    <!-- Modal: Add new notice -->
+    <div class="modal fade" id="addNotice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Notice</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mx-auto">
+                        <input type="text" id="noticeTitle" class="form-control">
+                        <label data-error="wrong" data-success="right" for="noticeTitle">Title</label>
+                    </div>
+                    <div class="md-form">
+                        <textarea type="text" id="notice" class="mx-auto md-textarea form-control" rows="4"></textarea>
+                        <label data-error="wrong" data-success="right" for="notice">Notice</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn custom-blue">Post <i class="fas fa-paper-plane-o ml-1"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Modal: Add new notice -->
+
+    <!-- Modal: Edit notice -->
+    <div class="modal fade" id="editNotice" tabindex="-1" role="dialog" aria-labelledby="Edit Notice"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Edit Notice</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mx-auto">
+                        <input type="text" id="noticeTitle" class="form-control" value="title">
+                        <label data-error="wrong" data-success="right" for="noticeTitle">Title</label>
+                    </div>
+                    <div class="md-form">
+                        <textarea type="text" id="notice" class="mx-auto md-textarea form-control" rows="4">Notice</textarea>
+                        <label data-error="wrong" data-success="right" for="notice">Notice</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn custom-blue">Post <i class="fas fa-paper-plane-o ml-1"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Modal: Add new notice -->
 
     <div class="container">
         <!-- Notice Card -->
@@ -93,14 +151,16 @@
                 <h4 class="card-title">Notice title</h4>
                 <!--Text-->
                 <p class="card-text d-flex justify-content-between align-items-center">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
+                    <span class="notice-content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
                     est
                     perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
-                    esse soluta quas doloremque, ut architecto sequi?
+                    esse soluta quas doloremque, ut architecto sequi?</span>
                     <span class="badge custom-blue badge-pill">new</span>
                 </p>
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#deleteNotice">Delete</button>
+                <a type="button" class="btn btn-outline-info btn-sm editButton" data-toggle="modal"
+                    data-target="#editNotice">Edit</a>
+                <a type="button" class="btn btn-outline-danger btn-sm delete" data-toggle="modal"
+                    data-target="#deleteNotice" href="https://example.com/notice/delete/1">Delete</a>
             </div>
         </div>
         <!--/ Notice Card -->
@@ -113,67 +173,20 @@
                 <h4 class="card-title">Notice title</h4>
                 <!--Text-->
                 <p class="card-text d-flex justify-content-between align-items-center">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
+                    <span class="notice-content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id
+                        explicabo maiores
                     est
                     perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
-                    esse soluta quas doloremque, ut architecto sequi?
+                    esse soluta quas doloremque, ut architecto sequi?</span>
                     <span class="badge custom-blue badge-pill">new</span>
                 </p>
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#deleteNotice">Delete</button>
+                <a type="button" class="btn btn-outline-info btn-sm editButton" data-toggle="modal"
+                    data-target="#editNotice">Edit</a>
+                <a type="button" class="btn btn-outline-danger btn-sm delete" data-toggle="modal"
+                    data-target="#deleteNotice" href="https://example.com/notice/delete/2">Delete</a>
             </div>
         </div>
         <!--/ Notice Card -->
-
-        <!-- Notice Card -->
-        <div class="card mt-3">
-            <!--Card content-->
-            <div class="card-body">
-                <!--Title-->
-                <h4 class="card-title">Notice title</h4>
-                <!--Text-->
-                <p class="card-text d-flex justify-content-between align-items-center">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint id explicabo maiores
-                    est
-                    perferendis magnam. Facere deleniti laudantium, accusamus odit quidem beatae nostrum
-                    esse soluta quas doloremque, ut architecto sequi?
-                </p>
-                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#deleteNotice">Delete</button>
-            </div>
-        </div>
-        <!--/ Notice Card -->
-
-
-            <!-- Modal: Add new notice -->
-            <div class="modal fade" id="addNotice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <form class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Add New Notice</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <div class="md-form mx-auto">
-                                <input type="text" id="noticeTitle" class="form-control">
-                                <label data-error="wrong" data-success="right" for="noticeTitle">Title</label>
-                            </div>
-                            <div class="md-form">
-                                <textarea type="text" id="notice" class="mx-auto md-textarea form-control"
-                                    rows="4"></textarea>
-                                <label data-error="wrong" data-success="right" for="notice">Notice</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn custom-blue">Post <i class="fas fa-paper-plane-o ml-1"></i></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!--/ Modal: Add new notice -->
 
         <!-- Floating Add Notice Button -->
         <div class="fixed-action-btn">
@@ -193,5 +206,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
+    <script src="js/noticeboard.js"></script>
 </body>
 </html>
