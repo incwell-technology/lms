@@ -1,4 +1,4 @@
 Django==2.1.5
 django-cors-headers==2.4.0
 pytz==2018.7
-PyYAML==3.13
+PyYAML==5.4
